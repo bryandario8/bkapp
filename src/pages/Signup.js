@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
-  StatusBar,
+  StatusBar ,
   TouchableOpacity
 } from 'react-native';
 
@@ -13,24 +12,24 @@ import Form from '../components/Form';
 
 import {Actions} from 'react-native-router-flux';
 
-export default class Login extends Component<{}> {
+export default class Signup extends Component<{}> {
 
-  signup() {
-		Actions.signup()
+  goBack() {
+      Actions.pop();
   }
-  
-  render() {
-    return (
-      <View style={styles.container}>
-        <Logo/>
-        <Form type="Login"/>
-          <View style={styles.signupTextCont}>
-					  <Text style={styles.signupText}>Don't have an account yet?</Text>
-					  <TouchableOpacity onPress={this.signup}><Text style={styles.signupButton}> Signup</Text></TouchableOpacity>
-				  </View>
-      </View>
-    );
-  }
+
+	render() {
+		return(
+			<View style={styles.container}>
+				<Logo/>
+				<Form type="Signup"/>
+				<View style={styles.signupTextCont}>
+					<Text style={styles.signupText}>Already have an account?</Text>
+					<TouchableOpacity onPress={this.goBack}><Text style={styles.signupButton}> Sign in</Text></TouchableOpacity>
+				</View>
+			</View>	
+			)
+	}
 }
 
 const styles = StyleSheet.create({

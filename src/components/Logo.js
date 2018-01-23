@@ -25,19 +25,15 @@ export default class Logo extends Component<{}> {
 }
 
 const styles = StyleSheet.create({
-  image: {
-    justifyContent: 'flex-start',
-  },
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    flexGrow: 1,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: '#ff833a',
   },
   welcome: {
-    fontSize: 30,
+    fontSize: 15,
     textAlign: 'center',
     margin: 10,
-    color: 'rgba(0,0,0,0.5)',
+    color: 'rgba(0,0,0,0.7)',
   },
 });

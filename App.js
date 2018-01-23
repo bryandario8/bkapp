@@ -21,7 +21,7 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-import Login from './src/pages/Login';
+import Routes from './src/Routes';
 
 export default class App extends Component<{}> {
   render() {
@@ -31,7 +31,7 @@ export default class App extends Component<{}> {
           backgroundColor="#e65100"
           barStyle="light-content"
         />
-        <Login/>
+        <Routes/>
       </View>
     );
   }
