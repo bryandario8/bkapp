@@ -19,13 +19,13 @@ export default class Home extends Component<{}> {
     Actions.pop();
   }
 
-  products() {
+  /*products() {
 		Actions.products()
   }
 
   coupons() {
 		Actions.coupons()
-  }
+  }*/
 
   static navigationOptions= ({navigation}) =>({
     title: 'Burger King',	
@@ -39,13 +39,13 @@ export default class Home extends Component<{}> {
        <Text style={styles.pageName}>Catalogo</Text>	   
 	      <TouchableOpacity
 		      style={styles.cat}
-		      onPress={this.products}>
+		      onPress={Actions.products}>
 	        <Text style={styles.btnText}> Productos > </Text>
 	      </TouchableOpacity>
 
 	      <TouchableOpacity
 		      style={styles.cat}
-		      onPress={this.coupons}>
+		      onPress={Actions.coupons}>
 	        <Text style={styles.btnText}> Cupones > </Text>
 	      </TouchableOpacity>	   
 	           

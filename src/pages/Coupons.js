@@ -7,10 +7,11 @@ import {
   View,
   StatusBar,
   TouchableOpacity,
-  FlatList
+  FlatList,
+  Image
 } from 'react-native';
 
-import flatListProduct from '../data/flatListCoupon';
+import flatListCoupon from '../data/flatListCoupon';
 
 import {Actions} from 'react-native-router-flux';
 
@@ -19,12 +20,12 @@ class FlatListItem extends Component<{}> {
     goBack() {
         Actions.pop();
     }
-
+    //<Image style={styles.flatListItem} source={{uri: 'data:image/png;base64,'this.props.item.image)}} />
+                
     render() {
         return (
             <View style={styles.productBox}>
-                <Text style={styles.flatListItem} > {this.props.item.name}></Text>
-                <Text style={styles.flatListItem} > {this.props.item.foodDescription}></Text>
+                <Image style={{height:250, width:'100%'}} source={{uri:this.props.item.image}} />
             </View>
         );
     }
@@ -53,15 +54,15 @@ export default class Coupons extends Component<{}> {
         <Text style={{color:'#fff'}}>Home</Text></TouchableOpacity>
     });
 
-    /*state={
+    state={
 		data:[]
-    };*/
+    };
     
     fetchData = async() =>{
 		const { params } = this.props.navigation.state;
-		//const response =  await fetch('http://hardeepcoder.com/laravel/easyshop/api/products/' + params.id);
-		//const products = await response.json(); // products have array data
-		//this.setState({data: products}); // filled data with dynamic array
+		const response =  await fetch('http://192.168.43.34:9001/api/catalogue/coupons/');
+		const products = await response.json(); // products have array data
+		this.setState({data: products}); // filled data with dynamic array
     };
 
     componentDidMount(){
@@ -74,7 +75,8 @@ export default class Coupons extends Component<{}> {
             <View style={{flex: 1, marginTop: 22}}> 
                 <Text style={styles.pageName}>{params.cat}</Text>
                 <FlatList
-                    data={flatListProduct}
+                    data={this.state.data}
+                    keyExtractor={(x,i) => i}
                     renderItem={({item, index}) => {
                         return (
                             <FlatListItem item={item} index={index} >
