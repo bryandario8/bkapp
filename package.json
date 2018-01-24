@@ -17,6 +17,7 @@
     "react-dom": "^16.2.0",
     "react-motion": "^0.5.2",
     "react-native": "0.52.0",
+    "react-native-hamburger": "0.0.2",
     "react-native-off-canvas-menu": "^0.1.31",
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-vector-icons": "^4.5.0",

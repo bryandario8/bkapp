@@ -12,8 +12,8 @@ import {Actions} from 'react-native-router-flux';
 
 export default class Form extends Component<{}> {
 
-  principal() {
-		Actions.principal()
+  home() {
+		Actions.home()
   }
 
   render() {
@@ -35,7 +35,7 @@ export default class Form extends Component<{}> {
             ref={(input) => this.password = input}
         />
 
-        <TouchableOpacity onPress={this.principal} style={styles.button}>
+        <TouchableOpacity onPress={this.home} style={styles.button}>
             <Text style={styles.buttonText}>
               {this.props.type}
             </Text>
