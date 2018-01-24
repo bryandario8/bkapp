@@ -7,28 +7,23 @@ import {
   StatusBar,
   TouchableOpacity
 } from 'react-native';
+
+import Menu from '../components/Menu';
+
 import {Actions} from 'react-native-router-flux';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export default class Principal extends Component<{}> {
 
   goBack() {
     Actions.pop();
-}
-
-  static navigationOptions = {
-    tabBarLabel: 'Productos',
-    drawerIcons: () => {
-      return (
-        <MaterialIcons>
-        
-        </MaterialIcons>
-      )
-    }
   }
-  render() {
-    <View>
 
-    </View>
+  render() {
+    return (
+      <View>
+        <Menu/>
+        <Text>Hola</Text>
+      </View>
+    )
   }
 }
