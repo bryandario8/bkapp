@@ -7,7 +7,8 @@ import {
   View,
   StatusBar,
   TouchableOpacity,
-  FlatList
+  FlatList,
+  Image
 } from 'react-native';
 
 import flatListProduct from '../data/flatListProduct';
@@ -20,29 +21,23 @@ class FlatListItem extends Component<{}> {
         Actions.pop();
     }
 
+    functionContent() {
+        return <View style={styles.productBox}>
+                    <Text style={styles.flatListItem} > {this.props.item.title}</Text>
+                    <Text style={styles.flatListItem} > {this.props.item.description}</Text>
+                    <Image style={{height:250, width:'100%'}} source={{uri:this.props.item.image}} />
+                </View>
+    }
+
     render() {
         return (
-            <View style={styles.productBox}>
-                <Text style={styles.flatListItem} > {this.props.item.name}></Text>
-                <Text style={styles.flatListItem} > {this.props.item.foodDescription}></Text>
+            <View>
+                {this.props.item.is_active ? this.functionContent() : null }
             </View>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    flatListItem: {
-        color: 'gray',
-        padding: 10,
-        fontSize: 16,
-    },
-    productBox:{
-        padding:5,
-        margin:10,
-        borderColor:'orange',
-        borderBottomWidth:1
-	},
-});
 
 export default class Products extends Component<{}> {
     static navigationOptions= ({navigation}) =>({
@@ -53,15 +48,15 @@ export default class Products extends Component<{}> {
         <Text style={{color:'#fff'}}>Home</Text></TouchableOpacity>
     });
 
-    /*state={
+    state={
 		data:[]
-    };*/
+    };
     
     fetchData = async() =>{
 		const { params } = this.props.navigation.state;
-		//const response =  await fetch('http://hardeepcoder.com/laravel/easyshop/api/products/' + params.id);
-		//const products = await response.json(); // products have array data
-		//this.setState({data: products}); // filled data with dynamic array
+		const response =  await fetch('http://192.168.1.7:8000/api/catalogue/products/');
+		const products = await response.json(); // products have array data
+		this.setState({data: products}); // filled data with dynamic array
     };
 
     componentDidMount(){
@@ -74,7 +69,8 @@ export default class Products extends Component<{}> {
             <View style={{flex: 1, marginTop: 22}}> 
                 <Text style={styles.pageName}>{params.cat}</Text>
                 <FlatList
-                    data={flatListProduct}
+                    data={this.state.data}
+                    keyExtractor={(x,i) => i}
                     renderItem={({item, index}) => {
                         return (
                             <FlatListItem item={item} index={index} >
@@ -88,23 +84,22 @@ export default class Products extends Component<{}> {
     }
 }
 
-/*const styles = StyleSheet.create({
-	container:{
-		 flex: 1,
-        flexDirection: 'column',
-		justifyContent: 'center',
-
-	},
-	pageName:{
+const styles = StyleSheet.create({
+	flatListItem: {
+        color: 'gray',
+        padding: 5,
+        fontSize: 12,
+    },
+    productBox:{
+        padding:5,
+        marginHorizontal:10,
+        borderColor:'#faaf18',
+        borderBottomWidth:2
+    },
+    pageName:{
 		margin:10,fontWeight:'bold',
-		color:'#000', textAlign:'center'
-	},
-	price:{
-		padding:5, color:'orange',fontWeight:'bold',textAlign:'center'
-	},
-	proName:{
-		padding:5,color:'blue',textAlign:'center'
+		color:'#185494', textAlign:'center'
 	}
-});*/
+});
 
 AppRegistry.registerComponent('products', () => products);

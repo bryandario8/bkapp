@@ -28,7 +28,7 @@ export default class Home extends Component<{}> {
   }*/
 
   static navigationOptions= ({navigation}) =>({
-    title: 'Burger King',	
+    title: 'Burger King'
 });  
 
   render(){
@@ -60,15 +60,16 @@ const styles = StyleSheet.create({
 		justifyContent:'center'
 	},
 	cat:{
-		backgroundColor:'orange',
+		backgroundColor:'#faaf18',
 		padding:10,margin:10,width:'95%'
 	},
 	pageName:{
 		margin:10,fontWeight:'bold',
-		color:'#000', textAlign:'center'
+		color:'#185494', textAlign:'center',
+		fontSize: 16
 	},
 	btnText:{
-		color:'#fff',fontWeight:'bold'
+		color:'#185494',fontWeight:'bold'
 	},
 	 icon: {
     width: 24,

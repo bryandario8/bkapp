@@ -8,7 +8,8 @@ import {
   StatusBar,
   TouchableOpacity,
   FlatList,
-  Image
+  Image,
+  Button
 } from 'react-native';
 
 import flatListCoupon from '../data/flatListCoupon';
@@ -34,7 +35,7 @@ class FlatListItem extends Component<{}> {
 const styles = StyleSheet.create({
     flatListItem: {
         color: 'gray',
-        padding: 10,
+        padding: 4,
         fontSize: 16,
     },
     productBox:{
@@ -42,7 +43,13 @@ const styles = StyleSheet.create({
         margin:10,
         borderColor:'orange',
         borderBottomWidth:1
-	},
+    },
+    pageName:{
+        margin:10,
+        fontWeight:'bold',
+        color:'#185494',
+        textAlign:'center'
+    }
 });
 
 export default class Coupons extends Component<{}> {
@@ -51,7 +58,7 @@ export default class Coupons extends Component<{}> {
         headerRight:<TouchableOpacity onPress={this.goBack}
         //style={{backgroundColor:'orange', margin:10,padding:10}}
         >
-        <Text style={{color:'#fff'}}>Home</Text></TouchableOpacity>
+        </TouchableOpacity>
     });
 
     state={
@@ -60,14 +67,18 @@ export default class Coupons extends Component<{}> {
     
     fetchData = async() =>{
 		const { params } = this.props.navigation.state;
-		const response =  await fetch('http://192.168.43.34:9001/api/catalogue/coupons/');
+		const response =  await fetch('http://192.168.1.7:8000/api/catalogue/coupons/');
 		const products = await response.json(); // products have array data
 		this.setState({data: products}); // filled data with dynamic array
     };
 
     componentDidMount(){
 		this.fetchData();
-	}
+    }
+    
+    press() {
+
+    }
     
     render() {
         const { params } = this.props.navigation.state;
@@ -80,7 +91,12 @@ export default class Coupons extends Component<{}> {
                     renderItem={({item, index}) => {
                         return (
                             <FlatListItem item={item} index={index} >
-
+                               <View>
+                                   <Button raised style={{flex:1}}
+                                        title="Descargar" onPress={this.press}
+                                        accessibilityLabel="Learn more about this purple button"
+                                    />
+                                </View>
                             </FlatListItem>
                         )
                     }}

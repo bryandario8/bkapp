@@ -24,7 +24,9 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-storage": "^4.1.2",
-    "redux-storage-engine-reactnativeasyncstorage": "^1.0.5"
+    "redux-storage-engine-reactnativeasyncstorage": "^1.0.5",
+    "react-native-fs": "^2.9.7",
+    "react-native-file-download": "^0.0.10"
   },
   "devDependencies": {
     "babel-jest": "22.1.0",
