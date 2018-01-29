@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 		fontSize: 16
 	},
 	btnText:{
-		color:'#185494',fontWeight:'bold'
+		color:'#fff',fontWeight:'bold'
 	},
 	 icon: {
     width: 24,

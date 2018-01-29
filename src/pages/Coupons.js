@@ -12,21 +12,30 @@ import {
   Button
 } from 'react-native';
 
-import flatListCoupon from '../data/flatListCoupon';
+import Download from '../components/Download';
 
 import {Actions} from 'react-native-router-flux';
+
 
 class FlatListItem extends Component<{}> {
 
     goBack() {
         Actions.pop();
     }
-    //<Image style={styles.flatListItem} source={{uri: 'data:image/png;base64,'this.props.item.image)}} />
-                
+    
+    /*press () {
+
+    }*/
+
     render() {
         return (
             <View style={styles.productBox}>
                 <Image style={{height:250, width:'100%'}} source={{uri:this.props.item.image}} />
+                <View>
+                    <Download>
+                        
+                    </Download>
+                </View>
             </View>
         );
     }
@@ -41,7 +50,7 @@ const styles = StyleSheet.create({
     productBox:{
         padding:5,
         margin:10,
-        borderColor:'orange',
+        borderColor:'#faaf18',
         borderBottomWidth:1
     },
     pageName:{
@@ -91,12 +100,7 @@ export default class Coupons extends Component<{}> {
                     renderItem={({item, index}) => {
                         return (
                             <FlatListItem item={item} index={index} >
-                               <View>
-                                   <Button raised style={{flex:1}}
-                                        title="Descargar" onPress={this.press}
-                                        accessibilityLabel="Learn more about this purple button"
-                                    />
-                                </View>
+                               
                             </FlatListItem>
                         )
                     }}
