@@ -1,3 +1,11 @@
+/**
+ * @fileOverview Componente del logo de Burger King
+ * 
+ * @version v1.0.1
+ * 
+ * History
+ * Se presenta la llamada a la imagen del logo d ela empresa
+ */
 import React, { Component } from 'react';
 import {
   Platform,
@@ -7,6 +15,7 @@ import {
   Image
 } from 'react-native';
 
+// Clase del componente Logo
 export default class Logo extends Component<{}> {
   render() {
     return (
@@ -24,6 +33,7 @@ export default class Logo extends Component<{}> {
   }
 }
 
+//Estilo del componente
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,

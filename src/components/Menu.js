@@ -1,7 +1,14 @@
+/**
+ * @fileoverview Menu de la aplicacion
+ * 
+ * History
+ * Componentes para la construccion del menu de la plicacion movil
+ */
 import React, { Component } from 'react';
 import { AppRegistry,View,Text,StyleSheet
 ,Button,TouchableOpacity,StatusBar,Image } from 'react-native';
 
+// Clase del componente Menu
 export default class Menu extends Component{
 static navigationOptions= ({navigation}) =>({
 		  title: 'Burger King',	

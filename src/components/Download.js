@@ -1,12 +1,20 @@
+/**
+ * @fileoverview Opcicion para descargar
+ * 
+ * @version v1.0.1
+ * 
+ * History
+ * Se realizo el componente para permitir al usuario descargar un cupon
+ * Esta es la primer version para poder descargar
+ */
 import React from 'react'
 import { Alert, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 import {Actions} from 'react-native-router-flux';
 
-
+// Creacion de una variable
 const Download = () => {
 
-   
     const showAlert = () => {
       Alert.alert(
          'Requiere inicio de sesión.',
@@ -26,6 +34,7 @@ const Download = () => {
 }
 export default Download
 
+// Estilos del componente
 const styles = StyleSheet.create ({
    button: {
       backgroundColor: '#185494',

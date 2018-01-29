@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "standrad": "standard"
   },
   "dependencies": {
+    "jslint": "^0.11.0",
     "lodash": "^4.17.4",
     "react": "^16.2.0",
     "react-burger-button": "^2.0.0",
@@ -17,6 +19,8 @@
     "react-dom": "^16.2.0",
     "react-motion": "^0.5.2",
     "react-native": "0.52.0",
+    "react-native-file-download": "^0.0.10",
+    "react-native-fs": "^2.9.7",
     "react-native-hamburger": "0.0.2",
     "react-native-off-canvas-menu": "^0.1.31",
     "react-native-router-flux": "^4.0.0-beta.28",
@@ -24,15 +28,14 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-storage": "^4.1.2",
-    "redux-storage-engine-reactnativeasyncstorage": "^1.0.5",
-    "react-native-fs": "^2.9.7",
-    "react-native-file-download": "^0.0.10"
+    "redux-storage-engine-reactnativeasyncstorage": "^1.0.5"
   },
   "devDependencies": {
     "babel-jest": "22.1.0",
     "babel-preset-react-native": "4.0.0",
     "jest": "22.1.4",
-    "react-test-renderer": "16.2.0"
+    "react-test-renderer": "16.2.0",
+    "standard": "^10.0.3"
   },
   "jest": {
     "preset": "react-native"

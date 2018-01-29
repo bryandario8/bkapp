@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Vista de Cupones
+ * 
+ * @version v1.0.1
+ *
+ */
 import React, { Component } from 'react';
 import {
   Platform,
@@ -11,8 +17,10 @@ import {
 import Logo from '../components/Logo';
 import Form from '../components/Form';
 
+// Se importa una libreria qu epermite la navegacion entre paginas
 import {Actions} from 'react-native-router-flux';
 
+// Clase de la vista Login
 export default class Login extends Component<{}> {
 
   signup() {
@@ -33,6 +41,7 @@ export default class Login extends Component<{}> {
   }
 }
 
+// Estilo de los componentes 
 const styles = StyleSheet.create({
   container : {
     backgroundColor:'#ff833a',

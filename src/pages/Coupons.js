@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Vista de Cupones
+ * 
+ * @version v1.0.1
+ *
+ */
+
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -14,18 +21,15 @@ import {
 
 import Download from '../components/Download';
 
+// Se importa una libreria qu epermite la navegacion entre paginas
 import {Actions} from 'react-native-router-flux';
 
-
+// Se realiza una lista de items de la data de cupones del servidor
 class FlatListItem extends Component<{}> {
 
     goBack() {
         Actions.pop();
     }
-    
-    /*press () {
-
-    }*/
 
     render() {
         return (
@@ -41,6 +45,7 @@ class FlatListItem extends Component<{}> {
     }
 }
 
+// Estilos de los componentes
 const styles = StyleSheet.create({
     flatListItem: {
         color: 'gray',
@@ -61,6 +66,7 @@ const styles = StyleSheet.create({
     }
 });
 
+// Clase principal de la vista
 export default class Coupons extends Component<{}> {
     static navigationOptions= ({navigation}) =>({
         title: 'Cupones',			
@@ -76,7 +82,7 @@ export default class Coupons extends Component<{}> {
     
     fetchData = async() =>{
 		const { params } = this.props.navigation.state;
-		const response =  await fetch('http://192.168.1.7:8000/api/catalogue/coupons/');
+		const response =  await fetch('http://192.168.43.34:8888/api/catalogue/coupons/');
 		const products = await response.json(); // products have array data
 		this.setState({data: products}); // filled data with dynamic array
     };

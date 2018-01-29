@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Vista del Home
+ * 
+ * @version v1.0.1
+ *
+ */
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -11,21 +17,15 @@ import {
 
 import Menu from '../components/Menu';
 
+// Se importa una libreria qu epermite la navegacion entre paginas
 import {Actions} from 'react-native-router-flux';
 
+// Clase de la vista principal Home
 export default class Home extends Component<{}> {
   
   goBack() {
     Actions.pop();
   }
-
-  /*products() {
-		Actions.products()
-  }
-
-  coupons() {
-		Actions.coupons()
-  }*/
 
   static navigationOptions= ({navigation}) =>({
     title: 'Burger King'

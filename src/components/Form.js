@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Forma de botones
+ * 
+ * History
+ * En este archivo se realiza los componente de la botonera de la pagina de login
+ */
 import React, { Component } from 'react';
 import {
   Platform,
@@ -10,6 +16,7 @@ import {
 
 import {Actions} from 'react-native-router-flux';
 
+//Clase del componente Form
 export default class Form extends Component<{}> {
 
   /*home() {
@@ -49,6 +56,7 @@ export default class Form extends Component<{}> {
   }
 }
 
+//Estilos del componente
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,

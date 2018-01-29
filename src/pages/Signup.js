@@ -10,8 +10,10 @@ import {
 import Logo from '../components/Logo';
 import Form from '../components/Form';
 
+// Se importa una libreria qu epermite la navegacion entre paginas
 import {Actions} from 'react-native-router-flux';
 
+// Clase de la vista Signup
 export default class Signup extends Component<{}> {
 
   goBack() {
@@ -32,6 +34,7 @@ export default class Signup extends Component<{}> {
 	}
 }
 
+// Estilos de los componentes
 const styles = StyleSheet.create({
   container : {
     backgroundColor:'#ff833a',

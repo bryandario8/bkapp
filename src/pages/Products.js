@@ -13,6 +13,7 @@ import {
 
 import flatListProduct from '../data/flatListProduct';
 
+// Se importa una libreria qu epermite la navegacion entre paginas
 import {Actions} from 'react-native-router-flux';
 
 class FlatListItem extends Component<{}> {
@@ -38,7 +39,7 @@ class FlatListItem extends Component<{}> {
     }
 }
 
-
+// Clase la vista Products
 export default class Products extends Component<{}> {
     static navigationOptions= ({navigation}) =>({
         title: 'Productos',			
@@ -54,7 +55,7 @@ export default class Products extends Component<{}> {
     
     fetchData = async() =>{
 		const { params } = this.props.navigation.state;
-		const response =  await fetch('http://192.168.1.7:8000/api/catalogue/products/');
+		const response =  await fetch('http://192.168.43.34:8888/api/catalogue/products/');
 		const products = await response.json(); // products have array data
 		this.setState({data: products}); // filled data with dynamic array
     };
@@ -84,6 +85,7 @@ export default class Products extends Component<{}> {
     }
 }
 
+// Estilos de los componentes
 const styles = StyleSheet.create({
 	flatListItem: {
         color: 'gray',
