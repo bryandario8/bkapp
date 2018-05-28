@@ -11,30 +11,35 @@ import {
   Text,
   View,
   StatusBar,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native';
-
+import BarraLateral from '../components/BarraLateral';
 import Logo from '../components/Logo';
 import Form from '../components/Form';
-
-// Se importa una libreria qu epermite la navegacion entre paginas
-import {Actions} from 'react-native-router-flux';
-
+const backgroundColor = '#0067a7';
 // Clase de la vista Login
 export default class Login extends Component<{}> {
-
-  signup() {
-		Actions.signup()
-  }
+static navigationOptions = ({ navigation }) => {
+        let drawerLabel = 'Iniciar sesion';
+        let drawerIcon = () => (
+            <Image
+                source={require('../images/home-icon.png')}
+                style={{ width: 26, height: 26, tintColor: backgroundColor }}
+            />
+        );
+        return {drawerLabel, drawerIcon};
+    }
   
   render() {
     return (
       <View style={styles.container}>
+      <BarraLateral {...this.props} /> 
         <Logo/>
         <Form type="Login"/>
           <View style={styles.signupTextCont}>
 					  <Text style={styles.signupText}>Don't have an account yet?</Text>
-					  <TouchableOpacity onPress={this.signup}><Text style={styles.signupButton}> Signup</Text></TouchableOpacity>
+					  <TouchableOpacity ><Text style={styles.signupButton}> Signup</Text></TouchableOpacity>
 				  </View>
       </View>
     );

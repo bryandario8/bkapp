@@ -10,20 +10,23 @@ import {
   FlatList,
   Image
 } from 'react-native';
-
+import BarraLateral from '../components/BarraLateral';
 import flatListProduct from '../data/flatListProduct';
-
-// Se importa una libreria qu epermite la navegacion entre paginas
-import {Actions} from 'react-native-router-flux';
-
+const backgroundColor = '#0067a7';
 class FlatListItem extends Component<{}> {
-
-    goBack() {
-        Actions.pop();
+static navigationOptions = ({ navigation }) => {
+        let drawerLabel = 'Lista de productos';
+        let drawerIcon = () => (
+            <Image
+                source={require('../images/home-icon.png')}
+                style={{ width: 26, height: 26, tintColor: backgroundColor }}
+            />
+        );
+        return {drawerLabel, drawerIcon};
     }
-
     functionContent() {
         return <View style={styles.productBox}>
+
                     <Text style={styles.flatListItem} > {this.props.item.title}</Text>
                     <Text style={styles.flatListItem} > {this.props.item.description}</Text>
                     <Image style={{height:250, width:'100%'}} source={{uri:this.props.item.image}} />
@@ -33,13 +36,14 @@ class FlatListItem extends Component<{}> {
     render() {
         return (
             <View>
+            <BarraLateral {...this.props} /> 
                 {this.props.item.is_active ? this.functionContent() : null }
             </View>
         );
     }
 }
 
-// Clase la vista Products
+// Clase  la vista Products
 export default class Products extends Component<{}> {
     static navigationOptions= ({navigation}) =>({
         title: 'Productos',			

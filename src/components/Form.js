@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ff833a',
+    backgroundColor: '#FFAA28',
   },
   inputBox: {
     width: 300,

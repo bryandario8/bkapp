@@ -16,23 +16,28 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
-  Button
+  Button,
+  ScrollView
 } from 'react-native';
 
 import Download from '../components/Download';
 
-// Se importa una libreria qu epermite la navegacion entre paginas
-import {Actions} from 'react-native-router-flux';
-
+const backgroundColor = '#0067a7';
 // Se realiza una lista de items de la data de cupones del servidor
 class FlatListItem extends Component<{}> {
-
-    goBack() {
-        Actions.pop();
+    static navigationOptions = ({ navigation }) => {
+        let drawerLabel = 'Cupones';
+        let drawerIcon = () => (
+            <Image
+                source={require('../images/home-icon.png')}
+                style={{ width: 26, height: 26, tintColor: backgroundColor }}
+            />
+        );
+        return {drawerLabel, drawerIcon};
     }
-
     render() {
         return (
+            <ScrollView>
             <View style={styles.productBox}>
                 <Image style={{height:250, width:'100%'}} source={{uri:this.props.item.image}} />
                 <View>
@@ -41,6 +46,7 @@ class FlatListItem extends Component<{}> {
                     </Download>
                 </View>
             </View>
+            </ScrollView>
         );
     }
 }

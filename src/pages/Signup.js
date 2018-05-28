@@ -4,25 +4,28 @@ import {
   Text,
   View,
   StatusBar ,
-  TouchableOpacity
+  TouchableOpacity,Image
 } from 'react-native';
-
+import BarraLateral from '../components/BarraLateral';
 import Logo from '../components/Logo';
 import Form from '../components/Form';
-
-// Se importa una libreria qu epermite la navegacion entre paginas
-import {Actions} from 'react-native-router-flux';
-
+const backgroundColor = '#0067a7';
 // Clase de la vista Signup
 export default class Signup extends Component<{}> {
-
-  goBack() {
-      Actions.pop();
-  }
-
+static navigationOptions = ({ navigation }) => {
+        let drawerLabel = 'Signup';
+        let drawerIcon = () => (
+            <Image
+                source={require('../images/home-icon.png')}
+                style={{ width: 26, height: 26, tintColor: backgroundColor }}
+            />
+        );
+        return {drawerLabel, drawerIcon};
+    }
 	render() {
 		return(
 			<View style={styles.container}>
+      <BarraLateral {...this.props} /> 
 				<Logo/>
 				<Form type="Signup"/>
 				<View style={styles.signupTextCont}>
@@ -37,10 +40,8 @@ export default class Signup extends Component<{}> {
 // Estilos de los componentes
 const styles = StyleSheet.create({
   container : {
-    backgroundColor:'#ff833a',
     flex: 1,
-    alignItems:'center',
-    justifyContent :'center'
+    backgroundColor:'#FFAA28'
   },
   signupTextCont : {
   	flexGrow: 1,

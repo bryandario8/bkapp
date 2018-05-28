@@ -47,7 +47,23 @@ export default class Home extends Component<{}> {
 		      style={styles.cat}
 		      onPress={Actions.coupons}>
 	        <Text style={styles.btnText}> Cupones > </Text>
-	      </TouchableOpacity>	   
+	      </TouchableOpacity>	 
+	       <TouchableOpacity
+		      style={styles.cat}
+		      onPress={Actions.propaganda}>
+	        <Text style={styles.btnText}> propaganda > </Text>
+	      </TouchableOpacity>	
+	       <TouchableOpacity
+		      style={styles.cat}
+		      onPress={Actions.signup}>
+	        <Text style={styles.btnText}> registro > </Text>
+	      </TouchableOpacity>	  
+
+	      <TouchableOpacity
+		      style={styles.cat}
+		      onPress={Actions.login}>
+	        <Text style={styles.btnText}> login > </Text>
+	      </TouchableOpacity>	  
 	           
       </View>
     );
