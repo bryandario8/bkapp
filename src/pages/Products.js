@@ -14,7 +14,7 @@ import BarraLateral from '../components/BarraLateral';
 import flatListProduct from '../data/flatListProduct';
 const backgroundColor = '#0067a7';
 class FlatListItem extends Component<{}> {
-static navigationOptions = ({ navigation }) => {
+    static navigationOptions = ({navigation}) => {
         let drawerLabel = 'Lista de productos';
         let drawerIcon = () => (
             <Image
@@ -43,12 +43,11 @@ static navigationOptions = ({ navigation }) => {
     }
 }
 
-// Clase  la vista Products
+/// Clase  la vista Products
 export default class Products extends Component<{}> {
     static navigationOptions= ({navigation}) =>({
         title: 'Productos',			
         headerRight:<TouchableOpacity onPress={this.goBack}
-        //style={{backgroundColor:'orange', margin:10,padding:10}}
         >
         <Text style={{color:'#fff'}}>Home</Text></TouchableOpacity>
     });
@@ -59,7 +58,7 @@ export default class Products extends Component<{}> {
     
     fetchData = async() =>{
 		const { params } = this.props.navigation.state;
-		const response =  await fetch('http://192.168.43.34:8888/api/catalogue/products/');
+		const response =  await fetch('http://192.168.1.6:8888/api/catalogue/products/');
 		const products = await response.json(); // products have array data
 		this.setState({data: products}); // filled data with dynamic array
     };
@@ -70,15 +69,16 @@ export default class Products extends Component<{}> {
     
     render() {
         const { params } = this.props.navigation.state;
+        var name = params ? params.name : "Productos";
         return (
             <View style={{flex: 1, marginTop: 22}}> 
-                <Text style={styles.pageName}>{params.cat}</Text>
+                <Text style={styles.pageName}>{name}</Text>
                 <FlatList
                     data={this.state.data}
                     keyExtractor={(x,i) => i}
                     renderItem={({item, index}) => {
                         return (
-                            <FlatListItem item={item} index={index} >
+                            <FlatListItem item={item} index={index}>
 
                             </FlatListItem>
                         )
@@ -89,7 +89,7 @@ export default class Products extends Component<{}> {
     }
 }
 
-// Estilos de los componentes
+/// Estilos de los componentes
 const styles = StyleSheet.create({
 	flatListItem: {
         color: 'gray',

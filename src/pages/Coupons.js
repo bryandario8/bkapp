@@ -36,6 +36,7 @@ class FlatListItem extends Component<{}> {
         return {drawerLabel, drawerIcon};
     }
     render() {
+        
         return (
             <ScrollView>
             <View style={styles.productBox}>
@@ -88,7 +89,7 @@ export default class Coupons extends Component<{}> {
     
     fetchData = async() =>{
 		const { params } = this.props.navigation.state;
-		const response =  await fetch('http://192.168.43.34:8888/api/catalogue/coupons/');
+		const response =  await fetch('http://192.168.1.6:8888/api/catalogue/coupons/');
 		const products = await response.json(); // products have array data
 		this.setState({data: products}); // filled data with dynamic array
     };
@@ -103,9 +104,10 @@ export default class Coupons extends Component<{}> {
     
     render() {
         const { params } = this.props.navigation.state;
+        var name = params ? params.name : "Cupones";
         return (
             <View style={{flex: 1, marginTop: 22}}> 
-                <Text style={styles.pageName}>{params.cat}</Text>
+                <Text style={styles.pageName}>{name}</Text>
                 <FlatList
                     data={this.state.data}
                     keyExtractor={(x,i) => i}
