@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput,ScrollView,InputAccessoryView} from 'react-native';
 
 //Validation
 const validate = values => {
@@ -52,10 +52,9 @@ const validate = values => {
 const renderField = ({ label, keyboardType, meta: { touched, error, warning }, input: { onChange, ...restInput }}) => {
     return (<View style={{ flexDirection: 'column', height: 70, alignItems: 'flex-start' }}>
         <View style={{ flexDirection: 'row', height: 50, alignItems: 'center' }}>
-            <Text style={{ fontSize: 14, fontWeight: 'bold', width: 80 }}>{label}</Text>
             <TextInput style={{ borderColor: 'steelblue', borderWidth: 1, height: 37, width: 220, padding: 5 }}
                 keyboardType={keyboardType} onChangeText={onChange} {...restInput}
-            >
+            placeholder={label}>
             </TextInput>
         </View>
         {touched && ((error && <Text style={{ color: 'red' }}>{error}</Text>) ||
@@ -68,21 +67,25 @@ const submit = values => {
 const ContactComponent = props => {
     const { handleSubmit } = props;
     return (
+         <ScrollView keyboardDismissMode="interactive">
         <View style={{ flex: 1, flexDirection: 'column', margin: 40, justifyContent: 'flex-start', }}>
+           
             <Text style={{ fontSize: 18, fontWeight: 'bold', width: 200, textAlign: 'center', margin: 10 }}>Registro</Text>
-            <Field name="nombre" keyboardType="default" label="Nombre: " component={renderField} />
-            <Field name="apellido" keyboardType="default" label="Apellido: " component={renderField} />
-            <Field name="email" keyboardType="email-address" label="Email: " component={renderField} />
-            <Field name="ciudad" keyboardType="default" label="Ciudad: " component={renderField} />
-            <Field name="sector" keyboardType="default" label="Sector: " component={renderField} />
-            <Field name="celular" keyboardType="numeric" label="Celular: " component={renderField} />
+            <Field name="nombre" keyboardType="default" label="Nombre " component={renderField} />
+            <Field name="apellido" keyboardType="default" label="Apellido " component={renderField} />
+            <Field name="email" keyboardType="email-address" label="Email " component={renderField} />
+            <Field name="ciudad" keyboardType="default" label="Ciudad " component={renderField} />
+            <Field name="sector" keyboardType="default" label="Sector " component={renderField} />
+            <Field name="celular" keyboardType="numeric" label="Celular " component={renderField} />
             <TouchableOpacity onPress={handleSubmit(submit)} style={{ margin: 10, alignItems: 'center' }}>
                 <Text style={{
-                    backgroundColor: 'steelblue', color: 'white', fontSize: 16,
-                    height: 37, width: 200, textAlign: 'center', padding: 10
+                    backgroundColor: 'steelblue', color: 'blue', fontSize: 16,
+                    height: 50, width: 200, textAlign: 'center', padding: 10
                 }}>Enviar</Text>
             </TouchableOpacity>
+           
         </View>
+         </ScrollView>
     );
 }
 const RegistroFormulario = reduxForm({

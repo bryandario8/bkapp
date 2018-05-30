@@ -5,7 +5,8 @@ import {
 
 export default class BarraLateral extends Component {
     render() {
-        return (<View style={{
+        return (
+        <View style={{
             height: 60,
             flexDirection: 'row',
             justifyContent: 'flex-start',
@@ -13,9 +14,7 @@ export default class BarraLateral extends Component {
             backgroundColor:'#F7AD00',
         }}>
             <TouchableHighlight style={{ marginLeft: 10, marginTop: 0 }}
-                onPress={() => {
-                    const { navigate } = this.props.navigation;
-                    navigate('DrawerOpen');
+                onPress={() => {this.props.navigation.openDrawer();
                 }}>
                 <Image
                     style={{ width: 32, height: 32 }}

@@ -29,8 +29,8 @@ static navigationOptions = ({ navigation }) => {
 				<Logo/>
 				<Form type="Signup"/>
 				<View style={styles.signupTextCont}>
-					<Text style={styles.signupText}>Already have an account?</Text>
-					<TouchableOpacity onPress={this.goBack}><Text style={styles.signupButton}> Sign in</Text></TouchableOpacity>
+					<Text style={styles.signupText}>'¿No tienes una cuenta?'</Text>
+					<TouchableOpacity onPress={this.goBack}><Text style={styles.signupButton}>Registrate aqui</Text></TouchableOpacity>
 				</View>
 			</View>	
 			)
