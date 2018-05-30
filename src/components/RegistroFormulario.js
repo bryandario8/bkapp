@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput,ScrollView,InputAccessoryView} from 'react-native';
 
 //Validation
 const validate = values => {
@@ -15,11 +15,15 @@ const validate = values => {
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
         errors.email = 'Correo invalido'
     } 
-
+    if (!values.password) {
+        errors.email = 'Obligatorio'
+    }else if (values.password.length< 4 ) {
+         errors.email = 'Ingrese una Contraseña valida'
+    }
     if (!values.apellido) {
         errors.apellido = 'Obligatorio'
-    } else if (values.apellido.length > 20) {
-        errors.apellido = 'El apellido no debe pasar de 20 caracteres'
+    } else if (values.apellido.length > 20 ) {
+        errors.apellido = 'El apellido no debe pasar de 20 caracteres ni menor que 4'
     } 
     if (!values.ciudad) {
         errors.ciudad = 'Obligatorio'
@@ -31,15 +35,6 @@ const validate = values => {
     } else if (values.sector.length > 25) {
         errors.sector = 'El sector no debe pasar de 25 caracteres'
     } 
-
-
-    if (!values.celular) {
-        errors.celular = 'Obligatorio'
-    } else if (values.celular.length >= 11 ) {
-        errors.celular = 'Ingrese un numero valido'
-    } /*else if (!/^0\d{1,9}/i.test(values.email)) {
-        errors.celular = 'Ingrese numero valido'
-    }*/
     return errors
 }
 /*const warn = values => {
@@ -52,10 +47,9 @@ const validate = values => {
 const renderField = ({ label, keyboardType, meta: { touched, error, warning }, input: { onChange, ...restInput }}) => {
     return (<View style={{ flexDirection: 'column', height: 70, alignItems: 'flex-start' }}>
         <View style={{ flexDirection: 'row', height: 50, alignItems: 'center' }}>
-            <Text style={{ fontSize: 14, fontWeight: 'bold', width: 80 }}>{label}</Text>
             <TextInput style={{ borderColor: 'steelblue', borderWidth: 1, height: 37, width: 220, padding: 5 }}
                 keyboardType={keyboardType} onChangeText={onChange} {...restInput}
-            >
+            placeholder={label}>
             </TextInput>
         </View>
         {touched && ((error && <Text style={{ color: 'red' }}>{error}</Text>) ||
@@ -68,21 +62,26 @@ const submit = values => {
 const ContactComponent = props => {
     const { handleSubmit } = props;
     return (
+         <ScrollView keyboardDismissMode="interactive">
         <View style={{ flex: 1, flexDirection: 'column', margin: 40, justifyContent: 'flex-start', }}>
+           
             <Text style={{ fontSize: 18, fontWeight: 'bold', width: 200, textAlign: 'center', margin: 10 }}>Registro</Text>
-            <Field name="nombre" keyboardType="default" label="Nombre: " component={renderField} />
-            <Field name="apellido" keyboardType="default" label="Apellido: " component={renderField} />
-            <Field name="email" keyboardType="email-address" label="Email: " component={renderField} />
-            <Field name="ciudad" keyboardType="default" label="Ciudad: " component={renderField} />
-            <Field name="sector" keyboardType="default" label="Sector: " component={renderField} />
-            <Field name="celular" keyboardType="numeric" label="Celular: " component={renderField} />
+            <Field name="nombre" keyboardType="default" label="Nombre " component={renderField} />
+            <Field name="apellido" keyboardType="default" label="Apellido " component={renderField} />
+            <Field name="email" keyboardType="email-address" label="Email " component={renderField} />
+            <Field name="password" keyboardType="password" label="Contraseña " component={renderField} />
+            <Field name="ciudad" keyboardType="default" label="Ciudad " component={renderField} />
+            <Field name="sector" keyboardType="default" label="Sector " component={renderField} />
+            <Field name="celular" keyboardType="numeric" label="Celular " component={renderField} />
             <TouchableOpacity onPress={handleSubmit(submit)} style={{ margin: 10, alignItems: 'center' }}>
                 <Text style={{
-                    backgroundColor: 'steelblue', color: 'white', fontSize: 16,
-                    height: 37, width: 200, textAlign: 'center', padding: 10
+                    backgroundColor: 'steelblue', color: 'blue', fontSize: 16,
+                    height: 50, width: 200, textAlign: 'center', padding: 10
                 }}>Enviar</Text>
             </TouchableOpacity>
+           
         </View>
+         </ScrollView>
     );
 }
 const RegistroFormulario = reduxForm({

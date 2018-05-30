@@ -2,7 +2,6 @@ import { AppRegistry, Dimensions } from 'react-native';
 import { DrawerNavigator } from 'react-navigation';
 //import App from './App';
 import BarraLateral from './src/components/BarraLateral';
-import Login from './src/pages/Login';
 import Signup from './src/pages/Signup';
 import Principal from './src/pages/Home';
 import Products from './src/pages/Products';
@@ -14,16 +13,16 @@ var {height, width} = Dimensions.get('window');
 const Home = "Home";
 const Cupones = "Cupones";
 const Signups = "Signup";
-const Lista_Productos = "Lista de productos";
+const Menu = "Menu";
 const Sesion = "Iniciar sesion";
 const Registros = "Registro";
 
 let routeConfigs = {
     Home: {
-    	 path: '/',
+    	path: '/',
         screen: Propaganda,
     },
-    Lista_Productos: {
+    Menu: {
         screen: Products,
     },
     Cupones: {
@@ -32,21 +31,18 @@ let routeConfigs = {
     Signups:{
     	screen:Signup,
     },
-    Sesion:{
-    	screen:Login,
-    },
     Registros:{
     	screen:Registro,
     },
 };
 let drawerNavigatorConfig = {    
     initialRouteName: Home,
-    drawerWidth: width / 2,
+    drawerWidth: width / 1.5,
     drawerPosition: 'left',
     drawerOpenRoute: 'DrawerOpen',
     drawerCloseRoute: 'DrawerClose',
     drawerToggleRoute: 'DrawerToggle',  
-    drawerBackgroundColor: '#F7AD00',
+    drawerBackgroundColor: '#e6d2b0',
     contentOptions: {
         activeTintColor: 'red',
     }

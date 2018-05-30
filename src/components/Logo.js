@@ -24,9 +24,6 @@ export default class Logo extends Component<{}> {
           source={require('../images/bk-logo.svg.png')}
           //source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
         />
-        <Text style={styles.welcome}>
-          Welcome to Burger King's App!
-        </Text>
         
       </View>
     );
@@ -39,11 +36,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-  },
-  welcome: {
-    fontSize: 15,
-    textAlign: 'center',
-    margin: 10,
-    color: 'rgba(0,0,0,0.7)',
-  },
+    //backgroundColor:'white'
+  }
 });

@@ -11,10 +11,11 @@ import {
 } from 'react-native';
 import { Pages } from 'react-native-pages';
 import BarraLateral from '../components/BarraLateral';
+
 const backgroundColor = '#0067a7';
 export default class Propanganda extends Component{
   static navigationOptions = ({ navigation }) => {
-        let drawerLabel = 'Home';
+        let drawerLabel = "Ofertas";
         let drawerIcon = () => (
             <Image
                 source={require('../images/home-icon.png')}

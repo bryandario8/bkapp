@@ -12,10 +12,16 @@ import {
 } from 'react-native';
 import BarraLateral from '../components/BarraLateral';
 import flatListProduct from '../data/flatListProduct';
+
 const backgroundColor = '#0067a7';
 class FlatListItem extends Component<{}> {
+<<<<<<< HEAD
     static navigationOptions = ({navigation}) => {
         let drawerLabel = 'Lista de productos';
+=======
+static navigationOptions = ({ navigation }) => {
+        let drawerLabel = 'Menu';
+>>>>>>> master
         let drawerIcon = () => (
             <Image
                 source={require('../images/home-icon.png')}
