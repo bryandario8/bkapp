@@ -15,11 +15,15 @@ const validate = values => {
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
         errors.email = 'Correo invalido'
     } 
-
+    if (!values.password) {
+        errors.email = 'Obligatorio'
+    }else if (values.password.length< 4 ) {
+         errors.email = 'Ingrese una Contraseña valida'
+    }
     if (!values.apellido) {
         errors.apellido = 'Obligatorio'
-    } else if (values.apellido.length > 20) {
-        errors.apellido = 'El apellido no debe pasar de 20 caracteres'
+    } else if (values.apellido.length > 20 ) {
+        errors.apellido = 'El apellido no debe pasar de 20 caracteres ni menor que 4'
     } 
     if (!values.ciudad) {
         errors.ciudad = 'Obligatorio'
@@ -31,15 +35,6 @@ const validate = values => {
     } else if (values.sector.length > 25) {
         errors.sector = 'El sector no debe pasar de 25 caracteres'
     } 
-
-
-    if (!values.celular) {
-        errors.celular = 'Obligatorio'
-    } else if (values.celular.length >= 11 ) {
-        errors.celular = 'Ingrese un numero valido'
-    } /*else if (!/^0\d{1,9}/i.test(values.email)) {
-        errors.celular = 'Ingrese numero valido'
-    }*/
     return errors
 }
 /*const warn = values => {
@@ -74,6 +69,7 @@ const ContactComponent = props => {
             <Field name="nombre" keyboardType="default" label="Nombre " component={renderField} />
             <Field name="apellido" keyboardType="default" label="Apellido " component={renderField} />
             <Field name="email" keyboardType="email-address" label="Email " component={renderField} />
+            <Field name="password" keyboardType="password" label="Contraseña " component={renderField} />
             <Field name="ciudad" keyboardType="default" label="Ciudad " component={renderField} />
             <Field name="sector" keyboardType="default" label="Sector " component={renderField} />
             <Field name="celular" keyboardType="numeric" label="Celular " component={renderField} />

@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 
 export default class BarraLateral extends Component {
+
     render() {
         return (
         <View style={{
@@ -21,6 +22,7 @@ export default class BarraLateral extends Component {
                     source={require('../images/menu-icon.png')}
                 />
             </TouchableHighlight>
+            
         </View>);
     }
 }

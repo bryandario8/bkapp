@@ -14,25 +14,15 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import {Actions} from 'react-native-router-flux';
-
 //Clase del componente Form
 export default class Form extends Component<{}> {
-
-  /*home() {
-		Actions.home()
-  }*/
-
-  coupons() {
-    Actions.coupons()
-  }
 
   render() {
     return (
       <View style={styles.container}>
         <TextInput style = {styles.inputBox}
             underlineColorAndroid ='transparent'
-            placeholder = 'User'
+            placeholder = 'correo electronico'
             placeholderTextColor = '#ffffff'
             selectionColor="#fff"
             keyboardType="email-address"
