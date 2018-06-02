@@ -80,12 +80,12 @@ const styles = StyleSheet.create({
 		padding:10,margin:10,width:'95%'
 	},
 	pageName:{
-		margin:10,fontWeight:'bold',
+		margin:10,
 		color:'#185494', textAlign:'center',
 		fontSize: 16
 	},
 	btnText:{
-		color:'#fff',fontWeight:'bold'
+		color:'#fff'
 	},
 	 icon: {
     width: 24,

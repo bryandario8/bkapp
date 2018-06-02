@@ -22,7 +22,7 @@ export default class BarraLateral extends Component {
                     source={require('../images/menu-icon.png')}
                 />
             </TouchableHighlight>
-            
+            <Text style={{ fontSize:40,fontWeight: "500",textAlign:'center',color: 'white', marginLeft: "25%" }}>{this.props.title}</Text>
         </View>);
     }
 }

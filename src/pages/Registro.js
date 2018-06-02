@@ -18,9 +18,8 @@ static navigationOptions = ({ navigation }) => {
     }
     render() {
         return (
-        	
         	<View> 
-	        	<BarraLateral {...this.props} /> 
+	        	<BarraLateral {...this.props} title='Registro' /> 
 	            <Provider store={store}>
 	                <RegistroFormulario />
 	            </Provider>

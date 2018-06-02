@@ -24,7 +24,7 @@ static navigationOptions = ({ navigation }) => {
 	render() {
 		return(
 			<View style={styles.container}>
-      <BarraLateral {...this.props} /> 
+      <BarraLateral {...this.props} title='Signup' /> 
 				<Logo/>
 				<Form type="Ingresar"/>
 				<View style={styles.signupTextCont}>
@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
   },
   signupButton: {
   	color:'#ffffff',
-  	fontSize:16,
-  	fontWeight:'500'
+  	fontSize:16
   }
 });

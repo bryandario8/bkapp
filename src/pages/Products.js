@@ -15,21 +15,8 @@ import flatListProduct from '../data/flatListProduct';
 
 const backgroundColor = '#0067a7';
 class FlatListItem extends Component<{}> {
-<<<<<<< HEAD
-    static navigationOptions = ({navigation}) => {
-        let drawerLabel = 'Lista de productos';
-=======
-static navigationOptions = ({ navigation }) => {
-        let drawerLabel = 'Menu';
->>>>>>> master
-        let drawerIcon = () => (
-            <Image
-                source={require('../images/home-icon.png')}
-                style={{ width: 26, height: 26, tintColor: backgroundColor }}
-            />
-        );
-        return {drawerLabel, drawerIcon};
-    }
+
+    
     functionContent() {
         return <View style={styles.productBox}>
 
@@ -42,7 +29,6 @@ static navigationOptions = ({ navigation }) => {
     render() {
         return (
             <View>
-            <BarraLateral {...this.props} /> 
                 {this.props.item.is_active ? this.functionContent() : null }
             </View>
         );
@@ -51,12 +37,15 @@ static navigationOptions = ({ navigation }) => {
 
 /// Clase  la vista Products
 export default class Products extends Component<{}> {
-    static navigationOptions= ({navigation}) =>({
-        title: 'Productos',			
-        headerRight:<TouchableOpacity onPress={this.goBack}
-        >
-        <Text style={{color:'#fff'}}>Home</Text></TouchableOpacity>
-    });
+    static navigationOptions = ({ navigation }) => {
+        let drawerLabel = 'Menu';
+        let drawerIcon = () => (
+            <Image
+                source={require('../images/home-icon.png')}
+                style={{ width: 26, height: 26, tintColor: backgroundColor }}/>
+        );
+        return {drawerLabel, drawerIcon};
+    }
 
     state={
 		data:[]
@@ -64,7 +53,7 @@ export default class Products extends Component<{}> {
     
     fetchData = async() =>{
 		const { params } = this.props.navigation.state;
-		const response =  await fetch('http://192.168.1.6:8888/api/catalogue/products/');
+		const response =  await fetch('http://127.0.0.1:8000/api/catalogue/products/');
 		const products = await response.json(); // products have array data
 		this.setState({data: products}); // filled data with dynamic array
     };
@@ -77,21 +66,19 @@ export default class Products extends Component<{}> {
         const { params } = this.props.navigation.state;
         var name = params ? params.name : "Productos";
         return (
-            <View style={{flex: 1, marginTop: 22}}> 
+            
+            <View style={{flex: 1}}> 
+                <BarraLateral {...this.props} title='Menu'/>
                 <Text style={styles.pageName}>{name}</Text>
                 <FlatList
                     data={this.state.data}
                     keyExtractor={(x,i) => i}
                     renderItem={({item, index}) => {
-                        return (
-                            <FlatListItem item={item} index={index}>
-
-                            </FlatListItem>
-                        )
+                        return ( <FlatListItem item={item} index={index}></FlatListItem>);
                     }}
                 />
             </View>
-        )
+        );
     }
 }
 
@@ -109,7 +96,7 @@ const styles = StyleSheet.create({
         borderBottomWidth:2
     },
     pageName:{
-		margin:10,fontWeight:'bold',
+		margin:10,
 		color:'#185494', textAlign:'center'
 	}
 });

@@ -30,7 +30,7 @@ export default class Propanganda extends Component{
             flex: 1,
             flexDirection: 'column',
         }}>      
-      <BarraLateral {...this.props} /> 
+      <BarraLateral {...this.props} title='Ofertas'/> 
       <Pages>
         <View style={{ flex: 1, backgroundColor: 'red' }}/>
         <View style={{ flex: 1, backgroundColor: 'green' }} />

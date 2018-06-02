@@ -19,22 +19,13 @@ import {
   Button,
   ScrollView
 } from 'react-native';
-
+import BarraLateral from '../components/BarraLateral';
 import Download from '../components/Download';
 
 const backgroundColor = '#0067a7';
 // Se realiza una lista de items de la data de cupones del servidor
 class FlatListItem extends Component<{}> {
-    static navigationOptions = ({ navigation }) => {
-        let drawerLabel = 'Cupones';
-        let drawerIcon = () => (
-            <Image
-                source={require('../images/home-icon.png')}
-                style={{ width: 26, height: 26, tintColor: backgroundColor }}
-            />
-        );
-        return {drawerLabel, drawerIcon};
-    }
+    
     render() {
         
         return (
@@ -67,7 +58,6 @@ const styles = StyleSheet.create({
     },
     pageName:{
         margin:10,
-        fontWeight:'bold',
         color:'#185494',
         textAlign:'center'
     }
@@ -75,13 +65,16 @@ const styles = StyleSheet.create({
 
 // Clase principal de la vista
 export default class Coupons extends Component<{}> {
-    static navigationOptions= ({navigation}) =>({
-        title: 'Cupones',			
-        headerRight:<TouchableOpacity onPress={this.goBack}
-        //style={{backgroundColor:'orange', margin:10,padding:10}}
-        >
-        </TouchableOpacity>
-    });
+    static navigationOptions = ({ navigation }) => {
+        let drawerLabel = 'Cupones';
+        let drawerIcon = () => (
+            <Image
+                source={require('../images/home-icon.png')}
+                style={{ width: 26, height: 26, tintColor: backgroundColor }}
+            />
+        );
+        return {drawerLabel, drawerIcon};
+    }
 
     state={
 		data:[]
@@ -89,7 +82,7 @@ export default class Coupons extends Component<{}> {
     
     fetchData = async() =>{
 		const { params } = this.props.navigation.state;
-		const response =  await fetch('http://192.168.1.6:8888/api/catalogue/coupons/');
+		const response =  await fetch('http://127.0.0.1:8000/api/catalogue/coupons/');
 		const products = await response.json(); // products have array data
 		this.setState({data: products}); // filled data with dynamic array
     };
@@ -97,16 +90,12 @@ export default class Coupons extends Component<{}> {
     componentDidMount(){
 		this.fetchData();
     }
-    
-    press() {
-
-    }
-    
     render() {
         const { params } = this.props.navigation.state;
         var name = params ? params.name : "Cupones";
         return (
-            <View style={{flex: 1, marginTop: 22}}> 
+            <View style={{flex: 1}}> 
+            <BarraLateral {...this.props} title='Menu'/>
                 <Text style={styles.pageName}>{name}</Text>
                 <FlatList
                     data={this.state.data}
@@ -120,7 +109,7 @@ export default class Coupons extends Component<{}> {
                     }}
                 />
             </View>
-        )
+        );
     }
 }
 
