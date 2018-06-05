@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {NavigationActions} from 'react-navigation';
 import {ScrollView,StyleSheet, Text, View,TouchableHighlight,Image} from 'react-native';
-import ImageBackground from '../components/ImageBackground';
 class SideMenu extends Component {
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
@@ -39,6 +38,13 @@ class SideMenu extends Component {
                 <TouchableHighlight style={styles.button} onPress={this.navigateToScreen("Cupones")}>
                   <Text>
                     Cupones
+                  </Text>
+                  </TouchableHighlight>
+            </View>
+            <View style={styles.navSectionStyle}>
+                <TouchableHighlight style={styles.button} onPress={this.navigateToScreen("SesionRegistro")}>
+                  <Text>
+                    Acceder o Registrar
                   </Text>
                   </TouchableHighlight>
             </View>

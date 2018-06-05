@@ -4,18 +4,10 @@ import { Provider } from "react-redux";
 import store from "../../store";
 import RegistroFormulario from '../components/RegistroFormulario';
 import BarraLateral from '../components/BarraLateral';
+import { TabNavigator } from 'react-navigation';
+
 const backgroundColor = '#0067a7';
 export default class Registro extends Component {
-static navigationOptions = ({ navigation }) => {
-        let drawerLabel = 'Registro';
-        let drawerIcon = () => (
-            <Image
-                source={require('../images/home-icon.png')}
-                style={{ width: 26, height: 26, tintColor: backgroundColor }}
-            />
-        );
-        return {drawerLabel, drawerIcon};
-    }
     render() {
         return (
         	<View> 
@@ -26,6 +18,6 @@ static navigationOptions = ({ navigation }) => {
             </View> 
         );
     }
-};
+}
 
 AppRegistry.registerComponent('Registro', () => Registro);

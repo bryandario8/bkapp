@@ -1,22 +1,19 @@
 import { AppRegistry, Dimensions } from 'react-native';
-import { DrawerNavigator } from 'react-navigation';
+import { DrawerNavigator, TabNavigator } from 'react-navigation';
 //import App from './App';
 import BarraLateral from './src/components/BarraLateral';
 import SideMenu from './src/components/SideMenu';
-import Signup from './src/pages/Signup';
-import Principal from './src/pages/Home';
 import Products from './src/pages/Products';
 import Coupons from './src/pages/Coupons';
 import Propaganda from './src/pages/Propaganda';
-import Registro from './src/pages/Registro';
+import TabNavegador from './src/components/TabNavegador';
 //Screen size
 var {height, width} = Dimensions.get('window');
 const Home = "Home";
 const Cupones = "Cupones";
 const Signups = "Signup";
 const Menu = "Menu";
-const Sesion = "Iniciar sesion";
-const Registros = "Registro";
+const SesionRegistro = "Acceder o Registrar";
 
 let routeConfigs = {
     Home: {
@@ -29,12 +26,9 @@ let routeConfigs = {
     Cupones: {
         screen: Coupons,
     },
-    Signups:{
-    	screen:Signup,
-    },
-    Registros:{
-    	screen:Registro,
-    },
+    SesionRegistro:{
+    	screen:TabNavegador,
+    }
 };
 let drawerNavigatorConfig = {    
     initialRouteName: Home,
