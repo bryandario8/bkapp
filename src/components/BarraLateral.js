@@ -12,7 +12,7 @@ export default class BarraLateral extends Component {
             flexDirection: 'row',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            backgroundColor:'#F7AD00',
+            backgroundColor:'#ec7801',
         }}>
             <TouchableHighlight style={{ marginLeft: 10, marginTop: 0 }}
                 onPress={() => {this.props.navigation.openDrawer();

@@ -2,6 +2,7 @@ import { AppRegistry, Dimensions } from 'react-native';
 import { DrawerNavigator } from 'react-navigation';
 //import App from './App';
 import BarraLateral from './src/components/BarraLateral';
+import SideMenu from './src/components/SideMenu';
 import Signup from './src/pages/Signup';
 import Principal from './src/pages/Home';
 import Products from './src/pages/Products';
@@ -39,10 +40,7 @@ let drawerNavigatorConfig = {
     initialRouteName: Home,
     drawerWidth: width / 1.5,
     drawerPosition: 'left',
-    drawerOpenRoute: 'DrawerOpen',
-    drawerCloseRoute: 'DrawerClose',
-    drawerToggleRoute: 'DrawerToggle',  
-    drawerBackgroundColor: '#e6d2b0',
+    contentComponent:SideMenu,
     contentOptions: {
         activeTintColor: 'red',
     }

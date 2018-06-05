@@ -24,6 +24,19 @@ export default class Propanganda extends Component{
         );
         return {drawerLabel, drawerIcon};
     }
+    state={
+      data:[]
+    };
+    fetchData = async() =>{
+    try{
+            const { params } = this.props.navigation.state;
+            const response =  await fetch('http://192.168.0.104:8000/api//images/');
+            const propaganda = await response.json(); // products have array data
+            this.setState({data: images}); // filled data with dynamic array
+        }catch(error){
+             console.log(error);
+        }
+    };
 	render() {
     return (
       <View style={{
@@ -32,9 +45,12 @@ export default class Propanganda extends Component{
         }}>      
       <BarraLateral {...this.props} title='Ofertas'/> 
       <Pages>
-        <View style={{ flex: 1, backgroundColor: 'red' }}/>
-        <View style={{ flex: 1, backgroundColor: 'green' }} />
-        <View style={{ flex: 1, backgroundColor: 'blue' }} />
+        <View style={{ flex: 1}}>
+        <Image style={{ width: "100%", height: "100%" }} /*source={require(this.state.data)}*//>
+        </View>
+
+        <View style={{ flex: 1}} />
+        <View style={{ flex: 1}} />
       </Pages>
       </View>
     );

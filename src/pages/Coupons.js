@@ -81,10 +81,15 @@ export default class Coupons extends Component<{}> {
     };
     
     fetchData = async() =>{
-		const { params } = this.props.navigation.state;
-		const response =  await fetch('http://127.0.0.1:8000/api/catalogue/coupons/');
-		const products = await response.json(); // products have array data
-		this.setState({data: products}); // filled data with dynamic array
+		try{
+            const { params } = this.props.navigation.state;
+            const response =  await fetch('http://192.188.59.104:8000/api/catalogue/coupons/');
+            const products = await response.json(); // products have array data
+            this.setState({data: products}); // filled data with dynamic array
+        }catch(error){
+             console.error(error);
+        }
+        
     };
 
     componentDidMount(){
@@ -95,8 +100,7 @@ export default class Coupons extends Component<{}> {
         var name = params ? params.name : "Cupones";
         return (
             <View style={{flex: 1}}> 
-            <BarraLateral {...this.props} title='Menu'/>
-                <Text style={styles.pageName}>{name}</Text>
+            <BarraLateral {...this.props} title='Cupones'/>
                 <FlatList
                     data={this.state.data}
                     keyExtractor={(x,i) => i}

@@ -15,8 +15,6 @@ import flatListProduct from '../data/flatListProduct';
 
 const backgroundColor = '#0067a7';
 class FlatListItem extends Component<{}> {
-
-    
     functionContent() {
         return <View style={styles.productBox}>
 
@@ -52,10 +50,14 @@ export default class Products extends Component<{}> {
     };
     
     fetchData = async() =>{
-		const { params } = this.props.navigation.state;
-		const response =  await fetch('http://127.0.0.1:8000/api/catalogue/products/');
-		const products = await response.json(); // products have array data
-		this.setState({data: products}); // filled data with dynamic array
+		try{
+            const { params } = this.props.navigation.state;
+            const response =  await fetch('http://192.188.59.104:8000/api/catalogue/products/');
+            const products = await response.json(); // products have array data
+            this.setState({data: products}); // filled data with dynamic array
+        }catch(error){
+             console.error(error);
+        }
     };
 
     componentDidMount(){
@@ -69,7 +71,6 @@ export default class Products extends Component<{}> {
             
             <View style={{flex: 1}}> 
                 <BarraLateral {...this.props} title='Menu'/>
-                <Text style={styles.pageName}>{name}</Text>
                 <FlatList
                     data={this.state.data}
                     keyExtractor={(x,i) => i}
@@ -102,3 +103,4 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('products', () => products);
+
