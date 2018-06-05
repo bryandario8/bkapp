@@ -7,20 +7,20 @@ import {
   View,
   StatusBar,
   TouchableOpacity,
-  FlatList,
+  SectionList,
   Image
 } from 'react-native';
 import BarraLateral from '../components/BarraLateral';
 import flatListProduct from '../data/flatListProduct';
 
 const backgroundColor = '#0067a7';
-class FlatListItem extends Component<{}> {
+class SectionListItem extends Component<{}> {
     functionContent() {
         return <View style={styles.productBox}>
 
-                    <Text style={styles.flatListItem} > {this.props.item.title}</Text>
-                    <Text style={styles.flatListItem} > {this.props.item.description}</Text>
-                    <Image style={{height:250, width:'100%'}} source={{uri:this.props.item.image}} />
+                    //<Text style={styles.flatListItem} > {this.props.item.title}</Text>
+                    //<Text style={styles.flatListItem} > {this.props.item.description}</Text>
+                    <Image style={{height:250, width:'100%'}} source={{uri:'http://192.168.1.6:8000' + this.props.item.image}} />
                 </View>
     }
 
@@ -32,6 +32,28 @@ class FlatListItem extends Component<{}> {
         );
     }
 }
+
+///Clase Vista de Nombres de Categoría de productos
+class SectionHeader extends Component{
+
+    render() {
+        return (
+            <View style={{
+                flex: 1, 
+                backgroundColor: 'rgb(77, 120, 140)',
+            }}>
+                <Text style={{
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    color: 'white',
+                    margin: 20
+                }}>{this.props.section.name}
+                </Text>
+            </View>
+        )
+    }
+}
+
 
 /// Clase  la vista Products
 export default class Products extends Component<{}> {
@@ -46,15 +68,15 @@ export default class Products extends Component<{}> {
     }
 
     state={
-		data:[]
+		sections:[]
     };
     
     fetchData = async() =>{
 		try{
             const { params } = this.props.navigation.state;
-            const response =  await fetch('http://192.188.59.104:8000/api/catalogue/products/');
+            const response =  await fetch('http://192.168.1.6:8000/api/catalogue/products/');
             const products = await response.json(); // products have array data
-            this.setState({data: products}); // filled data with dynamic array
+            this.setState({sections: products}); // filled data with dynamic array
         }catch(error){
              console.error(error);
         }
@@ -69,15 +91,20 @@ export default class Products extends Component<{}> {
         var name = params ? params.name : "Productos";
         return (
             
-            <View style={{flex: 1}}> 
+            <View style={{ flex: 1, marginTop: Platform.OS === 'ios' ? 34 : 0 }}> 
                 <BarraLateral {...this.props} title='Menu'/>
-                <FlatList
-                    data={this.state.data}
-                    keyExtractor={(x,i) => i}
-                    renderItem={({item, index}) => {
-                        return ( <FlatListItem item={item} index={index}></FlatListItem>);
+                <SectionList
+                    renderItem={({item}) => {
+                        return ( <SectionListItem item={item}></SectionListItem>);
                     }}
-                />
+                    renderSectionHeader = {({section}) => {
+                        return(<SectionHeader section={section} />)
+                    }}
+                    sections={this.state.sections}
+                    keyExtractor={(item,index) => item.image}
+                    
+                >
+                </SectionList>
             </View>
         );
     }
