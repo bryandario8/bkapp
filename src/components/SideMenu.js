@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {NavigationActions} from 'react-navigation';
-import {ScrollView,StyleSheet, Text, View,TouchableHighlight,Image} from 'react-native';
+import {ScrollView,StyleSheet, Text, View,TouchableHighlight,Image,ImageBackground} from 'react-native';
 class SideMenu extends Component {
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
@@ -12,7 +12,9 @@ class SideMenu extends Component {
 
   render () {
     return (
+      
       <View style={styles.container}>
+        <ImageBackground style={{flex: 1}} source={require('../images/fondoMenu.jpg')}>
         <ScrollView>
             <View style={{backgroundColor:'white',justifyContent: 'center'}}>
              <Image
@@ -20,40 +22,28 @@ class SideMenu extends Component {
                     source={require('../images/bk-logo.svg.png')}
                 />
             </View>
-            <View style={styles.navSectionStyle}>
-              <TouchableHighlight style={styles.button} onPress={this.navigateToScreen("Home")} >
-                <Text>
+                <Text onPress={this.navigateToScreen("Home")}>
                      Home
                 </Text>
-              </TouchableHighlight>
-            </View>
-            <View style={styles.navSectionStyle}>
-            <TouchableHighlight style={styles.button} onPress={this.navigateToScreen("Menu")}>
-                <Text>
+                <Text onPress={this.navigateToScreen("Menu")}>
                   Menú
                 </Text>
-              </TouchableHighlight>
-            </View>
-            <View style={styles.navSectionStyle}>
-                <TouchableHighlight style={styles.button} onPress={this.navigateToScreen("Cupones")}>
-                  <Text>
+                  <Text onPress={this.navigateToScreen("Cupones")}>
                     Cupones
                   </Text>
-                  </TouchableHighlight>
-            </View>
-            <View style={styles.navSectionStyle}>
-                <TouchableHighlight style={styles.button} onPress={this.navigateToScreen("SesionRegistro")}>
-                  <Text>
+                  <Text onPress={this.navigateToScreen("SesionRegistro")}>
                     Acceder o Registrar
                   </Text>
-                  </TouchableHighlight>
-            </View>
+           
         </ScrollView>
         
         <View style={styles.footerContainer}>
           <Text>Redes sociales</Text>
         </View>
+        
+        </ImageBackground>
       </View>
+      
     );
   }
 }
@@ -66,24 +56,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ec7801',
   },
-  navItemStyle: {
-    padding: 10
-  },
   navSectionStyle: {
     backgroundColor: 'lightgrey'
-  },
-  sectionHeadingStyle: {
-    paddingVertical: 10,
-    paddingHorizontal: 5
   },
   footerContainer: {
     padding: 20,
     backgroundColor: 'lightgrey'
   },
-   button: {
-    alignItems: 'center',
-    backgroundColor:'#DDDDDD',
-    padding: 10
-  },
+  texto:{
+    fontSize:15,
+    color: "white",
+    fontWeight: 'bold',
+    width: "100%",
+    textAlign: 'center'
+
+  }
 });
 export default SideMenu;

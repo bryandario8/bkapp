@@ -30,7 +30,7 @@ export default class Propanganda extends Component{
     fetchData = async() =>{
     try{
             const { params } = this.props.navigation.state;
-            const response =  await fetch('http://192.168.0.104:8000/api//images/');
+            const response =  await fetch('http://192.168.0.104:8000/api/catalogue/offers');
             const propaganda = await response.json(); // products have array data
             this.setState({data: images}); // filled data with dynamic array
         }catch(error){

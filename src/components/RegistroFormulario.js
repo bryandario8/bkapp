@@ -45,7 +45,8 @@ const validate = values => {
     return warnings
 }*/
 const renderField = ({ label, keyboardType, meta: { touched, error, warning }, input: { onChange, ...restInput }}) => {
-    return (<View style={{ flexDirection: 'column', height: 70, alignItems: 'flex-start' }}>
+    return (
+        <View style={{ flexDirection: 'column', height: 70, alignItems: 'flex-start' }}>
         <View style={{ flexDirection: 'row', height: 50, alignItems: 'center' }}>
             <TextInput style={{ borderColor: 'steelblue', borderWidth: 1, height: 37, width: 220, padding: 5 }}
                 keyboardType={keyboardType} onChangeText={onChange} {...restInput}
@@ -66,12 +67,13 @@ const ContactComponent = props => {
         <View style={{ flex: 1, flexDirection: 'column', margin: 40, justifyContent: 'flex-start', }}>
            
             <Text style={{ fontSize: 18, fontWeight: 'bold', width: 200, textAlign: 'center', margin: 10 }}>Registro</Text>
+
             <Field name="nombre" keyboardType="default" label="Nombre " component={renderField} />
-            <Field name="apellido" keyboardType="default" label="Apellido " component={renderField} />
-            <Field name="email" keyboardType="email-address" label="Email " component={renderField} />
-            <Field name="password" keyboardType="password" label="Contraseña " component={renderField} />
-            <Field name="ciudad" keyboardType="default" label="Ciudad " component={renderField} />
-            <Field name="sector" keyboardType="default" label="Sector " component={renderField} />
+            <Field name="apellido" keyboardType="default" label="Apellido "  component={renderField} />
+            <Field name="email" keyboardType="email-address" label="Email " component={renderField}  />
+            <Field name="password" keyboardType="password" label="Contraseña " component={renderField}  />
+            <Field name="ciudad" keyboardType="default" label="Ciudad " component={renderField}  />
+            <Field name="sector" keyboardType="default" label="Sector " component={renderField}  />
             <Field name="celular" keyboardType="numeric" label="Celular " component={renderField} />
             <TouchableOpacity onPress={handleSubmit(submit)} style={{ margin: 10, alignItems: 'center' }}>
                 <Text style={{
