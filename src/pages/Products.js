@@ -8,26 +8,18 @@ import {
   StatusBar,
   TouchableOpacity,
   SectionList,
-  Image
+  Image,
+  ScrollView
 } from 'react-native';
 import BarraLateral from '../components/BarraLateral';
 import flatListProduct from '../data/flatListProduct';
 
 const backgroundColor = '#0067a7';
 class SectionListItem extends Component<{}> {
-    functionContent() {
-        return <View style={styles.productBox}>
-
-                    //<Text style={styles.flatListItem} > {this.props.item.title}</Text>
-                    //<Text style={styles.flatListItem} > {this.props.item.description}</Text>
-                    <Image style={{height:250, width:'100%'}} source={{uri:'http://192.168.1.6:8000' + this.props.item.image}} />
-                </View>
-    }
-
     render() {
         return (
             <View>
-                {this.props.item.is_active ? this.functionContent() : null }
+                <Image style={{height:250, width:'100%'}} source={{uri:'http://192.168.1.6:8000' + this.props.item.image}} />
             </View>
         );
     }
@@ -91,20 +83,25 @@ export default class Products extends Component<{}> {
         var name = params ? params.name : "Productos";
         return (
             
-            <View style={{ flex: 1, marginTop: Platform.OS === 'ios' ? 34 : 0 }}> 
+            <View style={{ flex: 1 }}> 
                 <BarraLateral {...this.props} title='Menu'/>
-                <SectionList
-                    renderItem={({item}) => {
-                        return ( <SectionListItem item={item}></SectionListItem>);
-                    }}
-                    renderSectionHeader = {({section}) => {
-                        return(<SectionHeader section={section} />)
-                    }}
-                    sections={this.state.sections}
-                    keyExtractor={(item,index) => item.image}
-                    
-                >
-                </SectionList>
+                    <ScrollView>
+                        <SectionList
+                            sections={this.state.sections}
+                            //sections={flatListProduct}
+                            keyExtractor={( item, index ) => item.id}
+                            renderItem={({ item, index }) => {
+                                return ( <SectionListItem item={item} index={index} >
+
+                                    </SectionListItem>);
+                            }}
+                            renderSectionHeader = {({ section }) => {
+                                return(<SectionHeader section={section} />)
+                            }}
+                                                
+                        >
+                        </SectionList>
+                    </ScrollView>
             </View>
         );
     }
