@@ -34,7 +34,7 @@ var TabNavegador = TabNavigator({
     inactiveTintColor: '#724031',
     activeBackgroundColor:'#efca96',
     labelStyle: {
-      fonSize: 16,
+      fontSize: 16,
       padding: 0
     }
   }

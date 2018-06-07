@@ -22,16 +22,16 @@ class SideMenu extends Component {
                     source={require('../images/bk-logo.svg.png')}
                 />
             </View>
-                <Text onPress={this.navigateToScreen("Home")}>
+                <Text style={styles.texto} onPress={this.navigateToScreen("Home")}>
                      Home
                 </Text>
-                <Text onPress={this.navigateToScreen("Menu")}>
+                <Text style={styles.texto} onPress={this.navigateToScreen("Menu")}>
                   Menú
                 </Text>
-                  <Text onPress={this.navigateToScreen("Cupones")}>
+                  <Text style={styles.texto} onPress={this.navigateToScreen("Cupones")}>
                     Cupones
                   </Text>
-                  <Text onPress={this.navigateToScreen("SesionRegistro")}>
+                  <Text style={styles.texto} onPress={this.navigateToScreen("SesionRegistro")}>
                     Acceder o Registrar
                   </Text>
            
@@ -64,10 +64,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgrey'
   },
   texto:{
-    fontSize:15,
+    fontSize:25,
     color: "white",
     fontWeight: 'bold',
     width: "100%",
+    height: 50,
     textAlign: 'center'
 
   }

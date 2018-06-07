@@ -18,14 +18,14 @@ const backgroundColor = '#0067a7';
 class SectionListItem extends Component<{}> {
     render() {
         return (
-            <View>
-                <Image style={{height:250, width:'100%'}} source={{uri:'http://192.168.1.6:8000' + this.props.item.image}} />
+            <View style={styles.productBox}>
+                <Image style={{height:250, width:'100%'}} source={{uri:'http://190.190.180.221:8888' + this.props.item.image}} />
             </View>
         );
     }
 }
 
-///Clase Vista de Nombres de Categoría de productos
+//Clase Vista de Nombres de Categoría de productos
 class SectionHeader extends Component{
 
     render() {
@@ -66,7 +66,7 @@ export default class Products extends Component<{}> {
     fetchData = async() =>{
 		try{
             const { params } = this.props.navigation.state;
-            const response =  await fetch('http://192.168.1.6:8000/api/catalogue/products/');
+            const response =  await fetch('http://190.190.180.221:8888/api/catalogue/products/');
             const products = await response.json(); // products have array data
             this.setState({sections: products}); // filled data with dynamic array
         }catch(error){

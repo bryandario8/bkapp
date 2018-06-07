@@ -71,7 +71,7 @@ const ContactComponent = props => {
             <Field name="nombre" keyboardType="default" label="Nombre " component={renderField} />
             <Field name="apellido" keyboardType="default" label="Apellido "  component={renderField} />
             <Field name="email" keyboardType="email-address" label="Email " component={renderField}  />
-            <Field name="password" keyboardType="password" label="Contraseña " component={renderField}  />
+            <Field name="password" keyboardType="default" label="Contraseña " component={renderField}  />
             <Field name="ciudad" keyboardType="default" label="Ciudad " component={renderField}  />
             <Field name="sector" keyboardType="default" label="Sector " component={renderField}  />
             <Field name="celular" keyboardType="numeric" label="Celular " component={renderField} />
