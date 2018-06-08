@@ -11,6 +11,7 @@ import {
   Dimensions
 } from 'react-native';
 import { Pages } from 'react-native-pages';
+import ImageSlider from 'react-native-image-slider';
 import BarraLateral from '../components/BarraLateral';
 
 const backgroundColor = '#0067a7';
@@ -30,47 +31,52 @@ export default class Propanganda extends Component{
     state={
       data:[]
     };
-    /*fetchData = async() =>{
+    fetchData = async() =>{
     try{
             const { params } = this.props.navigation.state;
-            const response =  await fetch('http://172.168.0.104:8000/api/catalogue/offers');
-            const propaganda = await response.json(); // products have array data
-            this.setState({data: images}); // filled data with dynamic array
+            const response =  await fetch('http://192.168.1.6:8000/api/catalogue/coupons');
+            const offers = await response.json(); // products have array data
+            this.setState({data: offers}); // filled data with dynamic array
         }catch(error){
              console.log(error);
         }
-    };*/
-	render() {
+    };
+  render() {
     return (
       <View style={{
             flex: 1,
             flexDirection: 'column',
         }}>      
-      <BarraLateral {...this.props} title='Ofertas'/> 
-      <Pages style={styles.pantalla}>
-        <View style={styles.pantalla}>
-        <Image style={styles.imagen} source={require('../images/photo2.jpg')}/>
-        </View>
-
-        <View style={styles.pantalla} >
-        <Image style={styles.imagen} source={require('../images/photo1.jpg')}/>
-        </View>
-        <View style={styles.pantalla} >
-        <Image style={styles.imagen} source={require('../images/photo3.jpg')}/>
-        </View>
-      </Pages>
+      <BarraLateral {...this.props} title='Home'/>
+      <View style={styles.pantalla} >
+        <ImageSlider 
+          autoPlayWithInterval={3000} 
+          style={{flex:0, height:270, width:width}}
+          images = {images = [
+            "http://192.168.1.6:8000/media/products/photo5134175237187938245.jpg",
+            "http://192.168.1.6:8000/media/products/photo5134175237187938244.jpg",
+            "http://192.168.1.6:8000/media/products/photo5134175237187938252.jpg",
+            "http://192.168.1.6:8000/media/products/photo5134175237187938242_J5LMcWP.jpg",
+            "http://192.168.1.6:8000/media/products/photo5134175237187938241_UiqD2I7.jpg"
+    ]}
+        />
+      </View> 
+      
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
   imagen:{
-    flex: 1,
-    width: width
+    flex: 0,
+    
   },
   pantalla:{
     flex: 1,
-    width: width
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    //width: width
   },
 });
 AppRegistry.registerComponent('Propanganda', () => Propanganda);

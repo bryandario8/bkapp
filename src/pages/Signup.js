@@ -16,7 +16,7 @@ export default class Signup extends Component{
 	render() {
 		return(
 			<View style={styles.container}>
-      <BarraLateral {...this.props} title='Signup' /> 
+      <BarraLateral {...this.props} title='Login' /> 
 				<Logo/>
 				<Form type="Ingresar"/>
 				<View style={styles.signupTextCont}>
