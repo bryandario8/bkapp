@@ -17,6 +17,7 @@ import BarraLateral from '../components/BarraLateral';
 const backgroundColor = '#0067a7';
 var {height, width} = Dimensions.get('window');
 var heightPantalla = height - 60;
+
 export default class Propanganda extends Component{
   static navigationOptions = ({ navigation }) => {
         let drawerLabel = "Ofertas";
@@ -34,7 +35,7 @@ export default class Propanganda extends Component{
     fetchData = async() =>{
     try{
             const { params } = this.props.navigation.state;
-            const response =  await fetch('http://192.168.1.6:8000/api/catalogue/coupons');
+            const response =  await fetch('http://132.148.147.172:9999/api/catalogue/offers');
             const offers = await response.json(); // products have array data
             this.setState({data: offers}); // filled data with dynamic array
         }catch(error){
@@ -53,11 +54,9 @@ export default class Propanganda extends Component{
           autoPlayWithInterval={3000} 
           style={{flex:0, height:270, width:width}}
           images = {images = [
-            "http://192.168.1.6:8000/media/products/photo5134175237187938245.jpg",
-            "http://192.168.1.6:8000/media/products/photo5134175237187938244.jpg",
-            "http://192.168.1.6:8000/media/products/photo5134175237187938252.jpg",
-            "http://192.168.1.6:8000/media/products/photo5134175237187938242_J5LMcWP.jpg",
-            "http://192.168.1.6:8000/media/products/photo5134175237187938241_UiqD2I7.jpg"
+            "http://132.148.147.172:9999/media/products/photo3.jpg",
+            "http://132.148.147.172:9999/media/products/photo4.jpg",
+            "http://132.148.147.172:9999/media/products/photo5.jpg"
     ]}
         />
       </View> 

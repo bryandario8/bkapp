@@ -16,9 +16,9 @@ const validate = values => {
         errors.email = 'Correo invalido'
     } 
     if (!values.password) {
-        errors.email = 'Obligatorio'
+        errors.password = 'Obligatorio'
     }else if (values.password.length< 4 ) {
-         errors.email = 'Ingrese una Contraseña valida'
+         errors.password = 'Ingrese una Contraseña valida'
     }
     if (!values.apellido) {
         errors.apellido = 'Obligatorio'
@@ -48,15 +48,23 @@ const renderField = ({ label, keyboardType, meta: { touched, error, warning }, i
     return (
         <View style={{ flexDirection: 'column', height: 70, alignItems: 'flex-start' }}>
         <View style={{ flexDirection: 'row', height: 50, alignItems: 'center' }}>
-            <TextInput style={{ borderColor: 'steelblue', borderWidth: 1, height: 37, width: 220, padding: 5 }}
+            <TextInput 
                 keyboardType={keyboardType} onChangeText={onChange} {...restInput}
-            placeholder={label}>
+            
+            placeholder={label} >
             </TextInput>
         </View>
         {touched && ((error && <Text style={{ color: 'red' }}>{error}</Text>) ||
                 (warning && <Text style={{ color: 'orange' }}>{warning}</Text>))}
     </View>);
 };
+/*const submit = values => {
+    fetch("http://132.148.147.172:9999/api/signup/", {
+       method: "POST",
+       headers: headers,
+       body:  JSON.stringify(values)
+    })   
+}*/
 const submit = values => {
     alert(`Validation success. Values = ~${JSON.stringify(values)}`);    
 }
@@ -67,14 +75,15 @@ const ContactComponent = props => {
         <View style={{ flex: 1, flexDirection: 'column', margin: 40, justifyContent: 'flex-start', }}>
            
             <Text style={{ fontSize: 18, fontWeight: 'bold', width: 200, textAlign: 'center', margin: 10 }}>Registro</Text>
-
-            <Field name="nombre" keyboardType="default" label="Nombre " component={renderField} />
-            <Field name="apellido" keyboardType="default" label="Apellido "  component={renderField} />
-            <Field name="email" keyboardType="email-address" label="Email " component={renderField}  />
+             <Field name="username" keyboardType="default" label="Nombre usuario " component={renderField} />
+             <Field name="email" keyboardType="email-address" label="Email " component={renderField}  />
             <Field name="password" keyboardType="default" label="Contraseña " component={renderField}  />
-            <Field name="ciudad" keyboardType="default" label="Ciudad " component={renderField}  />
+            <Field name="first_name" keyboardType="default" label="Nombre " component={renderField} />
+            <Field name="last_name" keyboardType="default" label="Apellido "  component={renderField} />
+            <Field name="identification" keyboardType="default" label="Identificacion "  component={renderField} />
+            <Field name="city" keyboardType="default" label="Ciudad " component={renderField}  />
             <Field name="sector" keyboardType="default" label="Sector " component={renderField}  />
-            <Field name="celular" keyboardType="numeric" label="Celular " component={renderField} />
+            <Field name="phone" keyboardType="numeric" label="Celular " component={renderField} />
             <TouchableOpacity onPress={handleSubmit(submit)} style={{ margin: 10, alignItems: 'center' }}>
                 <Text style={{
                     backgroundColor: 'steelblue', color: 'blue', fontSize: 16,

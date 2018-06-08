@@ -31,7 +31,7 @@ class FlatListItem extends Component<{}> {
         return (
             <ScrollView>
             <View style={styles.productBox}>
-                <Image style={{height:250, width:'100%'}} source={{uri:'http://192.168.1.6:8000' + this.props.item.image}} />
+                <Image style={{height:250, width:'100%'}} source={{uri:'http://132.148.147.172:9999' + this.props.item.image}} />
                 <View>
                     <Download>
                         
@@ -83,7 +83,7 @@ export default class Coupons extends Component<{}> {
     fetchData = async() =>{
 		try{
             const { params } = this.props.navigation.state;
-            const response =  await fetch('http://192.168.1.6:8000/api/catalogue/coupons/');
+            const response =  await fetch('http://132.148.147.172:9999/api/catalogue/coupons/');
             const products = await response.json(); // products have array data
             this.setState({data: products}); // filled data with dynamic array
         }catch(error){
