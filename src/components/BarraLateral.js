@@ -17,8 +17,7 @@ export default class BarraLateral extends Component {
         return (
           
         <View style={{
-            height:5,
-            flex: 0.09
+            flex: 0.095
         }}>
         <Header style={{
             backgroundColor:'#ec7801'
