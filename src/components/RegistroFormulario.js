@@ -72,7 +72,7 @@ const ContactComponent = props => {
     const { handleSubmit } = props;
     return (
          <ScrollView keyboardDismissMode="interactive">
-        <View style={{ flex: 1, flexDirection: 'column', margin: 40, justifyContent: 'flex-start', }}>
+        <View style={{ flex: 1, flexDirection: 'column', margin: 40, justifyContent: 'flex-start'}}>
            
             <Text style={{ fontSize: 18, fontWeight: 'bold', width: 200, textAlign: 'center', margin: 10 }}>Registro</Text>
              <Field name="username" keyboardType="default" label="Nombre usuario " component={renderField} />

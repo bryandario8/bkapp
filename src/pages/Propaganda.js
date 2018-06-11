@@ -13,12 +13,21 @@ import {
 import { Pages } from 'react-native-pages';
 import ImageSlider from 'react-native-image-slider';
 import BarraLateral from '../components/BarraLateral';
+import Carga from '../components/Carga';
 
 const backgroundColor = '#0067a7';
 var {height, width} = Dimensions.get('window');
 var heightPantalla = height - 60;
 
 export default class Propanganda extends Component{
+  state={
+      data:[],
+      loaded: false
+    }
+  constructor(){
+    super();
+    Carga.load(v =>this.setState({loaded:true}));
+  }
   static navigationOptions = ({ navigation }) => {
         let drawerLabel = "Ofertas";
         let drawerIcon = () => (
@@ -29,9 +38,7 @@ export default class Propanganda extends Component{
         );
         return {drawerLabel, drawerIcon};
     }
-    state={
-      data:[]
-    };
+    
     fetchData = async() =>{
     try{
             const { params } = this.props.navigation.state;
@@ -44,12 +51,12 @@ export default class Propanganda extends Component{
     };
   render() {
     return (
-      <View style={{
+       <View style={{
             flex: 1,
             flexDirection: 'column',
         }}>      
-      <BarraLateral {...this.props} title='Home'/>
-      <View style={styles.pantalla} >
+       <BarraLateral {...this.props} title='Home'/>
+       {this.state.loaded ?<View style={styles.pantalla} >
         <ImageSlider 
           autoPlayWithInterval={3000} 
           style={{flex:0, height:270, width:width}}
@@ -59,7 +66,7 @@ export default class Propanganda extends Component{
             "http://132.148.147.172:9999/media/products/photo5.jpg"
     ]}
         />
-      </View> 
+      </View>  : <Text>Cargando..... </Text>}
       
       </View>
     );
