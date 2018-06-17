@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput,ScrollView,InputAccessoryView} from 'react-native';
+import { 
+    StyleSheet, 
+    View, 
+    Text, 
+    TouchableOpacity, 
+    TextInput,
+    ScrollView,
+    InputAccessoryView,
+    KeyboardAvoidingView,
+    StatusBar
+} from 'react-native';
 
 //Validation
 const validate = values => {
@@ -44,50 +54,84 @@ const validate = values => {
     }  
     return warnings
 }*/
-const renderField = ({ label, keyboardType, meta: { touched, error, warning }, input: { onChange, ...restInput }}) => {
-    return (
-        <View style={{ flexDirection: 'column', height: 70, alignItems: 'flex-start' }}>
-        <View style={{ flexDirection: 'row', height: 50, alignItems: 'center' }}>
-            <TextInput 
-                keyboardType={keyboardType} onChangeText={onChange} {...restInput}
+const renderField = ({ label, keyboardType,seguridad, meta: { touched, error, warning }, input: { onChange, ...restInput }}) => {
+    if (seguridad == "false") {
+         return (
             
-            placeholder={label} >
-            </TextInput>
-        </View>
-        {touched && ((error && <Text style={{ color: 'red' }}>{error}</Text>) ||
-                (warning && <Text style={{ color: 'orange' }}>{warning}</Text>))}
-    </View>);
+             <View style={{ flexDirection: 'column', height: 60, alignItems: 'flex-start' }}>
+            <View style={{ flexDirection: 'row', height: 40, alignItems: 'center' }}>
+                <TextInput style = {{width:'100%'}}
+                    keyboardType={keyboardType} onChangeText={onChange} {...restInput}
+                placeholder={label} secureTextEntry={false}>
+                </TextInput>
+            </View>
+            {touched && ((error && <Text style={{ color: 'red' }}>{error}</Text>) ||
+                    (warning && <Text style={{ color: 'orange' }}>{warning}</Text>))}
+        </View>);
+    }else{
+        return (
+             <View style={{ flexDirection: 'column', height: 60, alignItems: 'flex-start' }}>
+        <View style={{ flexDirection: 'row', height: 40, alignItems: 'center' }}>
+                <TextInput style = {{width:'100%'}}
+                    keyboardType={keyboardType} onChangeText={onChange} {...restInput}
+                placeholder={label} secureTextEntry={true}>
+                </TextInput>
+            </View>
+            {touched && ((error && <Text style={{ color: 'red' }}>{error}</Text>) ||
+                    (warning && <Text style={{ color: 'orange' }}>{warning}</Text>))}
+        </View>);
+    }
+   
 };
-/*const submit = values => {
-    fetch("http://132.148.147.172:9999/api/signup/", {
-       method: "POST",
-       headers: headers,
-       body:  JSON.stringify(values)
-    })   
-}*/
 const submit = values => {
-    alert(`Validation success. Values = ~${JSON.stringify(values)}`);    
+        try{
+            fetch("http://132.148.147.172:9999/api/signup/", {
+               method: "post",
+                header: {
+                  'Accept' : 'application/json',
+                  'Content-type' :'application/json',
+                },
+               body:  JSON.stringify(values)})
+                .then((response) => response.json())
+                .then((response) => { 
+                        alert(response);
+                    if (response['error'] == 'false') {
+                        alert(response['msg']);
+                      }else if(response['error'] == 'true'){
+                        alert(response['msg']);
+                    }
+            });
+        }catch(error){
+            console.log(error);
+        }
+        
 }
+/*const submit = values => {
+    alert(`Validation success. Values = ~${JSON.stringify(values)}`);    
+}*/
 const ContactComponent = props => {
     const { handleSubmit } = props;
     return (
          <ScrollView keyboardDismissMode="interactive">
-        <View style={{ flex: 1, flexDirection: 'column', margin: 40, justifyContent: 'flex-start'}}>
-           
-            <Text style={{ fontSize: 18, fontWeight: 'bold', width: 200, textAlign: 'center', margin: 10 }}>Registro</Text>
-             <Field name="username" keyboardType="default" label="Nombre usuario " component={renderField} />
-             <Field name="email" keyboardType="email-address" label="Email " component={renderField}  />
-            <Field name="password" keyboardType="default" label="Contraseña " component={renderField}  />
-            <Field name="first_name" keyboardType="default" label="Nombre " component={renderField} />
-            <Field name="last_name" keyboardType="default" label="Apellido "  component={renderField} />
-            <Field name="identification" keyboardType="default" label="Identificacion "  component={renderField} />
-            <Field name="city" keyboardType="default" label="Ciudad " component={renderField}  />
-            <Field name="sector" keyboardType="default" label="Sector " component={renderField}  />
-            <Field name="phone" keyboardType="numeric" label="Celular " component={renderField} />
-            <TouchableOpacity onPress={handleSubmit(submit)} style={{ margin: 10, alignItems: 'center' }}>
+        <View style={{ flex: 1, flexDirection: 'column', margin: 20,marginBottom: 70, justifyContent: 'flex-start'}}>
+         
+            <Text style={{ fontSize: 18, fontWeight: 'bold', width: "100%", textAlign: 'center', margin: 10 }}>Registro</Text>
+            <KeyboardAvoidingView  behavior="padding" >
+             <Field name="username" keyboardType="default" label="Nombre usuario " seguridad="false"  component={renderField} />
+             <Field name="email" keyboardType="email-address" label="Email " seguridad="false" component={renderField}  />
+            <Field name="password" keyboardType="default" label="Contraseña " seguridad="true" component={renderField}  />
+            <Field name="first_name" keyboardType="default" label="Nombre " seguridad="false" component={renderField} />
+            <Field name="last_name" keyboardType="default" label="Apellido " seguridad="false"  component={renderField} />
+            <Field name="identification" keyboardType="numeric" label="Cedula " seguridad="false" component={renderField} />
+            <Field name="phone" keyboardType="numeric" label="Celular " seguridad="false" component={renderField} />
+            <Field name="province" keyboardType="default" label="Provincia " seguridad="false" component={renderField} />
+            <Field name="city" keyboardType="default" label="Ciudad " seguridad="false" component={renderField}  />
+            <Field name="sector" keyboardType="default" label="Sector " seguridad="false" component={renderField}  />
+            </KeyboardAvoidingView>
+            <TouchableOpacity onPress={handleSubmit(submit)} style={{ margin: 10, alignItems: 'center',width : '100%'}}>
                 <Text style={{
-                    backgroundColor: 'steelblue', color: 'blue', fontSize: 16,
-                    height: 50, width: 200, textAlign: 'center', padding: 10
+                    backgroundColor: 'steelblue', color: 'white', fontSize: 20,
+                    height: 50, width: "100%", textAlign: 'center', padding: 10
                 }}>Enviar</Text>
             </TouchableOpacity>
            

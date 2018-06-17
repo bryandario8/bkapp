@@ -9,18 +9,20 @@ import {
 import BarraLateral from '../components/BarraLateral';
 import Logo from '../components/Logo';
 import Form from '../components/Form';
-
+import Registro from './Registro'
+import{
+  Button
+} from 'native-base';
 const backgroundColor = '#0067a7';
 // Clase de la vista Signup
 export default class Signup extends Component{
 	render() {
 		return(
+       
 			<View style={styles.container}>
       <BarraLateral {...this.props} title='Login' /> 
 				<Logo/>
 				<Form type="Ingresar"/>
-				<View style={styles.signupTextCont}>
-				</View>
 			</View>	
 			);
 	}
@@ -29,8 +31,7 @@ export default class Signup extends Component{
 // Estilos de los componentes
 const styles = StyleSheet.create({
   container : {
-    flex: 1,
-    backgroundColor:'#FFAA28'
+    flex: 1
   },
   signupTextCont : {
   	flexGrow: 1,

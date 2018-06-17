@@ -9,10 +9,12 @@ import {
   TouchableOpacity,
   SectionList,
   Image,
-  ScrollView
+  ScrollView,
+  NetInfo
 } from 'react-native';
 import BarraLateral from '../components/BarraLateral';
 import flatListProduct from '../data/flatListProduct';
+import OfflineNotice from '../components/OfflineNotice';
 
 const backgroundColor = '#0067a7';
 class SectionListItem extends Component<{}> {
@@ -48,7 +50,6 @@ class SectionHeader extends Component{
     }
 }
 
-
 /// Clase  la vista Products
 export default class Products extends Component<{}> {
     static navigationOptions = ({ navigation }) => {
@@ -62,7 +63,8 @@ export default class Products extends Component<{}> {
     }
 
     state={
-		sections:[]
+		sections:[],
+        isConnected: true
     };
     
     fetchData = async() =>{
@@ -72,40 +74,77 @@ export default class Products extends Component<{}> {
             const products = await response.json(); // products have array data
             this.setState({sections: products}); // filled data with dynamic array
         }catch(error){
-             console.error(error);
+             console.log("No se pudo conectar con la red");
         }
     };
+      //LOGIC: Send a http request and use the response to determine the connectivity state
+      refresh(callback){ 
+          httpAddress = 'http://132.148.147.172:9999/admin' //the site i'm building the app for
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', httpAddress);
+          xhr.onreadystatechange = (e) => {
+            if (xhr.readyState !== 4) { //code for completed request
+              return;
+            }
+            console.log("--- STATUS ---");
+            console.log(xhr.status);
+            if (xhr.status === 200) { //successful response
+              callback(true);
+              this.setState({ isConnected : true});
+              console.log('result goes here: ' + true);
+            } else {                  //unsuccessful response
+              /* NOTE: React native often reacts strangely to offline uses and as such,
+              it may be necessary to directly set state here rather than to rely on a callback */
+              callback(false)  //OR: this.state.splash = false
+              this.setState({ isConnected : false });
+              console.log('result goes here: ' + false);
+            }
+          };
+          xhr.send();
+      }
 
-    componentDidMount(){
-		this.fetchData();
-	}
-    
+    componentWillMount(){
+      this.refresh((result) => {this.state.splash = result});
+      }
+      componentDidMount(){
+        this.fetchData();
+    }
     render() {
         const { params } = this.props.navigation.state;
         var name = params ? params.name : "Productos";
-        return (
-            
-            <View style={{ flex: 1 }}> 
+         if (!this.state.isConnected) {
+             return (
+                <View style={{ flex: 1 }}>
                 <BarraLateral {...this.props} title='Menu'/>
-                    <ScrollView>
-                        <SectionList
-                            sections={this.state.sections}
-                            //sections={flatListProduct}
-                            keyExtractor={( item, index ) => item.id}
-                            renderItem={({ item, index }) => {
-                                return ( <SectionListItem item={item} index={index} >
+                <OfflineNotice />
+                 </View>
+                );
+        }else{
+             return (
+                <View style={{ flex: 1 }}> 
+                <StatusBar backgroundColor="#ec7801" barStyle="light-content"/>
+                    <BarraLateral {...this.props} title='Menu'/>
+                        <ScrollView>
+                            <SectionList
+                                sections={this.state.sections}
+                                //sections={flatListProduct}
+                                keyExtractor={( item, index ) => item.id}
+                                renderItem={({ item, index }) => {
+                                    return ( <SectionListItem item={item} index={index} >
 
-                                    </SectionListItem>);
-                            }}
-                            renderSectionHeader = {({ section }) => {
-                                return(<SectionHeader section={section} />)
-                            }}
-                                                
-                        >
-                        </SectionList>
-                    </ScrollView>
-            </View>
-        );
+                                        </SectionListItem>);
+                                }}
+                                renderSectionHeader = {({ section }) => {
+                                    return(<SectionHeader section={section} />)
+                                }}
+                                                    
+                            >
+                            </SectionList>
+                        </ScrollView>
+                </View>
+            );
+        }
+        
     }
 }
 

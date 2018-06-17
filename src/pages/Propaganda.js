@@ -10,6 +10,16 @@ import {
   Image,
   Dimensions
 } from 'react-native';
+import { 
+    Container, 
+    Header, 
+    Title,
+    Button, 
+    Left,  
+    Body, 
+    Icon,
+    Content
+} from 'native-base';
 import { Pages } from 'react-native-pages';
 import ImageSlider from 'react-native-image-slider';
 import BarraLateral from '../components/BarraLateral';
@@ -23,11 +33,11 @@ export default class Propanganda extends Component{
   state={
       data:[],
       loaded: false
-    }
+  };
   constructor(){
     super();
     Carga.load(v =>this.setState({loaded:true}));
-  }
+  };
   static navigationOptions = ({ navigation }) => {
         let drawerLabel = "Ofertas";
         let drawerIcon = () => (
@@ -55,20 +65,21 @@ export default class Propanganda extends Component{
             flex: 1,
             flexDirection: 'column',
         }}>      
-       <BarraLateral {...this.props} title='Home'/>
-       {this.state.loaded ?<View style={styles.pantalla} >
-        <ImageSlider 
-          autoPlayWithInterval={3000} 
-          style={{flex:0, height:270, width:width}}
-          images = {images = [
-            "http://132.148.147.172:9999/media/products/photo3.jpg",
-            "http://132.148.147.172:9999/media/products/photo4.jpg",
-            "http://132.148.147.172:9999/media/products/photo5.jpg"
-    ]}
-        />
-      </View>  : <Text>Cargando..... </Text>}
-      
-      </View>
+         <BarraLateral {...this.props} title='Home'/>
+         {this.state.loaded ?<View style={styles.pantalla} >
+          <ImageSlider 
+            autoPlayWithInterval={3000} 
+            style={{flex:0.5, height:270, width:width}}
+            images = {images = [
+              "http://132.148.147.172:9999/media/products/photo3.jpg",
+              "http://132.148.147.172:9999/media/products/photo4.jpg",
+              "http://132.148.147.172:9999/media/products/photo5.jpg"]}/>
+        </View>: <Container style={{flex:1}}>
+        <Content style={styles.contenedor}>
+          <Image style={styles.logo} source={require('../images/bk-logo.svg.png')}/>
+        </Content>
+      </Container>}
+      </View> 
     );
   }
 }
@@ -83,6 +94,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     //width: width
-  },
+  },logo:{
+     width: 150, 
+     height: 150,
+     marginTop:"50%",
+     marginRight:"30%",
+     marginLeft:"30%",
+  },contenedor:{
+    
+  }
 });
 AppRegistry.registerComponent('Propanganda', () => Propanganda);

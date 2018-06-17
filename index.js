@@ -4,16 +4,21 @@ import { DrawerNavigator, TabNavigator } from 'react-navigation';
 import BarraLateral from './src/components/BarraLateral';
 import SideMenu from './src/components/SideMenu';
 import Products from './src/pages/Products';
-import Coupons from './src/pages/Coupons';
+import Cupones from './src/pages/Cupones';
 import Propaganda from './src/pages/Propaganda';
-import TabNavegador from './src/components/TabNavegador';
+//import TabNavegador from './src/components/TabNavegador';
+import Signup from './src/pages/Signup';
+import Registro from './src/pages/Registro';
+
+
 //Screen size
 var {height, width} = Dimensions.get('window');
 const Home = "Home";
-const Cupones = "Cupones";
+const Cupone = "Cupones";
 const Signups = "Signup";
 const Menu = "Menu";
-const SesionRegistro = "Acceder o Registrar";
+const Acceder = "Acceder";
+const Register = "Registro";
 
 let routeConfigs = {
     Home: {
@@ -23,11 +28,11 @@ let routeConfigs = {
     Menu: {
         screen: Products,
     },
-    Cupones: {
-        screen: Coupons,
+    Cupone: {
+        screen: Cupones,
     },
-    SesionRegistro:{
-    	screen:TabNavegador,
+    Signups:{
+    	screen:Registro,
     }
 };
 let drawerNavigatorConfig = {    

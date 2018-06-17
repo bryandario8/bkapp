@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import {
-    Text, View, Image, TouchableHighlight
+    Text, 
+    View, 
+    Image, 
+    TouchableHighlight,
+    StatusBar
 } from 'react-native';
 import { 
     Container, 
@@ -17,7 +21,7 @@ export default class BarraLateral extends Component {
         return (
           
         <View style={{
-            flex: 0.095
+            flex: 0,
         }}>
         <Header style={{
             backgroundColor:'#ec7801'

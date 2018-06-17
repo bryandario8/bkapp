@@ -11,22 +11,71 @@ import {
   Text,
   View,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  KeyboardAvoidingView
 } from 'react-native';
 
+import {
+  NavigationActions} from 'react-navigation';
 //Clase del componente Form
 export default class Form extends Component<{}> {
+  constructor(props){
+    super(props);
+    this.state = {
+      username : '',
+      password : '',
+      devise : ''
 
+    }
+  }
+  async Login() {
+    if (this.state.username.length != 0 && this.state.password.length != 0) {
+               var data = {
+                "username" : this.state.username,
+                "password" : this.state.password
+               }
+               alert(JSON.stringify(data))
+              try {
+                fetch('http://132.148.147.172:9999/api/login/',{
+                    method: "post",
+                    header: {
+                      'Accept' : 'application/json',
+                      'Content-type' :'application/json',
+                    },
+                    body :JSON.stringify(data)
+                  })
+                  .then((response) => response.json())
+                    .then((responseJson) => {
+                      if (responseJson['is_error'] == false ) {
+                        alert(responseJson['msg']);
+                      }else if(responseJson['is_error'] == true){
+                        alert(responseJson['msg']);
+                      }
+                    })
+                    .catch((error) =>{
+                      console.error(error);
+                    });
+              }catch(error){
+                console.log("Error" + error);
+              }
+       
+        }else{
+          alert("Debe llenar todos los campos")
+        }
+   
+  }
   render() {
-    return (
+    return (      
       <View style={styles.container}>
+     <KeyboardAvoidingView  behavior="padding" >
         <TextInput style = {styles.inputBox}
             underlineColorAndroid ='transparent'
-            placeholder = 'correo electronico'
+            placeholder = 'Correo Electronico o username'
             placeholderTextColor = '#ffffff'
             selectionColor="#fff"
             keyboardType="email-address"
             onSubmitEditing={()=> this.password.focus()}
+            onChangeText={(usuario) => this.setState({username:usuario}) }
         />
         <TextInput style = {styles.inputBox}
             underlineColorAndroid ='transparent'
@@ -34,14 +83,17 @@ export default class Form extends Component<{}> {
             placeholderTextColor = '#ffffff'
             secureTextEntry={true}
             ref={(input) => this.password = input}
+            onChangeText={(pass) => this.setState({password:pass})}
         />
 
-        <TouchableOpacity onPress={this.coupons} style={styles.button}>
+        <TouchableOpacity  onPress={this.Login.bind(this)} style={styles.button}>
             <Text style={styles.buttonText}>
               {this.props.type}
             </Text>
         </TouchableOpacity>
+        </KeyboardAvoidingView>
       </View>
+      
     );
   }
 }
@@ -52,7 +104,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFAA28',
   },
   inputBox: {
     width: 300,
