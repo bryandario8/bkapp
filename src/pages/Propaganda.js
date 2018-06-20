@@ -23,21 +23,20 @@ import {
 import { Pages } from 'react-native-pages';
 import ImageSlider from 'react-native-image-slider';
 import BarraLateral from '../components/BarraLateral';
-import Carga from '../components/Carga';
 
 const backgroundColor = '#0067a7';
 var {height, width} = Dimensions.get('window');
 var heightPantalla = height - 60;
+const ipBk = 'http://132.148.147.172:9999';
 
 export default class Propanganda extends Component{
-  state={
+  constructor(props){
+    super(props);
+    this.state={
       data:[],
-      loaded: false
-  };
-  constructor(){
-    super();
-    Carga.load(v =>this.setState({loaded:true}));
-  };
+      loading: false
+    }
+  }
   static navigationOptions = ({ navigation }) => {
         let drawerLabel = "Ofertas";
         let drawerIcon = () => (
@@ -48,45 +47,65 @@ export default class Propanganda extends Component{
         );
         return {drawerLabel, drawerIcon};
     }
-    
-    fetchData = async() =>{
+  
+  fetchData = async() =>{
     try{
-            const { params } = this.props.navigation.state;
-            const response =  await fetch('http://132.148.147.172:9999/api/catalogue/offers');
-            const offers = await response.json(); // products have array data
-            this.setState({data: offers}); // filled data with dynamic array
-        }catch(error){
+        this.setState({loading : true });
+        fetch(ipBk + '/api/catalogue/offers',{
+          method: "get",
+            headers: {
+                      'Accept' : 'application/json',
+                      'Content-type' :'application/json',
+                    }
+        })
+        .then((response) => response.json())
+            .then((response) =>{
+              if (response.length != 0) {
+                  this.setState({data: response});
+                  this.setState({loading : false });
+              }else{
+                this.setState({loading : false });
+              }
+            });
+      }catch(error){
+            this.setState({loading : false });
              console.log(error);
         }
-    };
+  };
+  componentDidMount(){
+      this.fetchData();
+    }
   render() {
-    return (
-       <View style={{
-            flex: 1,
-            flexDirection: 'column',
-        }}>      
-         <BarraLateral {...this.props} title='Home'/>
-         {this.state.loaded ?<View style={styles.pantalla} >
-          <ImageSlider 
-            autoPlayWithInterval={3000} 
-            style={{flex:0.5, height:270, width:width}}
-            images = {images = [
-              "http://132.148.147.172:9999/media/products/photo3.jpg",
-              "http://132.148.147.172:9999/media/products/photo4.jpg",
-              "http://132.148.147.172:9999/media/products/photo5.jpg"]}/>
-        </View>: <Container style={{flex:1}}>
-        <Content style={styles.contenedor}>
-          <Image style={styles.logo} source={require('../images/bk-logo.svg.png')}/>
-        </Content>
-      </Container>}
-      </View> 
-    );
+    let sizeData = this.state.data.length;
+    const images = [ "http://132.148.147.172:9999/media/products/photo4.jpg",
+            "http://132.148.147.172:9999/media/products/photo5.jpg"];
+    
+    if (this.state.loading == false) {
+         return (
+             <View style={{
+                  flex: 1,
+                  flexDirection: 'column',
+              }}>      
+               <BarraLateral {...this.props} title='Home'/>
+               <View style={styles.pantalla} >
+                <ImageSlider 
+                  autoPlayWithInterval={3000} 
+                  style={{flex:0.5, height:270, width:width}} 
+                  images = {images}/>
+              </View> 
+            </View> 
+          );
+    }else{
+      return (
+        <Container >
+           <Image style={styles.logo} source={require('../images/bk-logo.svg.png')}/>
+      </Container>);
+    }
   }
 }
 const styles = StyleSheet.create({
   imagen:{
     flex: 0,
-    
   },
   pantalla:{
     flex: 1,
@@ -100,8 +119,6 @@ const styles = StyleSheet.create({
      marginTop:"50%",
      marginRight:"30%",
      marginLeft:"30%",
-  },contenedor:{
-    
   }
 });
 AppRegistry.registerComponent('Propanganda', () => Propanganda);

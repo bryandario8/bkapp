@@ -1,9 +1,4 @@
-/**
- * @fileoverview Forma de botones
- * 
- * History
- * En este archivo se realiza los componente de la botonera de la pagina de login
- */
+
 import React, { Component } from 'react';
 import {
   Platform,
@@ -17,40 +12,49 @@ import {
 
 import {
   NavigationActions} from 'react-navigation';
-//Clase del componente Form
+//ip de la base
+const ipBk = 'http://132.148.147.172:9999';
+//formulario del login
 export default class Form extends Component<{}> {
   constructor(props){
     super(props);
     this.state = {
       username : '',
       password : '',
-      devise : ''
-
+      device :{name: 'Samsung J2',
+          registration_id: '123n213bjhh23hv124jb213j213',
+          type:'android'
+        }
     }
   }
+  //post para enviar datos
   async Login() {
     if (this.state.username.length != 0 && this.state.password.length != 0) {
                var data = {
-                "username" : this.state.username,
-                "password" : this.state.password
+                username : this.state.username,
+                password : this.state.password,
+                device :  {name: 'Samsung J2',
+                  registration_id: '123n213bjhh23hv124jb213j213',
+                  type:'android'
+                }
                }
-               alert(JSON.stringify(data))
               try {
-                fetch('http://132.148.147.172:9999/api/login/',{
+                fetch( ipBk + '/api/login/',{
                     method: "post",
-                    header: {
+                    headers: {
                       'Accept' : 'application/json',
-                      'Content-type' :'application/json',
+                      'Content-Type' :'application/json',
                     },
-                    body :JSON.stringify(data)
+                    body :JSON.stringify(data),
                   })
                   .then((response) => response.json())
-                    .then((responseJson) => {
-                      if (responseJson['is_error'] == false ) {
-                        alert(responseJson['msg']);
-                      }else if(responseJson['is_error'] == true){
-                        alert(responseJson['msg']);
+                    .then((response) => {
+                      if (response['is_error'] == false ) {
+                        alert(response['msg']);
+                      }else if(response['is_error'] == true){
+                        alert(response['msg']);
                       }
+
                     })
                     .catch((error) =>{
                       console.error(error);

@@ -8,7 +8,7 @@ import Cupones from './src/pages/Cupones';
 import Propaganda from './src/pages/Propaganda';
 //import TabNavegador from './src/components/TabNavegador';
 import Signup from './src/pages/Signup';
-import Registro from './src/pages/Registro';
+import Registros from './src/pages/Registros';
 
 
 //Screen size
@@ -17,8 +17,7 @@ const Home = "Home";
 const Cupone = "Cupones";
 const Signups = "Signup";
 const Menu = "Menu";
-const Acceder = "Acceder";
-const Register = "Registro";
+const Register = "Registros";
 
 let routeConfigs = {
     Home: {
@@ -32,7 +31,10 @@ let routeConfigs = {
         screen: Cupones,
     },
     Signups:{
-    	screen:Registro,
+    	screen:Signup,
+    },
+    Register:{
+        screen:Registros,
     }
 };
 let drawerNavigatorConfig = {    

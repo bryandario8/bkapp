@@ -9,7 +9,6 @@ import {
 import BarraLateral from '../components/BarraLateral';
 import Logo from '../components/Logo';
 import Form from '../components/Form';
-import Registro from './Registro'
 import{
   Button
 } from 'native-base';

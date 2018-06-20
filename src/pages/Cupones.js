@@ -22,6 +22,7 @@ import {
 } from 'native-base';
 import BarraLateral from '../components/BarraLateral';
 
+const ipBk = 'http://132.148.147.172:9999';
 export default class Cupones extends Component {
   constructor(props){
     super(props);
@@ -36,11 +37,11 @@ export default class Cupones extends Component {
  fetchData = async() =>{
       try{
            this.setState({loading : true });
-          fetch('http://132.148.147.172:9999/api/catalogue/coupons/',{
+          fetch(ipBk + '/api/catalogue/coupons/',{
             method: "get",
-            header: {
+            headers: {
                       'Accept' : 'application/json',
-                      'Content-type' :'application/json',
+                      'Content-Type' :'application/json',
                     }
           })
           .then((response) => response.json())
@@ -56,6 +57,7 @@ export default class Cupones extends Component {
               }
             });
         }catch(error){
+              this.setState({loading : false });
              console(error)
         }
     };
@@ -92,7 +94,7 @@ export default class Cupones extends Component {
                 renderItem={item =>
                   <Card style={{ elevation: 3 }}>
                     <CardItem cardBody>
-                      <Image style={{ height: 300, flex: 1 }} source={{uri:'http://132.148.147.172:9999' + item.image}} />
+                      <Image style={{ height: 300, flex: 1 }} source={{uri: ipBk + item.image}} />
                     </CardItem>
                     <CardItem >
                      <Button block success onPress={() => {this.setModalVisible(true);}}><Text> info </Text></Button>

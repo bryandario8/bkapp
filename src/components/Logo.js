@@ -22,7 +22,6 @@ export default class Logo extends Component<{}> {
       <View style={styles.container}>
         <Image style={{width: 100, height: 100}}
           source={require('../images/bk-logo.svg.png')}
-          //source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
         />
         
       </View>

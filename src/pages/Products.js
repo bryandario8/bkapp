@@ -13,15 +13,16 @@ import {
   NetInfo
 } from 'react-native';
 import BarraLateral from '../components/BarraLateral';
-import flatListProduct from '../data/flatListProduct';
 import OfflineNotice from '../components/OfflineNotice';
 
 const backgroundColor = '#0067a7';
+const ipBk = 'http://132.148.147.172:9999';
+
 class SectionListItem extends Component<{}> {
     render() {
         return (
             <View style={styles.productBox}>
-                <Image style={{height:250, width:'100%'}} source={{uri:'http://132.148.147.172:9999' + this.props.item.image}} />
+                <Image style={{height:250, width:'100%'}} source={{uri:ipBk + this.props.item.image}} />
             </View>
         );
     }
@@ -70,7 +71,7 @@ export default class Products extends Component<{}> {
     fetchData = async() =>{
 		try{
             const { params } = this.props.navigation.state;
-            const response =  await fetch('http://132.148.147.172:9999/api/catalogue/products/');
+            const response =  await fetch(ipBk + '/api/catalogue/products/');
             const products = await response.json(); // products have array data
             this.setState({sections: products}); // filled data with dynamic array
         }catch(error){
@@ -103,9 +104,9 @@ export default class Products extends Component<{}> {
           xhr.send();
       }
 
-    componentWillMount(){
+    /*componentWillMount(){
       this.refresh((result) => {this.state.splash = result});
-      }
+      }*/
       componentDidMount(){
         this.fetchData();
     }
@@ -127,7 +128,6 @@ export default class Products extends Component<{}> {
                         <ScrollView>
                             <SectionList
                                 sections={this.state.sections}
-                                //sections={flatListProduct}
                                 keyExtractor={( item, index ) => item.id}
                                 renderItem={({ item, index }) => {
                                     return ( <SectionListItem item={item} index={index} >
