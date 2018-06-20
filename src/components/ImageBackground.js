@@ -7,14 +7,14 @@
  * @flow
  * @format
  */
-'use strict';
+'use strict'
 
-const Image = require('Image');
-const React = require('React');
-const StyleSheet = require('StyleSheet');
-const View = require('View');
+const Image = require('Image')
+const React = require('React')
+const StyleSheet = require('StyleSheet')
+const View = require('View')
 
-const ensureComponentIsNative = require('ensureComponentIsNative');
+const ensureComponentIsNative = require('ensureComponentIsNative')
 
 /**
  * Very simple drop-in replacement for <Image> which supports nesting views.
@@ -44,21 +44,21 @@ const ensureComponentIsNative = require('ensureComponentIsNative');
 class ImageBackground extends React.Component<$FlowFixMeProps> {
   setNativeProps(props: Object) {
     // Work-around flow
-    const viewRef = this._viewRef;
+    const viewRef = this._viewRef
     if (viewRef) {
-      ensureComponentIsNative(viewRef);
-      viewRef.setNativeProps(props);
+      ensureComponentIsNative(viewRef)
+      viewRef.setNativeProps(props)
     }
   }
 
-  _viewRef: ?React.ElementRef<typeof View> = null;
+  _viewRef: ?React.ElementRef<typeof View> = null
 
   _captureRef = ref => {
-    this._viewRef = ref;
+    this._viewRef = ref
   };
 
   render() {
-    const {children, style, imageStyle, imageRef, ...props} = this.props;
+    const {children, style, imageStyle, imageRef, ...props} = this.props
 
     return (
       <View style={style} ref={this._captureRef}>
@@ -83,8 +83,8 @@ class ImageBackground extends React.Component<$FlowFixMeProps> {
         />
         {children}
       </View>
-    );
+    )
   }
 }
 
-module.exports = ImageBackground;
+module.exports = ImageBackground

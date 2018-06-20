@@ -5,19 +5,13 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import BarraLateral from './src/components/BarraLateral';
+import React, { Component } from 'react'
+import BarraLateral from './src/components/BarraLateral'
 
 export default class App extends Component {
-  render() {
+  render () {
     return (
       <BarraLateral />
-    );
+    )
   }
 }

@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
-import { View, Text, NetInfo, Dimensions, StyleSheet } from 'react-native';
+import React, { PureComponent } from 'react'
+import { View, Text, NetInfo, Dimensions, StyleSheet } from 'react-native'
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get('window')
 
 function MiniOfflineSign() {
   return (
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
   offlineText: { color: '#fff' }
 });
 
-export default OfflineNotice;
+export default OfflineNotice

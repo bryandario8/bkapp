@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
-import React, {Component} from 'react';
-import {NavigationActions} from 'react-navigation';
+import PropTypes from 'prop-types'
+import React, {Component} from 'react'
+import {NavigationActions} from 'react-navigation'
 import {ScrollView,
   StyleSheet, 
   Text, 
@@ -9,7 +9,7 @@ import {ScrollView,
   Image,
   ImageBackground,
   Dimensions
-} from 'react-native';
+} from 'react-native'
 
 class SideMenu extends Component {
   navigateToScreen = (route) => () => {
@@ -57,7 +57,7 @@ class SideMenu extends Component {
         </ImageBackground>
       </View>
       
-    );
+    )
   }
 }
 
@@ -93,5 +93,5 @@ const styles = StyleSheet.create({
      marginTop: "10%",
      marginBottom: "10%"
   }
-});
-export default SideMenu;
+})
+export default SideMenu
