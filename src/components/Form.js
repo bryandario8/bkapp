@@ -37,7 +37,8 @@ export default class Form extends Component {
         }
       }
       try {
-        fetch(ipBk + '/api/login/', {
+        // const fetch = require('node-fetch')
+        window.fetch(ipBk + '/api/login/', {
           method: 'post',
           headers: {
             'Accept': 'application/json',
@@ -45,22 +46,22 @@ export default class Form extends Component {
           },
           body: JSON.stringify(data)
         })
-                  .then((response) => response.json())
-                    .then((response) => {
-                      if (response['is_error'] === false) {
-                        alert(response['msg'])
-                      } else if (response['is_error'] === true) {
-                        alert(response['msg'])
-                      }
-                    })
-                    .catch((error) => {
-                      console.error(error)
-                    })
+          .then((response) => response.json())
+          .then((response) => {
+            if (response['is_error'] === false) {
+              window.alert(response['msg'])
+            } else if (response['is_error'] === true) {
+              window.alert(response['msg'])
+            }
+          })
+          .catch((error) => {
+            console.error(error)
+          })
       } catch (error) {
         console.log('Error' + error)
       }
     } else {
-      alert('Debe llenar todos los campos')
+      window.alert('Debe llenar todos los campos')
     }
   }
 
@@ -81,8 +82,7 @@ export default class Form extends Component {
             underlineColorAndroid='transparent'
             placeholder='Password'
             placeholderTextColor='#ffffff'
-            secureTextEntry={true}
-            ref={(input) => this.password = input}
+            ref={(input) => { this.password = input }}
             onChangeText={(pass) => this.setState({password: pass})}
           />
 

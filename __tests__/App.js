@@ -4,7 +4,7 @@ import App from '../App'
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer'
-
+/* eslint-env mocha */
 it('renders correctly', () => {
   const tree = renderer.create(
     <App />

@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "standrad": "standard",
+    "standrad": {
+      "parser": "babel-eslint"
+    },
     "android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && react-native run-android"
   },
   "dependencies": {
@@ -13,6 +15,7 @@
     "jslint": "^0.11.0",
     "lodash": "^4.17.10",
     "native-base": "^2.5.2",
+    "node-xhr": "^1.0.5",
     "react": "^16.2.0",
     "react-burger-button": "^2.0.0",
     "react-burger-king": "^1.0.1",
@@ -42,6 +45,7 @@
     "redux-storage-engine-reactnativeasyncstorage": "^1.0.5"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.3",
     "babel-jest": "22.1.0",
     "babel-preset-react-native": "4.0.0",
     "jest": "22.1.4",

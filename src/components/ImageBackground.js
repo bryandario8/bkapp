@@ -41,8 +41,8 @@ const ensureComponentIsNative = require('ensureComponentIsNative')
  * ```
  */
 
-class ImageBackground extends React.Component<$FlowFixMeProps> {
-  setNativeProps(props: Object) {
+class ImageBackground extends React.Component { // <$FlowFixMeProps>
+  setNativeProps (props: Object) {
     // Work-around flow
     const viewRef = this._viewRef
     if (viewRef) {
@@ -57,7 +57,7 @@ class ImageBackground extends React.Component<$FlowFixMeProps> {
     this._viewRef = ref
   };
 
-  render() {
+  render () {
     const {children, style, imageStyle, imageRef, ...props} = this.props
 
     return (
@@ -75,9 +75,9 @@ class ImageBackground extends React.Component<$FlowFixMeProps> {
               // This workaround should be removed after implementing proper support of
               // intrinsic content size of the <Image>.
               width: style.width,
-              height: style.height,
+              height: style.height
             },
-            imageStyle,
+            imageStyle
           ]}
           ref={imageRef}
         />

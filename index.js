@@ -10,12 +10,8 @@ import Signup from './src/pages/Signup'
 import Registros from './src/pages/Registros'
 
 // Screen size
-var {height, width} = Dimensions.get('window')
+var {width} = Dimensions.get('window').width
 const Home = 'Home'
-const Cupone = 'Cupones'
-const Signups = 'Signup'
-const Menu = 'Menu'
-const Register = 'Registros'
 
 let routeConfigs = {
   Home: {
