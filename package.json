@@ -45,7 +45,7 @@
     "redux-storage-engine-reactnativeasyncstorage": "^1.0.5"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.3",
+    "babel-eslint": "^8.2.5",
     "babel-jest": "22.1.0",
     "babel-preset-react-native": "4.0.0",
     "jest": "22.1.4",

@@ -1,11 +1,9 @@
 import { AppRegistry, Dimensions } from 'react-native'
-import { DrawerNavigator } from 'react-navigation'
-// import App from './App';
+import { DrawerNavigator, StackNavigator } from 'react-navigation'
 import SideMenu from './src/components/SideMenu'
 import Products from './src/pages/Products'
 import Cupones from './src/pages/Cupones'
 import Propaganda from './src/pages/Propaganda'
-// import TabNavegador from './src/components/TabNavegador';
 import Signup from './src/pages/Signup'
 import Registros from './src/pages/Registros'
 
@@ -13,23 +11,20 @@ import Registros from './src/pages/Registros'
 var {width} = Dimensions.get('window').width
 const Home = 'Home'
 
+export const Stack = StackNavigator({
+  Home: { screen: Propaganda },
+  Register: {screen: Registros}
+},
+  {
+    initialRouteName: 'Home'}
+)
+
 let routeConfigs = {
-  Home: {
-    path: '/',
-    screen: Propaganda
-  },
-  Menu: {
-    screen: Products
-  },
-  Cupone: {
-    screen: Cupones
-  },
-  Signups: {
-    screen: Signup
-  },
-  Register: {
-    screen: Registros
-  }
+  Home: {screen: Stack},
+  Menu: {screen: Products},
+  Cupone: {screen: Cupones},
+  Signups: {screen: Signup}
+
 }
 let drawerNavigatorConfig = {
   initialRouteName: Home,

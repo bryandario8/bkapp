@@ -18,6 +18,7 @@ import {
   Content
 } from 'native-base'
 import BarraLateral from '../components/BarraLateral'
+import Viewloading from '../components/Viewloading';
 
 const ipBk = 'http://132.148.147.172:9999'
 
@@ -301,22 +302,11 @@ export default class Registros extends Component {
         </Container>
       )
     } else {
-      return (
-        <Container>
-          <Image style={styles.logo} source={require('../images/bk-logo.svg.png')} />
-        </Container>
-      )
+      return(<Viewloading/>);
     }
   }
 }
 const styles = StyleSheet.create({
-  logo: {
-    width: 150,
-    height: 150,
-    marginTop: '50%',
-    marginRight: '30%',
-    marginLeft: '30%'
-  },
   button: {
     width: '40%',
     backgroundColor: 'rgba(24,84,148,0.9)',

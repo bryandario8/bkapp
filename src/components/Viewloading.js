@@ -13,7 +13,6 @@ export default class Viewloading extends Component {
     return (
 
       <Container>
-        <Header />
         <Content style={styles.contenedor}>
           <Image style={styles.logo} source={require('../images/bk-logo.svg.png')} />
         </Content>
