@@ -5,8 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Picker,
-  AppRegistry,
-  Image
+  AppRegistry
 } from 'react-native'
 import {
   Container,
@@ -18,7 +17,7 @@ import {
   Content
 } from 'native-base'
 import BarraLateral from '../components/BarraLateral'
-import Viewloading from '../components/Viewloading';
+import Viewloading from '../components/Viewloading'
 
 const ipBk = 'http://132.148.147.172:9999'
 
@@ -233,7 +232,7 @@ export default class Registros extends Component {
 
                 <Item inlineLabel style={{flexDirection: 'column'}}>
                   <View style={{flexDirection: 'row'}}>
-                    <Input placeholder={'Password'} secureTextEntry={true} onChangeText={(pass) => this.setState({password: pass})} />
+                    <Input placeholder={'Password'} secureTextEntry onChangeText={(pass) => this.setState({password: pass})} />
                   </View>
                   <Text style={{color: 'red'}}>{this.state.errorPass}</Text>
                 </Item>
@@ -302,7 +301,7 @@ export default class Registros extends Component {
         </Container>
       )
     } else {
-      return(<Viewloading/>);
+      return (<Viewloading />)
     }
   }
 }
