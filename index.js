@@ -15,8 +15,8 @@ export const Stack = StackNavigator({
   Home: { screen: Propaganda },
   Register: {screen: Registros}
 },
-{
-  initialRouteName: 'Home'}
+  {
+    initialRouteName: 'Home'}
 )
 
 let routeConfigs = {

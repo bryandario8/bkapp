@@ -23,6 +23,7 @@ const ipBk = 'http://132.148.147.172:9999'
 
 // registro
 export default class Registros extends Component {
+
   constructor (props) {
     super(props)
     this.state = {
@@ -204,8 +205,10 @@ export default class Registros extends Component {
     } else {
       window.alert('Debe llenar los campos obligatorios')
     }
-  }
-
+  };
+  static navigationOptions = {
+    header: null
+  };
   render () {
     if (this.state.loading === false) {
       return (

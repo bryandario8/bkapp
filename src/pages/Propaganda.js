@@ -21,6 +21,7 @@ export default class Propanganda extends Component {
       iterarYa: false
     }
   }
+
   agregarLista (dato, dns) {
     images1.push(dns + dato)
   }
@@ -32,7 +33,6 @@ export default class Propanganda extends Component {
         img = this.state.data.pop().toString()
         this.agregarLista(img, uri)
       }
-      window.alert(img.toString())
     }
 
     this.setState({images: images1})
@@ -67,7 +67,9 @@ export default class Propanganda extends Component {
   componentDidMount () {
     this.fetchData()
   }
-
+  static navigationOptions = {
+    header: null
+  }
   render () {
     // if (this.state.loading == false) {
     return (

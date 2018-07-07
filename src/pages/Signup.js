@@ -3,6 +3,9 @@ import {
   StyleSheet,
   View
 } from 'react-native'
+import {
+  Button
+} from 'native-base'
 import BarraLateral from '../components/BarraLateral'
 import Logo from '../components/Logo'
 import Form from '../components/Form'
@@ -15,6 +18,10 @@ export default class Signup extends Component {
         <BarraLateral {...this.props} title='Login' />
         <Logo />
         <Form type='Ingresar' />
+        <Button
+          title='Registrese aqui'
+          onPress={() => this.props.navigation.navigate('Register')}
+        />
       </View>
     )
   }
