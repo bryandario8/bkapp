@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import ImageSlider from 'react-native-image-slider'
 import BarraLateral from '../components/BarraLateral'
+import Viewloading from '../components/Viewloading'
 
 var {width} = Dimensions.get('window').width
 const ipBk = 'http://132.148.147.172:9999'
@@ -29,8 +30,8 @@ export default class Propanganda extends Component {
     if (this.state.iterarYa === true) {
       let sizeData = this.state.data.length
       var img = ''
-      for (var i = 0; i >= sizeData; i++) {
-        img = this.state.data.pop().toString()
+      for (var i = 0; i < sizeData; i++) {
+        img = this.state.data[i].image
         this.agregarLista(img, uri)
       }
     }
@@ -54,6 +55,7 @@ export default class Propanganda extends Component {
           if (response.length !== 0) {
             this.setState({data: response})
             this.setState({iterarYa: true})
+            this.setState({loading: false})
             this.iterator(ipBk)
           } else {
             this.setState({loading: false})
@@ -71,24 +73,24 @@ export default class Propanganda extends Component {
     header: null
   }
   render () {
-    // if (this.state.loading == false) {
-    return (
-      <View style={{
-        flex: 1,
-        flexDirection: 'column'
-      }}>
-        <BarraLateral {...this.props} title='Home' />
-        <View style={styles.pantalla} >
-          <ImageSlider
-            autoPlayWithInterval={3000}
-            style={{flex: 0, height: 270, width: width}}
-            images={this.state.images} />
+    if (this.state.loading === false) {
+      return (
+        <View style={{
+          flex: 1,
+          flexDirection: 'column'
+        }}>
+          <BarraLateral {...this.props} title='Home' />
+          <View style={styles.pantalla} >
+            <ImageSlider
+              autoPlayWithInterval={3000}
+              style={{flex:0, height:510, width:width}}
+              images={this.state.images} />
+          </View>
         </View>
-      </View>
-    )
-    /* }else{
-     return(<Viewloading/>);
-    } */
+      )
+    } else {
+     return (<Viewloading />)
+   }
   }
 }
 
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
   },
   pantalla: {
     flex: 1,
-    margin: 10,
+    // margin: 10,
     justifyContent: 'center',
     alignItems: 'center'
   }

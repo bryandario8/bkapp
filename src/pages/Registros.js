@@ -23,7 +23,6 @@ const ipBk = 'http://132.148.147.172:9999'
 
 // registro
 export default class Registros extends Component {
-
   constructor (props) {
     super(props)
     this.state = {
