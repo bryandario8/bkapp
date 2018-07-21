@@ -1,7 +1,8 @@
 import { AppRegistry, Dimensions } from 'react-native'
-import { DrawerNavigator, StackNavigator } from 'react-navigation'
+import { createDrawerNavigator, createStackNavigator } from 'react-navigation'
 import SideMenu from './src/components/SideMenu'
-import Products from './src/pages/Products'
+import Menu from './src/pages/Products'
+import Prueba from './src/pages/Prueba'
 import Cupones from './src/pages/Cupones'
 import Propaganda from './src/pages/Propaganda'
 import Signup from './src/pages/Signup'
@@ -11,7 +12,7 @@ import Registros from './src/pages/Registros'
 var {width} = Dimensions.get('window').width
 const Home = 'Home'
 
-export const Stack = StackNavigator({
+export const Stack = createStackNavigator({
   Home: { screen: Propaganda },
   Register: {screen: Registros}
 },
@@ -21,7 +22,7 @@ export const Stack = StackNavigator({
 
 let routeConfigs = {
   Home: {screen: Stack},
-  Menu: {screen: Products},
+  Prueba: {screen: Prueba},
   Cupone: {screen: Cupones},
   Signups: {screen: Signup}
 
@@ -36,5 +37,5 @@ let drawerNavigatorConfig = {
   }
 }
 
-const App = DrawerNavigator(routeConfigs, drawerNavigatorConfig)
+const App = createDrawerNavigator(routeConfigs, drawerNavigatorConfig)
 AppRegistry.registerComponent('bkapp', () => App)
