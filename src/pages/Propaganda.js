@@ -19,13 +19,14 @@ export default class Propanganda extends Component {
       data: [],
       images: [],
       loading: false,
-      iterarYa: false
+      iterarYa: true
     }
   }
 
   agregarLista (dato, dns) {
     images1.push(dns + dato)
   }
+  
   iterator (uri) {
     if (this.state.iterarYa === true) {
       let sizeData = this.state.data.length
@@ -37,7 +38,7 @@ export default class Propanganda extends Component {
     }
 
     this.setState({images: images1})
-    this.setState({loading: false})
+    this.setState({iterarYa: false})
   }
 
   fetchData = async () => {
@@ -54,7 +55,6 @@ export default class Propanganda extends Component {
         .then((response) => {
           if (response.length !== 0) {
             this.setState({data: response})
-            this.setState({iterarYa: true})
             this.setState({loading: false})
             this.iterator(ipBk)
           } else {
@@ -83,14 +83,14 @@ export default class Propanganda extends Component {
           <View style={styles.pantalla} >
             <ImageSlider
               autoPlayWithInterval={3000}
-              style={{flex:0, height:510, width:width}}
+              style={{flex: 0, height: 510, width: width}}
               images={this.state.images} />
           </View>
         </View>
       )
     } else {
-     return (<Viewloading />)
-   }
+      return (<Viewloading />)
+    }
   }
 }
 

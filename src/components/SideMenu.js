@@ -31,7 +31,7 @@ class SideMenu extends Component {
             <Text style={styles.texto} onPress={this.navigateToScreen('Home')}>
               Home
             </Text>
-            <Text style={styles.texto} onPress={this.navigateToScreen('Prueba')}>
+            <Text style={styles.texto} onPress={this.navigateToScreen('Menu')}>
               Menú
             </Text>
             <Text style={styles.texto} onPress={this.navigateToScreen('Cupone')}>
