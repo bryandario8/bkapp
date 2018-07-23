@@ -6,11 +6,11 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Image
 } from 'react-native'
-
 // ip de la base
-const ipBk = 'http://132.148.147.172:9999'
+const ipBk = 'http://192.168.1.15:8000' // 'http://132.148.147.172:9999'
 // formulario del login
 export default class Form extends Component {
   constructor (props) {
@@ -24,6 +24,7 @@ export default class Form extends Component {
       }
     }
   }
+
   // post para enviar datos
   async Login () {
     if (this.state.username.length !== 0 && this.state.password.length !== 0) {
@@ -68,6 +69,9 @@ export default class Form extends Component {
   render () {
     return (
       <View style={styles.container}>
+        <View>
+          <Image style={{width: 100, height: 100}} source={require('../images/bk-logo.svg.png')}/>
+        </View>
         <KeyboardAvoidingView behavior='padding' >
           <TextInput style={styles.inputBox}
             underlineColorAndroid='transparent'
@@ -84,6 +88,7 @@ export default class Form extends Component {
             placeholderTextColor='#ffffff'
             ref={(input) => { this.password = input }}
             onChangeText={(pass) => this.setState({password: pass})}
+            secureTextEntry
           />
 
           <TouchableOpacity onPress={this.Login.bind(this)} style={styles.button}>
@@ -91,7 +96,13 @@ export default class Form extends Component {
               {this.props.type}
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')} style={styles.button}>
+            <Text style={styles.buttonText}>
+              Registro
+            </Text>
+          </TouchableOpacity>
         </KeyboardAvoidingView>
+
       </View>
     )
   }
@@ -100,22 +111,22 @@ export default class Form extends Component {
 // Estilos del componente
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
   inputBox: {
     width: 300,
     backgroundColor: 'rgba(24,84,148,0.9)',
-    borderRadius: 30,
+    borderRadius: 10,
     paddingHorizontal: 20,
     color: '#ffffff',
     marginVertical: 10
   },
   button: {
-    width: 100,
-    backgroundColor: 'rgba(24,84,148,0.9)',
-    borderRadius: 15,
+    width: '100%',
+    backgroundColor: '#ec7801',
+    borderRadius: 10,
     alignItems: 'center',
     paddingVertical: 10,
     marginVertical: 10

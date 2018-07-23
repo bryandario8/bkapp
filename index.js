@@ -1,5 +1,5 @@
 import { AppRegistry, Dimensions } from 'react-native'
-import { createDrawerNavigator, createStackNavigator } from 'react-navigation'
+import { createDrawerNavigator, createSwitchNavigator } from 'react-navigation'
 import SideMenu from './src/components/SideMenu'
 import Menu from './src/pages/Products'
 import Cupones from './src/pages/Cupones'
@@ -11,9 +11,10 @@ import Registros from './src/pages/Registros'
 var {width} = Dimensions.get('window').width
 const Home = 'Home'
 
-export const Stack = createStackNavigator(
+export const Stack = createSwitchNavigator(
   {
     Home: { screen: Propaganda },
+    Login: { screen: Signup },
     Register: {screen: Registros}
   },
   {

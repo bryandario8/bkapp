@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {
   StyleSheet,
-  View,
   TouchableOpacity,
   ScrollView,
   Picker,
@@ -10,6 +9,7 @@ import {
 import {
   Container,
   Input,
+  View,
   Item,
   Label,
   Form,
@@ -19,7 +19,7 @@ import {
 import BarraLateral from '../components/BarraLateral'
 import Viewloading from '../components/Viewloading'
 
-const ipBk = 'http://132.148.147.172:9999'
+const ipBk = 'http://192.168.1.15:8000' // 'http://132.148.147.172:9999'
 
 // registro
 export default class Registros extends Component {
@@ -29,7 +29,6 @@ export default class Registros extends Component {
       username: '',
       email: '',
       password: '',
-      identification: '',
       first_name: '',
       last_name: '',
       phone: '',
@@ -61,7 +60,7 @@ export default class Registros extends Component {
     }
   }
   // get provincias
-  fetchData=async () => {
+  fetchData = async () => {
     try {
       window.fetch(ipBk + '/api/address/provinces/', {
         method: 'get',
@@ -88,22 +87,22 @@ export default class Registros extends Component {
   provincias () {
     if (this.state.provincia.length !== 0) {
       return this.state.provincia.map((data) => {
-        return (<Picker.Item label={data.name} value={data.id} />)
+        return (<Picker.Item label={data.name} value={data.id} key={data.id} />)
       })
     }
   }
+
   // imprimir las etiquetas de ciudad
   ciudad () {
-    if (this.state.province !== '') {
-      // if (this.state.province != this.state.oldprovince) {
+    if (this.state.province !== this.state.oldprovince) {
       this.fechtCiudad(this.state.province)
       if (this.state.ciudad.length !== 0) {
         return this.state.ciudad.map((data) => {
-          return (<Picker.Item label={data.name} value={data.id} />)
+          return (<Picker.Item label={data.name} value={data.id} key={data.id} />)
         })
-        // }
+        this.setState({oldprovince: this.state.province})
       }
-      // this.setState({oldprovince:this.state.province})
+
     }
   }
 
@@ -169,7 +168,6 @@ export default class Registros extends Component {
         username: this.state.username,
         email: this.state.email,
         password: this.state.password,
-        identification: this.state.identification,
         first_name: this.state.first_name,
         last_name: this.state.last_name,
         phone: this.state.phone,
@@ -177,8 +175,6 @@ export default class Registros extends Component {
         city: this.state.city,
         sector: this.state.sector
       }
-      /* let datas = []
-      datas[0] = data; */
       try {
         window.fetch(ipBk + '/api/signup/', {
           method: 'post',
@@ -207,115 +203,108 @@ export default class Registros extends Component {
   };
   static navigationOptions = {
     header: null
-  };
+  }
   render () {
     if (this.state.loading === false) {
       return (
-        <Container>
-          <BarraLateral {...this.props} title='Registro' />
-          <ScrollView keyboardDismissMode='interactive'>
-            <Content>
+        <Container >
+            <BarraLateral {...this.props} title='Registro' />
+            <ScrollView keyboardDismissMode='interactive'>
+              <Content style={styles.contenido}>
+                <Form>
+                  <Item inlineLabel >
+                    <Label>Username</Label>
+                      <Input onChangeText={(usuario) => this.setState({username: usuario})} />
+                  </Item>
+                  <Text style={{color: 'red', marginLeft: 20}}>{this.state.errorUser}</Text>    
 
-              <Form>
-
-                <Item inlineLabel style={{flexDirection: 'column'}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Input placeholder={'Username'} onChangeText={(usuario) => this.setState({username: usuario})} />
-                  </View>
-                  <Text style={{color: 'red'}}>{this.state.errorUser}</Text>
-                </Item>
-
-                <Item inlineLabel style={{flexDirection: 'column'}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Input placeholder={'Email'} onChangeText={(email) => this.setState({email: email})} />
-                  </View>
+                  <Item inlineLabel >
+                    <Label>Email</Label>
+                    <Input onChangeText={(email) => this.setState({email: email})} />
+                  </Item>
                   <Text style={{color: 'red'}}>{this.state.errorEmail}</Text>
-                </Item>
 
-                <Item inlineLabel style={{flexDirection: 'column'}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Input placeholder={'Password'} secureTextEntry onChangeText={(pass) => this.setState({password: pass})} />
-                  </View>
+                  <Item inlineLabel >
+                    <Label>Password</Label>
+                    <Input secureTextEntry onChangeText={(pass) => this.setState({password: pass})}/>
+                  </Item>
                   <Text style={{color: 'red'}}>{this.state.errorPass}</Text>
-                </Item>
 
-                <Item inlineLabel style={{flexDirection: 'column'}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Input placeholder={'Cedula'} keyboardType={'numeric'} onChangeText={(cedula) => this.setState({identification: cedula})} />
-                  </View>
-                </Item>
-
-                <Item inlineLabel style={{flexDirection: 'column'}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Input placeholder={'Nombre'} onChangeText={(nombre) => this.setState({first_name: nombre})} />
-                  </View>
+                  <Item inlineLabel >
+                    <Label>Nombre</Label>
+                    <Input onChangeText={(nombre) => this.setState({first_name: nombre})} />
+                  </Item>
                   <Text style={{color: 'red'}}>{this.state.errorNombre}</Text>
-                </Item>
 
-                <Item inlineLabel style={{flexDirection: 'column'}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Input placeholder={'Apellido'} onChangeText={(apellido) => this.setState({last_name: apellido})} />
-                  </View>
+                  <Item inlineLabel >
+                    <Label>Apellido</Label>
+                    <Input onChangeText={(apellido) => this.setState({last_name: apellido})} />
+                  </Item>
                   <Text style={{color: 'red'}}>{this.state.errorApellido}</Text>
-                </Item>
 
-                <Item inlineLabel>
-                  <Label>Provincia</Label>
-                  <Picker
-                    selectedValue={this.state.province}
-                    style={{ height: 50, width: '100%' }}
-                    onValueChange={(itemValue, itemIndex) => this.setState({province: itemValue})}>
-                    {this.provincias()}
-                  </Picker>
-                  <Text style={{color: 'red'}}>{this.state.errorProvincia}</Text>
-                </Item>
+                  <Item inlineLabel>
+                    <Label>Provincia</Label>
+                    <Picker
+                      selectedValue={this.state.province}
+                      style={{ height: 50, width: '100%' }}
+                      onValueChange={(itemValue, itemIndex) => this.setState({province: itemValue})}>
+                      {this.provincias()}
+                    </Picker>
+                    <Text style={{color: 'red'}}>{this.state.errorProvincia}</Text>
+                  </Item>
 
-                <Item inlineLabel>
-                  <Label>Ciudad</Label>
-                  <Picker
-                    selectedValue={this.state.city}
-                    style={{ height: 50, width: '100%' }}
-                    onValueChange={(itemValue, itemIndex) => this.setState({city: itemValue})}>
-                    {this.ciudad()}
-                  </Picker>
-                  <Text style={{color: 'red'}}>{this.state.errorCiudad}</Text>
-                </Item>
+                  <Item inlineLabel>
+                    <Label>Ciudad</Label>
+                    <Picker
+                      selectedValue={this.state.city}
+                      style={{ height: 50, width: '100%' }}
+                      onValueChange={(itemValue, itemIndex) => this.setState({city: itemValue})}>
+                      {this.ciudad()}
+                    </Picker>
+                    <Text style={{color: 'red'}}>{this.state.errorCiudad}</Text>
+                  </Item>
 
-                <Item inlineLabel style={{flexDirection: 'column'}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Input placeholder={'Sector'} onChangeText={(sector) => this.setState({sector: sector})} />
-                  </View>
+                  <Item inlineLabel >
+                    <Label>Sector</Label>
+                    <Input onChangeText={(sector) => this.setState({sector: sector})} />
+                  </Item>
                   <Text style={{color: 'red'}}>{this.state.errorSector}</Text>
-                </Item>
 
-                <Item inlineLabel style={{flexDirection: 'column'}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Input placeholder={'Celular'} keyboardType={'numeric'} onChangeText={(cell) => this.setState({phone: cell})} />
-                  </View>
-                </Item>
-
-                <TouchableOpacity onPress={this.Login.bind(this)} style={styles.button}>
-                  <Text>Enviar</Text>
-                </TouchableOpacity>
-              </Form>
-            </Content>
-          </ScrollView>
-        </Container>
-      )
+                  <Item inlineLabel >
+                    <Label>Celular</Label>
+                    <Input keyboardType={'numeric'} onChangeText={(cell) => this.setState({phone: cell})} />
+                  </Item>
+                  <TouchableOpacity onPress={this.Login.bind(this)} style={styles.button}>
+                    <Text style={styles.buttonText}>Enviar</Text>
+                  </TouchableOpacity>
+                </Form>
+              </Content>
+            </ScrollView>
+          </Container>
+      );
     } else {
       return (<Viewloading />)
     }
   }
 }
 const styles = StyleSheet.create({
+  contenido:{
+    marginLeft: '2%',
+    marginRight: '2%'
+  },
   button: {
-    width: '40%',
-    backgroundColor: 'rgba(24,84,148,0.9)',
+    width: '100%',
+    backgroundColor: '#ec7801',
+    borderRadius: 5,
     alignItems: 'center',
-    marginTop: 40,
-    marginBottom: 40,
     paddingVertical: 10,
     marginVertical: 10
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#ffffff',
+    textAlign: 'center'
   }
 })
 

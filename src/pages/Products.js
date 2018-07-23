@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import {
   AppRegistry,
   StyleSheet,
-  Text,
-  Button,
   View,
   StatusBar,
   FlatList,
@@ -11,6 +9,20 @@ import {
   ScrollView,
   YellowBox
 } from 'react-native'
+import {
+  Container,
+  Header,
+  Content,
+  Card,
+  CardItem,
+  Text,
+  Right,
+  Left,
+  Button,
+  Icon,
+  Body,
+  Spinner
+} from 'native-base'
 import { createStackNavigator } from 'react-navigation'
 import BarraLateral from '../components/BarraLateral'
 import Viewloading from '../components/Viewloading'
@@ -18,18 +30,50 @@ import Viewloading from '../components/Viewloading'
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
 
 const backgroundColor = '#0067a7'
-const ipBk = 'http://132.148.147.172:9999'
+const ipBk = 'http://192.168.1.15:8000' // 'http://132.148.147.172:9999'
 
 // Screen con Productos de la Categoría seleccionada
 class FlatListProduct extends Component {
   render () {
     return (
-      <View style={styles.productBox}>
-        <Image style={{height: 250, width: '100%'}} source={{uri: ipBk + this.props.item.image}} />
-        <Text>
-          {this.props.item.title}
-        </Text>
-      </View>
+      <Content>
+        <Card>
+          <CardItem header style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+            <Body>
+              <Text>
+                {this.props.item.title}
+              </Text>
+            </Body>
+          </CardItem>
+          <CardItem cardBody>
+            <Body>
+              <Image 
+                style={{
+                  height: 250,
+                  width: '90%',
+                  flex: 1,
+                  alignItems: 'center'
+                }}
+                source={{
+                  uri: ipBk + this.props.item.image
+                }}
+              />
+            </Body>
+          </CardItem>
+          <CardItem footer>
+            <Body>
+              <Text>
+                {this.props.item.description}
+              </Text>
+            </Body>
+          </CardItem>
+        </Card>
+      </Content>
     )
   }
 }
@@ -38,30 +82,48 @@ class FlatListProduct extends Component {
 class FlatListCategory extends Component {
   render () {
     return (
-      <View style={{
-        flex: 1,
-        // backgroundColor: 'rgb(77, 120, 140)'
-        backgroundColor: '#185494'
-      }}>
-        <Text style={{
-          fontSize: 16,
-          fontWeight: 'bold',
-          color: 'white',
-          margin: 8,
-          marginLeft: 10
-        }}>
-          {this.props.item.name}
-        </Text>
-        <Button
-          title='Ir'
-          onPress={() => {
-            this.props.navigation.navigate('Products', {
-              categoryName: this.props.item.name,
-              products: this.props.item.data
-            })
-          }}
-        />
-      </View>
+      <Content>
+        <Card>
+          <CardItem
+            button onPress={() => {
+              this.props.navigation.navigate('Products', {
+                categoryName: this.props.item.name,
+                products: this.props.item.data
+              })
+            }}
+            style={{
+              margin: 2,
+              justifyContent: 'center'
+            }}
+          >
+            <Left>
+              <Image 
+                source={{
+                  uri: ipBk + this.props.item.image
+                }}
+                style={{
+                  height: 100,
+                  width: '50%',
+                  flex: 1
+                }}
+              />
+            </Left>
+            <Body>
+              <Text
+                style={{
+                  margin: 10,
+                  textAlignVertical: 'center'
+                }}
+              >
+                {this.props.item.name}
+              </Text>
+            </Body>
+            <Right>
+              <Icon name='arrow-forward' />
+            </Right>
+          </CardItem>
+        </Card>
+      </Content>
     )
   }
 }
@@ -162,7 +224,9 @@ class Categories extends Component {
         </View>
       )
     } else {
-      return (<Viewloading />)
+      return (
+        <Viewloading />
+      )
     }
   }
 }
@@ -207,7 +271,17 @@ const StackProduct = createStackNavigator(
     Products: Products
   },
   {
-    initialRouteName: 'Categories'
+    initialRouteName: 'Categories',
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#993300',
+        margin: 4
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
   }
 )
 

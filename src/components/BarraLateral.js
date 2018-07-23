@@ -7,10 +7,20 @@ import {
   Title,
   Button,
   Left,
+  Right,
   Body,
-  Icon
+  Text
+  // Icon
 } from 'native-base'
+import Icon from 'react-native-vector-icons/FontAwesome'
 export default class BarraLateral extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {}
+
+    return {
+      title: 'Home'
+    }
+  }
   render () {
     return (
       <View style={{
@@ -21,12 +31,20 @@ export default class BarraLateral extends Component {
         }}>
           <Left>
             <Button transparent onPress={() => { this.props.navigation.openDrawer() }}>
-              <Icon name='menu' />
+              <Icon type='FontAwesome' name='bars' style={{fontSize: 20}} />
             </Button>
           </Left>
           <Body>
-            <Title style={{fontSize: 30, fontWeight: '500', textAlign: 'center', color: 'white'}}>{this.props.title}</Title>
+            <Title style={{fontSize: 30, fontWeight: '500', color: 'white'}}>{this.props.title}</Title>
           </Body>
+          <Right>
+            <Button transparent
+              onPress={() => this.props.navigation.navigate('Login')}
+            >
+              <Icon type='FontAwesome' name='sign-in' style={{fontSize: 20, color: 'white'}} />
+              <Text>Login</Text>
+            </Button>
+          </Right>
         </Header>
       </View>
     )
