@@ -17,7 +17,7 @@ import {
 import BarraLateral from '../components/BarraLateral'
 import Viewloading from '../components/Viewloading'
 
-const ipBk = 'http://192.168.1.15:8000' // 'http://132.148.147.172:9999'
+const ipBk = 'http://192.168.43.233:8000' // 'http://192.168.43.233:8000'
 export default class Cupones extends Component {
   constructor (props) {
     super(props)

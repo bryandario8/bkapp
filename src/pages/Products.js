@@ -10,8 +10,6 @@ import {
   YellowBox
 } from 'react-native'
 import {
-  Container,
-  Header,
   Content,
   Card,
   CardItem,
@@ -20,8 +18,7 @@ import {
   Left,
   Button,
   Icon,
-  Body,
-  Spinner
+  Body
 } from 'native-base'
 import { createStackNavigator } from 'react-navigation'
 import BarraLateral from '../components/BarraLateral'
@@ -30,7 +27,7 @@ import Viewloading from '../components/Viewloading'
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
 
 const backgroundColor = '#0067a7'
-const ipBk = 'http://192.168.1.15:8000' // 'http://132.148.147.172:9999'
+const ipBk = 'http://192.168.43.233:8000' // 'http://132.148.147.172:9999'
 
 // Screen con Productos de la Categoría seleccionada
 class FlatListProduct extends Component {
@@ -39,11 +36,11 @@ class FlatListProduct extends Component {
       <Content>
         <Card>
           <CardItem header style={{
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+            flex: 1,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
             <Body>
               <Text>
                 {this.props.item.title}
@@ -52,7 +49,7 @@ class FlatListProduct extends Component {
           </CardItem>
           <CardItem cardBody>
             <Body>
-              <Image 
+              <Image
                 style={{
                   height: 250,
                   width: '90%',
@@ -97,7 +94,7 @@ class FlatListCategory extends Component {
             }}
           >
             <Left>
-              <Image 
+              <Image
                 source={{
                   uri: ipBk + this.props.item.image
                 }}
@@ -147,7 +144,7 @@ class Categories extends Component {
       iterarYa: false
     }
   }
-  
+
   fetchData = async () => {
     try {
       this.setState({loading: true})
@@ -279,9 +276,9 @@ const StackProduct = createStackNavigator(
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-    },
+        fontWeight: 'bold'
+      }
+    }
   }
 )
 

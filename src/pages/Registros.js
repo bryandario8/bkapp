@@ -19,7 +19,7 @@ import {
 import BarraLateral from '../components/BarraLateral'
 import Viewloading from '../components/Viewloading'
 
-const ipBk = 'http://192.168.1.15:8000' // 'http://132.148.147.172:9999'
+const ipBk = 'http://192.168.43.233:8000' // 'http://132.148.147.172:9999'
 
 // registro
 export default class Registros extends Component {
@@ -102,7 +102,6 @@ export default class Registros extends Component {
         })
         this.setState({oldprovince: this.state.province})
       }
-
     }
   }
 
@@ -208,87 +207,87 @@ export default class Registros extends Component {
     if (this.state.loading === false) {
       return (
         <Container >
-            <BarraLateral {...this.props} title='Registro' />
-            <ScrollView keyboardDismissMode='interactive'>
-              <Content style={styles.contenido}>
-                <Form>
-                  <Item inlineLabel >
-                    <Label>Username</Label>
-                      <Input onChangeText={(usuario) => this.setState({username: usuario})} />
-                  </Item>
-                  <Text style={{color: 'red', marginLeft: 20}}>{this.state.errorUser}</Text>    
+          <BarraLateral {...this.props} title='Registro' />
+          <ScrollView keyboardDismissMode='interactive'>
+            <Content style={styles.contenido}>
+              <Form>
+                <Item inlineLabel >
+                  <Label>Username</Label>
+                  <Input onChangeText={(usuario) => this.setState({username: usuario})} />
+                </Item>
+                <Text style={{color: 'red', marginLeft: 20}}>{this.state.errorUser}</Text>
 
-                  <Item inlineLabel >
-                    <Label>Email</Label>
-                    <Input onChangeText={(email) => this.setState({email: email})} />
-                  </Item>
-                  <Text style={{color: 'red'}}>{this.state.errorEmail}</Text>
+                <Item inlineLabel >
+                  <Label>Email</Label>
+                  <Input onChangeText={(email) => this.setState({email: email})} />
+                </Item>
+                <Text style={{color: 'red'}}>{this.state.errorEmail}</Text>
 
-                  <Item inlineLabel >
-                    <Label>Password</Label>
-                    <Input secureTextEntry onChangeText={(pass) => this.setState({password: pass})}/>
-                  </Item>
-                  <Text style={{color: 'red'}}>{this.state.errorPass}</Text>
+                <Item inlineLabel >
+                  <Label>Password</Label>
+                  <Input secureTextEntry onChangeText={(pass) => this.setState({password: pass})} />
+                </Item>
+                <Text style={{color: 'red'}}>{this.state.errorPass}</Text>
 
-                  <Item inlineLabel >
-                    <Label>Nombre</Label>
-                    <Input onChangeText={(nombre) => this.setState({first_name: nombre})} />
-                  </Item>
-                  <Text style={{color: 'red'}}>{this.state.errorNombre}</Text>
+                <Item inlineLabel >
+                  <Label>Nombre</Label>
+                  <Input onChangeText={(nombre) => this.setState({first_name: nombre})} />
+                </Item>
+                <Text style={{color: 'red'}}>{this.state.errorNombre}</Text>
 
-                  <Item inlineLabel >
-                    <Label>Apellido</Label>
-                    <Input onChangeText={(apellido) => this.setState({last_name: apellido})} />
-                  </Item>
-                  <Text style={{color: 'red'}}>{this.state.errorApellido}</Text>
+                <Item inlineLabel >
+                  <Label>Apellido</Label>
+                  <Input onChangeText={(apellido) => this.setState({last_name: apellido})} />
+                </Item>
+                <Text style={{color: 'red'}}>{this.state.errorApellido}</Text>
 
-                  <Item inlineLabel>
-                    <Label>Provincia</Label>
-                    <Picker
-                      selectedValue={this.state.province}
-                      style={{ height: 50, width: '100%' }}
-                      onValueChange={(itemValue, itemIndex) => this.setState({province: itemValue})}>
-                      {this.provincias()}
-                    </Picker>
-                    <Text style={{color: 'red'}}>{this.state.errorProvincia}</Text>
-                  </Item>
+                <Item inlineLabel>
+                  <Label>Provincia</Label>
+                  <Picker
+                    selectedValue={this.state.province}
+                    style={{ height: 50, width: '100%' }}
+                    onValueChange={(itemValue, itemIndex) => this.setState({province: itemValue})}>
+                    {this.provincias()}
+                  </Picker>
+                  <Text style={{color: 'red'}}>{this.state.errorProvincia}</Text>
+                </Item>
 
-                  <Item inlineLabel>
-                    <Label>Ciudad</Label>
-                    <Picker
-                      selectedValue={this.state.city}
-                      style={{ height: 50, width: '100%' }}
-                      onValueChange={(itemValue, itemIndex) => this.setState({city: itemValue})}>
-                      {this.ciudad()}
-                    </Picker>
-                    <Text style={{color: 'red'}}>{this.state.errorCiudad}</Text>
-                  </Item>
+                <Item inlineLabel>
+                  <Label>Ciudad</Label>
+                  <Picker
+                    selectedValue={this.state.city}
+                    style={{ height: 50, width: '100%' }}
+                    onValueChange={(itemValue, itemIndex) => this.setState({city: itemValue})}>
+                    {this.ciudad()}
+                  </Picker>
+                  <Text style={{color: 'red'}}>{this.state.errorCiudad}</Text>
+                </Item>
 
-                  <Item inlineLabel >
-                    <Label>Sector</Label>
-                    <Input onChangeText={(sector) => this.setState({sector: sector})} />
-                  </Item>
-                  <Text style={{color: 'red'}}>{this.state.errorSector}</Text>
+                <Item inlineLabel >
+                  <Label>Sector</Label>
+                  <Input onChangeText={(sector) => this.setState({sector: sector})} />
+                </Item>
+                <Text style={{color: 'red'}}>{this.state.errorSector}</Text>
 
-                  <Item inlineLabel >
-                    <Label>Celular</Label>
-                    <Input keyboardType={'numeric'} onChangeText={(cell) => this.setState({phone: cell})} />
-                  </Item>
-                  <TouchableOpacity onPress={this.Login.bind(this)} style={styles.button}>
-                    <Text style={styles.buttonText}>Enviar</Text>
-                  </TouchableOpacity>
-                </Form>
-              </Content>
-            </ScrollView>
-          </Container>
-      );
+                <Item inlineLabel >
+                  <Label>Celular</Label>
+                  <Input keyboardType={'numeric'} onChangeText={(cell) => this.setState({phone: cell})} />
+                </Item>
+                <TouchableOpacity onPress={this.Login.bind(this)} style={styles.button}>
+                  <Text style={styles.buttonText}>Enviar</Text>
+                </TouchableOpacity>
+              </Form>
+            </Content>
+          </ScrollView>
+        </Container>
+      )
     } else {
       return (<Viewloading />)
     }
   }
 }
 const styles = StyleSheet.create({
-  contenido:{
+  contenido: {
     marginLeft: '2%',
     marginRight: '2%'
   },

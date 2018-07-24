@@ -10,7 +10,7 @@ import {
   Image
 } from 'react-native'
 // ip de la base
-const ipBk = 'http://192.168.1.15:8000' // 'http://132.148.147.172:9999'
+const ipBk = 'http://192.168.43.233:8000' // 'http://132.148.147.172:9999'
 // formulario del login
 export default class Form extends Component {
   constructor (props) {
@@ -70,7 +70,7 @@ export default class Form extends Component {
     return (
       <View style={styles.container}>
         <View>
-          <Image style={{width: 100, height: 100}} source={require('../images/bk-logo.svg.png')}/>
+          <Image style={{width: 100, height: 100}} source={require('../images/bk-logo.svg.png')} />
         </View>
         <KeyboardAvoidingView behavior='padding' >
           <TextInput style={styles.inputBox}
