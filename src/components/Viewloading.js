@@ -10,7 +10,6 @@ import {
 export default class Viewloading extends Component {
   render () {
     return (
-
       <Container>
         <Content style={styles.contenedor}>
           <Image style={styles.logo} source={require('../images/bk-logo.svg.png')} />
@@ -23,9 +22,11 @@ export default class Viewloading extends Component {
 const styles = StyleSheet.create({
   logo: {
     width: 150,
-    height: 150
+    height: 150,
+    alignItems: 'center'
   },
   contenedor: {
-    flex: 1
+    flex: 1,
+    width: null
   }
 })

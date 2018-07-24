@@ -40,6 +40,9 @@ class SideMenu extends Component {
             <Text style={styles.texto} onPress={this.navigateToScreen('Signups')}>
               Acceder
             </Text>
+            <Text style={styles.texto} onPress={this.navigateToScreen('Register')}>
+              Registro
+            </Text>
           </ScrollView>
           <View style={styles.footerContainer}>
             <Text>

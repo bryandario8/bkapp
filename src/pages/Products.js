@@ -2,76 +2,174 @@ import React, { Component } from 'react'
 import {
   AppRegistry,
   StyleSheet,
-  Text,
   View,
   StatusBar,
-  SectionList,
+  FlatList,
   Image,
-  ScrollView
+  ScrollView,
+  YellowBox
 } from 'react-native'
+import {
+  Container,
+  Header,
+  Content,
+  Card,
+  CardItem,
+  Text,
+  Right,
+  Left,
+  Button,
+  Icon,
+  Body,
+  Spinner
+} from 'native-base'
+import { createStackNavigator } from 'react-navigation'
 import BarraLateral from '../components/BarraLateral'
-import OfflineNotice from '../components/OfflineNotice'
+import Viewloading from '../components/Viewloading'
+
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
 
 const backgroundColor = '#0067a7'
-const ipBk = 'http://132.148.147.172:9999'
+const ipBk = 'http://192.168.1.15:8000' // 'http://132.148.147.172:9999'
 
-class SectionListItem extends Component {
+// Screen con Productos de la Categoría seleccionada
+class FlatListProduct extends Component {
   render () {
     return (
-      <View style={styles.productBox}>
-        <Image style={{height: 250, width: '100%'}} source={{uri: ipBk + this.props.item.image}} />
-      </View>
-    )
-  }
-}
-
-// Clase Vista de Nombres de Categoría de productos
-class SectionHeader extends Component {
-  render () {
-    return (
-      <View style={{
+      <Content>
+        <Card>
+          <CardItem header style={{
         flex: 1,
-        // backgroundColor: 'rgb(77, 120, 140)'
-        backgroundColor: '#185494'
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}>
-        <Text style={{
-          fontSize: 16,
-          fontWeight: 'bold',
-          color: 'white',
-          margin: 8,
-          marginLeft: 10
-        }}>
-          {this.props.section.name}
-        </Text>
-      </View>
+            <Body>
+              <Text>
+                {this.props.item.title}
+              </Text>
+            </Body>
+          </CardItem>
+          <CardItem cardBody>
+            <Body>
+              <Image 
+                style={{
+                  height: 250,
+                  width: '90%',
+                  flex: 1,
+                  alignItems: 'center'
+                }}
+                source={{
+                  uri: ipBk + this.props.item.image
+                }}
+              />
+            </Body>
+          </CardItem>
+          <CardItem footer>
+            <Body>
+              <Text>
+                {this.props.item.description}
+              </Text>
+            </Body>
+          </CardItem>
+        </Card>
+      </Content>
     )
   }
 }
 
-// Clase  la vista Products
-export default class Products extends Component {
-  static navigationOptions = ({ navigation }) => {
-    let drawerLabel = 'Menu'
-    let drawerIcon = () => (
-      <Image
-        source={require('../images/home-icon.png')}
-        style={{ width: 26, height: 26, tintColor: backgroundColor }}
-      />
+// Screen con Nombres de Categoría de productos
+class FlatListCategory extends Component {
+  render () {
+    return (
+      <Content>
+        <Card>
+          <CardItem
+            button onPress={() => {
+              this.props.navigation.navigate('Products', {
+                categoryName: this.props.item.name,
+                products: this.props.item.data
+              })
+            }}
+            style={{
+              margin: 2,
+              justifyContent: 'center'
+            }}
+          >
+            <Left>
+              <Image 
+                source={{
+                  uri: ipBk + this.props.item.image
+                }}
+                style={{
+                  height: 100,
+                  width: '50%',
+                  flex: 1
+                }}
+              />
+            </Left>
+            <Body>
+              <Text
+                style={{
+                  margin: 10,
+                  textAlignVertical: 'center'
+                }}
+              >
+                {this.props.item.name}
+              </Text>
+            </Body>
+            <Right>
+              <Icon name='arrow-forward' />
+            </Right>
+          </CardItem>
+        </Card>
+      </Content>
     )
-    return {drawerLabel, drawerIcon}
+  }
+}
+
+// Screen Contenedor de las Categorías y Miembro del Stack de Products
+class Categories extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {}
+
+    return {
+      title: 'Categorías'
+    }
   }
 
-  state={
-    sections: [],
-    isConnected: true
+  constructor (props) {
+    super(props)
+    this.state = {
+      data: [],
+      names: [],
+      loading: false,
+      iterarYa: false
+    }
   }
-
+  
   fetchData = async () => {
     try {
-      const response = await window.fetch(ipBk + '/api/catalogue/products/')
-      const products = await response.json() // products have array data
-      this.setState({sections: products}) // filled data with dynamic array
+      this.setState({loading: true})
+      window.fetch(ipBk + '/api/catalogue/products', {
+        method: 'get',
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json'
+        }
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.length !== 0) {
+            this.setState({data: response})
+            this.setState({iterarYa: true})
+            this.setState({loading: false})
+          } else {
+            this.setState({loading: false})
+          }
+        })
     } catch (error) {
+      this.setState({loading: false})
       console.log('No se pudo conectar con la red')
     }
   }
@@ -90,8 +188,8 @@ export default class Products extends Component {
         this.setState({isConnected: true})
         console.log('result goes here: ' + true)
       } else { // unsuccessful response
-        /* NOTE: React native often reacts strangely to offline uses and as such,
-        it may be necessary to directly set state here rather than to rely on a callback */
+        // NOTE: React native often reacts strangely to offline uses and as such,
+        // it may be necessary to directly set state here rather than to rely on a callback
         callback(false) // OR: this.state.splash = false
         this.setState({isConnected: false})
         console.log('result goes here: ' + false)
@@ -103,38 +201,111 @@ export default class Products extends Component {
   componentDidMount () {
     this.fetchData()
   }
+
   render () {
-    if (!this.state.isConnected) {
+    if (this.state.loading === false) {
       return (
         <View style={{ flex: 1 }}>
-          <BarraLateral {...this.props} title='Menu' />
-          <OfflineNotice />
-        </View>
-      )
-    } else {
-      return (
-        <View style={{ flex: 1 }}>
-          <StatusBar backgroundColor='#ec7801' barStyle='light-content' />
-          <BarraLateral {...this.props} title='Menu' />
           <ScrollView>
-            <SectionList
-              sections={this.state.sections}
-              keyExtractor={(item, index) => item.id}
+            <FlatList
+              data={this.state.data}
+              keyExtractor={(item, index) => index + item}
               renderItem={({item, index}) => {
                 return (
-                  <SectionListItem item={item} index={index} />
-                )
-              }}
-              renderSectionHeader={({section}) => {
-                return (
-                  <SectionHeader section={section} />
+                  <FlatListCategory
+                    item={item}
+                    index={index}
+                    navigation={this.props.navigation}
+                  />
                 )
               }}
             />
           </ScrollView>
         </View>
       )
+    } else {
+      return (
+        <Viewloading />
+      )
     }
+  }
+}
+
+// Screen Contenedor de los productos y Miembro del Stack de Products
+class Products extends Component {
+  static navigationOptions = ({ navigation, navigationOptions }) => {
+    const { params } = navigation.state
+
+    return {
+      title: params ? params.categoryName : 'Products'
+    }
+  }
+
+  render () {
+    const { params } = this.props.navigation.state
+    const products = params ? params.products : null
+
+    return (
+      <View>
+        <FlatList
+          data={products}
+          keyExtractor={(item, index) => item + index}
+          renderItem={({item, index}) => {
+            return (
+              <FlatListProduct
+                item={item}
+                index={index}
+              />
+            )
+          }}
+        />
+      </View>
+    )
+  }
+}
+
+// Stack del Menu
+const StackProduct = createStackNavigator(
+  {
+    Categories: Categories,
+    Products: Products
+  },
+  {
+    initialRouteName: 'Categories',
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#993300',
+        margin: 4
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
+  }
+)
+
+// Screen principal y total: Barra Superior + Contenedores
+export default class Menu extends Component {
+  static navigationOptions = ({ navigation }) => {
+    let drawerLabel = 'Prueba'
+    let drawerIcon = () => (
+      <Image
+        source={require('../images/home-icon.png')}
+        style={{ width: 26, height: 26, tintColor: backgroundColor }}
+      />
+    )
+    return {drawerLabel, drawerIcon}
+  }
+
+  render () {
+    return (
+      <View style={{ flex: 1 }}>
+        <StatusBar backgroundColor='#ec7801' barStyle='light-content' />
+        <BarraLateral {...this.props} title='Menu' />
+        <StackProduct />
+      </View>
+    )
   }
 }
 
@@ -158,4 +329,4 @@ const styles = StyleSheet.create({
   }
 })
 
-AppRegistry.registerComponent('Products', () => Products)
+AppRegistry.registerComponent('Menu', () => Menu)
