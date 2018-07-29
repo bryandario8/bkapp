@@ -48,6 +48,14 @@
     "standard-react-native": "^1.0.1"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "jest-react-native",
+    "transformIgnorePatterns": [
+      "/node_modules/(?!native-base)/"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "react-native"
+    ]
   }
 }

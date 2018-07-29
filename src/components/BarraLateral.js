@@ -10,7 +10,6 @@ import {
   Right,
   Body,
   Text
-  // Icon
 } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
 export default class BarraLateral extends Component {
