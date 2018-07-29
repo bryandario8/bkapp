@@ -9,7 +9,6 @@ import {
 import {
   Container,
   Input,
-  View,
   Item,
   Label,
   Form,
@@ -19,7 +18,7 @@ import {
 import BarraLateral from '../components/BarraLateral'
 import Viewloading from '../components/Viewloading'
 
-const ipBk = 'http://192.168.43.233:8000' // 'http://132.148.147.172:9999'
+const ipBk = 'http://192.168.1.3:8000' // 'http://132.148.147.172:9999'
 
 // registro
 export default class Registros extends Component {

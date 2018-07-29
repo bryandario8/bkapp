@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import {
   AppRegistry,
-  StyleSheet,
   View,
   StatusBar,
   FlatList,
   Image,
   ScrollView,
-  YellowBox
+  YellowBox,
+  TouchableOpacity
 } from 'react-native'
 import {
   Content,
@@ -16,61 +16,74 @@ import {
   Text,
   Right,
   Left,
-  Button,
-  Icon,
-  Body
+  Body,
+  Thumbnail,
+  ListItem,
+  List
 } from 'native-base'
 import { createStackNavigator } from 'react-navigation'
 import BarraLateral from '../components/BarraLateral'
 import Viewloading from '../components/Viewloading'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
 
-const backgroundColor = '#0067a7'
-const ipBk = 'http://192.168.43.233:8000' // 'http://132.148.147.172:9999'
+const colorMenu = '#993300'
+const ipBk = 'http://192.168.1.3:8000' // 'http://132.148.147.172:9999'
 
 // Screen con Productos de la Categoría seleccionada
 class FlatListProduct extends Component {
   render () {
     return (
-      <Content>
-        <Card>
-          <CardItem header style={{
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'center',
+      <View
+        style={{
+          alignItems: 'center'
+        }}
+      >
+        <Card
+          style={{
+            width: '80%'
+          }}
+        >
+          <CardItem bordered header style={{
             alignItems: 'center'
           }}>
-            <Body>
-              <Text>
-                {this.props.item.title}
-              </Text>
-            </Body>
-          </CardItem>
-          <CardItem cardBody>
-            <Body>
-              <Image
+            <View>
+              <Text
                 style={{
-                  height: 250,
-                  width: '90%',
-                  flex: 1,
-                  alignItems: 'center'
+                  color: colorMenu
                 }}
-                source={{
-                  uri: ipBk + this.props.item.image
-                }}
-              />
-            </Body>
+              >
+                {this.props.item.title.toUpperCase()}
+              </Text>
+            </View>
           </CardItem>
-          <CardItem footer>
-            <Body>
-              <Text>
+          <CardItem bordered cardBody>
+            <Image
+              style={{
+                height: 125,
+                width: 200,
+                flex: 1
+                // alignItems: 'center'
+              }}
+              source={{
+                uri: ipBk + this.props.item.image
+              }}
+            />
+          </CardItem>
+          <CardItem bordered footer>
+            <View>
+              <Text note
+                style={{
+                  margin: 0
+                }}
+              >
                 {this.props.item.description}
               </Text>
-            </Body>
+            </View>
           </CardItem>
         </Card>
-      </Content>
+      </View>
     )
   }
 }
@@ -80,46 +93,45 @@ class FlatListCategory extends Component {
   render () {
     return (
       <Content>
-        <Card>
-          <CardItem
+        <List>
+          <ListItem thumbnail
             button onPress={() => {
               this.props.navigation.navigate('Products', {
-                categoryName: this.props.item.name,
-                products: this.props.item.data
+                categoryName: this.props.item.name.toUpperCase(),
+                products: this.props.item.data,
+                navigation: this.props.navigation
               })
-            }}
-            style={{
-              margin: 2,
-              justifyContent: 'center'
             }}
           >
             <Left>
-              <Image
+              <Thumbnail square
                 source={{
                   uri: ipBk + this.props.item.image
-                }}
-                style={{
-                  height: 100,
-                  width: '50%',
-                  flex: 1
                 }}
               />
             </Left>
             <Body>
               <Text
                 style={{
-                  margin: 10,
-                  textAlignVertical: 'center'
+                  marginLeft: 15,
+                  textAlignVertical: 'center',
+                  fontWeight: 'bold',
+                  color: colorMenu
                 }}
               >
-                {this.props.item.name}
+                {this.props.item.name.toUpperCase()}
               </Text>
             </Body>
             <Right>
-              <Icon name='arrow-forward' />
+              <Icon type='FontAwesome' name='chevron-right'
+                style={{
+                  fontSize: 20,
+                  color: colorMenu
+                }}
+              />
             </Right>
-          </CardItem>
-        </Card>
+          </ListItem>
+        </List>
       </Content>
     )
   }
@@ -131,7 +143,12 @@ class Categories extends Component {
     const params = navigation.state.params || {}
 
     return {
-      title: 'Categorías'
+      title: 'CATEGORIAS',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        fontSize: 15,
+        marginLeft: 20
+      }
     }
   }
 
@@ -234,7 +251,24 @@ class Products extends Component {
     const { params } = navigation.state
 
     return {
-      title: params ? params.categoryName : 'Products'
+      title: params ? params.categoryName : 'Products',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        fontSize: 15,
+        marginLeft: 0
+      },
+      headerLeft:
+  <TouchableOpacity
+    style={{marginLeft: 20}}
+    onPress={() => { navigation.goBack() }}
+  >
+    <Icon type='FontAwesome' name='chevron-left'
+      style={{
+        fontSize: 15,
+        color: '#fff'
+      }}
+    />
+  </TouchableOpacity>
     }
   }
 
@@ -271,13 +305,11 @@ const StackProduct = createStackNavigator(
     initialRouteName: 'Categories',
     navigationOptions: {
       headerStyle: {
-        backgroundColor: '#993300',
-        margin: 4
+        backgroundColor: colorMenu, // marrón tambien para flechas
+        marginBottom: 5,
+        height: 40
       },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold'
-      }
+      headerTintColor: '#fff'
     }
   }
 )
@@ -289,7 +321,7 @@ export default class Menu extends Component {
     let drawerIcon = () => (
       <Image
         source={require('../images/home-icon.png')}
-        style={{ width: 26, height: 26, tintColor: backgroundColor }}
+        style={{ width: 26, height: 26, tintColor: colorMenu }}
       />
     )
     return {drawerLabel, drawerIcon}
@@ -305,25 +337,5 @@ export default class Menu extends Component {
     )
   }
 }
-
-// Estilos de los componentes
-const styles = StyleSheet.create({
-  flatListItem: {
-    color: 'gray',
-    padding: 5,
-    fontSize: 12
-  },
-  productBox: {
-    padding: 5,
-    marginHorizontal: 10,
-    borderColor: '#faaf18',
-    borderBottomWidth: 2
-  },
-  pageName: {
-    margin: 10,
-    color: '#185494',
-    textAlign: 'center'
-  }
-})
 
 AppRegistry.registerComponent('Menu', () => Menu)
