@@ -30,7 +30,7 @@ import Viewloading from '../components/Viewloading'
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
 
 const backgroundColor = '#0067a7'
-const ipBk = 'http://192.168.1.15:8000' // 'http://132.148.147.172:9999'
+const ipBk = 'http: 192.168.43.233:8000' //'http://132.148.147.172:9999'
 
 // Screen con Productos de la Categoría seleccionada
 class FlatListProduct extends Component {
