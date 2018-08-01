@@ -1,6 +1,6 @@
 import 'react-native'
 import React from 'react'
-import Propaganda from '../src/pages/Propaganda'
+import Registros from '../src/pages/Registros'
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer'
@@ -15,8 +15,8 @@ afterEach(() => {
 })
 
 /* eslint-env mocha */
-test('renders correctly cp', () => {
+test('renders correctly CP', () => {
   const tree = renderer.create(
-    <Propaganda />
+    <Registros />
   )
 })

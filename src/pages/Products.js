@@ -7,7 +7,8 @@ import {
   Image,
   ScrollView,
   YellowBox,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground
 } from 'react-native'
 import {
   Content,
@@ -66,46 +67,67 @@ class FlatListProduct extends Component {
 
   render () {
     return (
-      <View style={{ alignItems: 'center' }}>
-        <Card style={{ width: '80%' }}>
-          <CardItem bordered header style={{
+      <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1, marginBottom: 5 }}>
+        <ImageBackground source={require('../images/wooden.jpg')}
+          style={{
+            justifyContent: 'center',
+            height: '95%',
+            width: null,
+            flexGrow: 1,
             alignItems: 'center',
-            height: 30
-          }}>
-            <View>
-              <Text style={{ color: colorMenu, fontSize: 12 }}>
-                {this.props.item.title.toUpperCase()}
-              </Text>
-            </View>
-          </CardItem>
-          <CardItem bordered cardBody button
-            onPress={ () =>
-              {
-                this.handleSelectImage(this.props.item.id)
-                
-              }
-            }
-          >
-            <Image
+            position: 'relative',
+            top: 10
+          }}
+        >
+          <Card style={{ width: '80%', backgroundColor: 'transparent' }}>
+            <CardItem bordered header
               style={{
-                height: 125,
-                width: 200,
-                flex: 1
-                // alignItems: 'center'
+                alignItems: 'center',
+                height: 30,
+                backgroundColor: 'transparent'
               }}
-              source={{
-                uri: ipBk + this.props.item.image
+            >
+              <View>
+                <Text style={{ color: colorMenu, fontSize: 12 }}>
+                  {this.props.item.title.toUpperCase()}
+                </Text>
+              </View>
+            </CardItem>
+            <CardItem bordered cardBody button
+              onPress={ () =>
+                {
+                  this.handleSelectImage(this.props.item.id)
+                  
+                }
+              }
+            >
+              <Image
+                style={{
+                  height: 125,
+                  width: 200,
+                  flex: 1
+                  // alignItems: 'center'
+                }}
+                source={{
+                  uri: ipBk + this.props.item.image
+                }}
+              />
+            </CardItem>
+            <CardItem bordered footer 
+              style={{
+                alignItems: 'center',
+                height: 30,
+                backgroundColor: 'transparent'
               }}
-            />
-          </CardItem>
-          <CardItem bordered footer>
-            <View>
-              <Text note style={{ fontSize: 10 }}>
-                {this.props.item.description}
-              </Text>
-            </View>
-          </CardItem>
-        </Card>
+            >
+              <View>
+                <Text note style={{ fontSize: 10 }}>
+                  {this.props.item.description}
+                </Text>
+              </View>
+            </CardItem>
+          </Card>
+        </ImageBackground>
       </View>
     )
   }
