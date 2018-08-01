@@ -33,32 +33,59 @@ const ipBk = 'http://192.168.1.3:8000' // 'http://132.148.147.172:9999'
 
 // Screen con Productos de la Categoría seleccionada
 class FlatListProduct extends Component {
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      isSelected: false,
+      imageSelected: 0
+    }
+  }
+
+  handleSelectImage (imageKey) {
+    this.setState({ imageSelected: imageKey })
+    window.alert(this.state.imageSelected)
+  }
+
+  fetchId = async () => {
+    try {
+      fetch (ipBk, {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: this.state.imageSelected
+        })
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   render () {
     return (
-      <View
-        style={{
-          alignItems: 'center'
-        }}
-      >
-        <Card
-          style={{
-            width: '80%'
-          }}
-        >
+      <View style={{ alignItems: 'center' }}>
+        <Card style={{ width: '80%' }}>
           <CardItem bordered header style={{
-            alignItems: 'center'
+            alignItems: 'center',
+            height: 30
           }}>
             <View>
-              <Text
-                style={{
-                  color: colorMenu
-                }}
-              >
+              <Text style={{ color: colorMenu, fontSize: 12 }}>
                 {this.props.item.title.toUpperCase()}
               </Text>
             </View>
           </CardItem>
-          <CardItem bordered cardBody>
+          <CardItem bordered cardBody button
+            onPress={ () =>
+              {
+                this.handleSelectImage(this.props.item.id)
+                
+              }
+            }
+          >
             <Image
               style={{
                 height: 125,
@@ -73,11 +100,7 @@ class FlatListProduct extends Component {
           </CardItem>
           <CardItem bordered footer>
             <View>
-              <Text note
-                style={{
-                  margin: 0
-                }}
-              >
+              <Text note style={{ fontSize: 10 }}>
                 {this.props.item.description}
               </Text>
             </View>
@@ -258,17 +281,17 @@ class Products extends Component {
         marginLeft: 0
       },
       headerLeft:
-  <TouchableOpacity
-    style={{marginLeft: 20}}
-    onPress={() => { navigation.goBack() }}
-  >
-    <Icon type='FontAwesome' name='chevron-left'
-      style={{
-        fontSize: 15,
-        color: '#fff'
-      }}
-    />
-  </TouchableOpacity>
+        <TouchableOpacity
+          style={{marginLeft: 20}}
+          onPress={() => { navigation.goBack() }}
+        >
+          <Icon type='FontAwesome' name='chevron-left'
+            style={{
+              fontSize: 15,
+              color: '#fff'
+            }}
+          />
+        </TouchableOpacity>
     }
   }
 

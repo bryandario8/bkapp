@@ -47,6 +47,7 @@
     "standard-react-native": "^1.0.1"
   },
   "jest": {
+    "verbose": true,
     "preset": "jest-react-native",
     "transformIgnorePatterns": [
       "/node_modules/(?!native-base)/"
@@ -56,5 +57,8 @@
     "presets": [
       "react-native"
     ]
+  },
+  "globals": {
+    "window": true
   }
 }
