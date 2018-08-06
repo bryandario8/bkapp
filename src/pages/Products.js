@@ -27,7 +27,9 @@ import BarraLateral from '../components/BarraLateral'
 import Viewloading from '../components/Viewloading'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
+// Desactiva la alerta del warning producido por un metodo no utilizado
+// de react-navigation en la actual version de react. En produccion esto no se reflejado.
+// YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
 
 const colorMenu = '#993300'
 const ipBk = 'http://192.168.1.3:8000' // 'http://132.148.147.172:9999'
@@ -47,7 +49,8 @@ class FlatListProduct extends Component {
     this.setState({ imageSelected: imageKey })
     window.alert(this.state.imageSelected)
   }
-
+  
+  // Envia los IDs de las imagenes presionadas por el usuario
   fetchId = async () => {
     try {
       fetch (ipBk, {
@@ -71,7 +74,7 @@ class FlatListProduct extends Component {
         <ImageBackground source={require('../images/wooden.jpg')}
           style={{
             justifyContent: 'center',
-            height: '95%',
+            height: '98%',
             width: null,
             flexGrow: 1,
             alignItems: 'center',
@@ -116,7 +119,6 @@ class FlatListProduct extends Component {
             <CardItem bordered footer 
               style={{
                 alignItems: 'center',
-                height: 30,
                 backgroundColor: 'transparent'
               }}
             >
@@ -183,7 +185,7 @@ class FlatListCategory extends Component {
 }
 
 // Screen Contenedor de las Categorías y Miembro del Stack de Products
-class Categories extends Component {
+export class Categories extends Component {
   static navigationOptions = ({ navigation }) => {
     const params = navigation.state.params || {}
 
@@ -203,10 +205,20 @@ class Categories extends Component {
       data: [],
       names: [],
       loading: false,
-      iterarYa: false
+      iterarYa: false,
+      isConnected: false
     }
   }
 
+  // Recupera el json de productos listados por categoria
+  // {
+  //   name = nombre de categoria
+  //   data : {
+  //     id = id del producto,
+  //     title = nombre del producto,
+  //     description = descripcion del producto
+  //   }
+  // }
   fetchData = async () => {
     try {
       this.setState({loading: true})
@@ -225,6 +237,7 @@ class Categories extends Component {
             this.setState({loading: false})
           } else {
             this.setState({loading: false})
+            this.refresh()
           }
         })
     } catch (error) {
@@ -235,21 +248,23 @@ class Categories extends Component {
   // LOGIC: Send a http request and use the response to determine the connectivity state
   refresh (callback) {
     var xhr = new XMLHttpRequest()
-    xhr.open('GET', 'http://132.148.147.172:9999/admin')
-    xhr.onreadystatechange = (e) => {
+    xhr.open('GET', 'https://www.google.com' ) //'http://132.148.147.172:9999/admin')
+    xhr.onreadystatechange = (e) => {  // para probar conectividad con internet
       if (xhr.readyState !== 4) { // code for completed request
+        // alert(xhr.readyState)
         return
       }
       console.log('--- STATUS ---')
       console.log(xhr.status)
+      // alert(xhr.status)
       if (xhr.status === 200) { // successful response
-        callback(true)
+        // callback(true)
         this.setState({isConnected: true})
         console.log('result goes here: ' + true)
       } else { // unsuccessful response
         // NOTE: React native often reacts strangely to offline uses and as such,
         // it may be necessary to directly set state here rather than to rely on a callback
-        callback(false) // OR: this.state.splash = false
+        // callback(false) // OR: this.state.splash = false
         this.setState({isConnected: false})
         console.log('result goes here: ' + false)
       }
@@ -291,7 +306,7 @@ class Categories extends Component {
 }
 
 // Screen Contenedor de los productos y Miembro del Stack de Products
-class Products extends Component {
+export class Products extends Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
     const { params } = navigation.state
 
@@ -362,7 +377,7 @@ const StackProduct = createStackNavigator(
 // Screen principal y total: Barra Superior + Contenedores
 export default class Menu extends Component {
   static navigationOptions = ({ navigation }) => {
-    let drawerLabel = 'Prueba'
+    let drawerLabel = 'Menu'
     let drawerIcon = () => (
       <Image
         source={require('../images/home-icon.png')}

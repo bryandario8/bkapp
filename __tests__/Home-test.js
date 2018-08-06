@@ -15,8 +15,9 @@ afterEach(() => {
 })
 
 /* eslint-env mocha */
-test('renders correctly cp', () => {
+test('renders correctly Home cp001', () => {
   const tree = renderer.create(
     <Propaganda />
-  )
+  ).toJSON()
+  expect(tree).toMatchSnapshot()
 })

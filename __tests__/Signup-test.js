@@ -15,8 +15,9 @@ afterEach(() => {
 })
 
 /* eslint-env mocha */
-test('renders correctly CP', () => {
+test('renders correctly Signup cp006', () => {
   const tree = renderer.create(
     <Registros />
-  )
+  ).toJSON()
+  expect(tree).toMatchSnapshot()
 })

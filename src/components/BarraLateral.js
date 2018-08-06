@@ -23,10 +23,12 @@ export default class BarraLateral extends Component {
   render () {
     return (
       <View style={{
-        flex: 0
+        flex: 0,
+        height: 45
       }}>
         <Header style={{
-          backgroundColor: '#ec7801'
+          backgroundColor: '#ec7801',
+          height: 45
         }}>
           <Left>
             <Button transparent onPress={() => { this.props.navigation.openDrawer() }}>
@@ -34,14 +36,14 @@ export default class BarraLateral extends Component {
             </Button>
           </Left>
           <Body>
-            <Title style={{fontSize: 30, fontWeight: '500', color: 'white'}}>{this.props.title}</Title>
+            <Title style={{fontSize: 22, fontWeight: '400', color: 'white'}}>{this.props.title}</Title>
           </Body>
           <Right>
             <Button transparent
               onPress={() => this.props.navigation.navigate('Login')}
             >
-              <Icon type='FontAwesome' name='sign-in' style={{fontSize: 20, color: 'white'}} />
-              <Text>Login</Text>
+              <Icon type='FontAwesome' name='sign-in' style={{fontSize: 18, color: 'white'}} />
+              <Text style={{fontSize: 10, paddingLeft: 8, top: 0}} >Login</Text>
             </Button>
           </Right>
         </Header>

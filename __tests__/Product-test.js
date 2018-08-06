@@ -1,6 +1,6 @@
 import 'react-native'
 import React from 'react'
-import Menu from '../src/pages/Products'
+import {Categories, Products} from '../src/pages/Products'
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer'
@@ -15,8 +15,17 @@ afterEach(() => {
 })
 
 /* eslint-env mocha */
-test('renders correctly cp', () => {   // Corregir prueba
+test('renders correctly Categories cp003', () => {   // Corregir prueba
   const tree = renderer.create(
-    <Menu />
-  )
+    <Categories />
+  ).toJSON()
+  expect(tree).toMatchSnapshot()
+})
+
+/* eslint-env mocha */
+test('renders correctly Products cp002', () => {   // Corregir prueba
+  const tree = renderer.create(
+    <Products />
+  ).toJSON()
+  expect(tree).toMatchSnapshot()
 })
