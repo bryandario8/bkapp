@@ -12,7 +12,7 @@ android:
   install:
     - npm install
   script:
-    - ./gradle build connectedCheck
+    - ./gradlew build connectedCheck
     - npm test
   branches:
     only:
