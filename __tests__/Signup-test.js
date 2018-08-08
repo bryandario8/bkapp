@@ -6,7 +6,7 @@ import Registros from '../src/pages/Registros'
 import renderer from 'react-test-renderer'
 
 beforeEach(() => {
-  jest.spyOn(console, 'error')
+  jest.spyOn(global.console, 'error')
   global.console.error.mockImplementation(() => {})
 })
 
