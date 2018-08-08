@@ -8,11 +8,12 @@ android:
     directories:
       - node_modules
   before-install:
-    - yes | sdkmanager "platforms;android-27"
+    - yes | sdkmanager "platforms;android-23"
   install:
     - npm install
   script:
-    - ./gradlew build connectedCheck
+    - bundle exec gradle check
+    - bundle exec gradlew check 
     - npm test
   branches:
     only:
