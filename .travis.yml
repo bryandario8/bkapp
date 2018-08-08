@@ -12,7 +12,6 @@ android:
     - cd andrpoid && ./gradle build connectedCheck
   install:
     - npm install
-    - ant deps
   script:
     - npm test
     - npm run build
