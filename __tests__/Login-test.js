@@ -18,6 +18,5 @@ afterEach(() => {
 test('renders correctly Login cp005', () => {
   const tree = renderer.create(
     <Signup />
-  ).toJSON()
-  expect(tree).toMatchSnapshot()
+  )
 })
