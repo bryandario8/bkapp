@@ -7,13 +7,10 @@ android:
   cache:
     directories:
       - node_modules
-  before-install:
-    - yes | sdkmanager "platforms;android-23"
   install:
     - npm install
-    - cd android && gradle assemble && ./gradlew assemble
+    - cd android && gradlew.bat
   script:
-    - cd android && gradle check && ./gradlew check 
     - npm test
   branches:
     only:
