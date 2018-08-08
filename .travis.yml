@@ -1,0 +1,20 @@
+language: android
+android:
+  components:
+    - build-tools-23.0.1
+    - android-23
+    - extra
+  cache:
+    directories:
+      - node_modules
+  before-install:
+    - node --version
+  install:
+    - npm install
+    - ant deps
+  script:
+    - npm test
+    - npm run build
+  branches:
+    only:
+      - master
