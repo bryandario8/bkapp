@@ -29,10 +29,10 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 // Desactiva la alerta del warning producido por un metodo no utilizado
 // de react-navigation en la actual version de react. En produccion esto no se reflejado.
-// YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
 
 const colorMenu = '#993300'
-const ipBk = 'http://192.168.1.3:8000' // 'http://132.148.147.172:9999'
+const ipBk = 'http://132.148.147.172:9999'
 
 // Screen con Productos de la Categoría seleccionada
 class FlatListProduct extends Component {
