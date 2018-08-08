@@ -11,9 +11,9 @@ android:
     - yes | sdkmanager "platforms;android-23"
   install:
     - npm install
+    - cd android && gradle assemble && ./gradlew assemble
   script:
-    - bundle exec gradle check
-    - bundle exec gradlew check 
+    - cd android && gradle check && ./gradlew check 
     - npm test
   branches:
     only:
