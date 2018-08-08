@@ -9,6 +9,7 @@ android:
       - node_modules
   before-install:
     - node --version
+    - cd andrpoid && ./gradle build connectedCheck
   install:
     - npm install
     - ant deps
