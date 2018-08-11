@@ -10,7 +10,7 @@ import BarraLateral from '../components/BarraLateral'
 import Viewloading from '../components/Viewloading'
 
 var {width} = Dimensions.get('window').width
-const ipBk = 'http://192.168.1.3:8000' // 'http://132.148.147.172:9999'
+const ipBk = 'http://132.148.147.172:9999'
 
 export default class Propanganda extends Component {
   constructor (props) {

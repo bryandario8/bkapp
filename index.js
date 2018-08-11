@@ -18,7 +18,8 @@ export const Stack = createSwitchNavigator(
     Register: {screen: Registros}
   },
   {
-    initialRouteName: 'Home'}
+    initialRouteName: 'Home'
+  }
 )
 
 let routeConfigs = {
