@@ -1,18 +1,18 @@
-languaje: android
-android:
-  components:
-    - build-tools-23.0.1
-    - android-23
-    - extra
-  cache:
-    directories:
-      - node_modules
-  before-install:
-    - node --version
-  install:
-    npm install
-  script:
-    - npm test
-  branches:
-    only:
-      - master
+language: node_js
+
+node_js:
+  - "8.0.0"
+
+cache:
+  directories:
+    - node_modules
+
+install:
+  - npm install
+
+script:
+  - npm test
+
+branches:
+  only:
+    - master
