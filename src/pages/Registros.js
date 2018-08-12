@@ -392,6 +392,7 @@ export default class Registros extends Component {
                   <Label>Celular</Label>
                   <Input keyboardType={'numeric'} onChangeText={(cell) => this.validador(cell,'celular')} maxLength={10}/>
                 </Item>
+                <Text style={{color: 'red'}}>{this.state.errorPhone}</Text>
                 <TouchableOpacity onPress={this.Login.bind(this)} style={styles.button}>
                   <Text style={styles.buttonText}>Enviar</Text>
                 </TouchableOpacity>

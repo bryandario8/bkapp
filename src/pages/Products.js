@@ -378,13 +378,7 @@ const StackProduct = createStackNavigator(
 export default class Menu extends Component {
   static navigationOptions = ({ navigation }) => {
     let drawerLabel = 'Menu'
-    let drawerIcon = () => (
-      <Image
-        source={require('../images/home-icon.png')}
-        style={{ width: 26, height: 26, tintColor: colorMenu }}
-      />
-    )
-    return {drawerLabel, drawerIcon}
+    return {drawerLabel}
   }
 
   render () {
