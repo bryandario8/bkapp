@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import {
   Image,
   AppRegistry,
-  StyleSheet,
-  Modal,
-  TouchableWithoutFeedback
+  StyleSheet
 } from 'react-native'
 import {
   Container,
@@ -12,7 +10,9 @@ import {
   DeckSwiper,
   Card,
   CardItem,
-  Text
+  Text,
+  Button,
+  Icon
 } from 'native-base'
 import BarraLateral from '../components/BarraLateral'
 import Viewloading from '../components/Viewloading'
@@ -24,9 +24,7 @@ export default class Cupones extends Component {
     this.state = {
       cards: '',
       loading: true,
-      vacio: false,
-      modalVisible: false,
-      modalImage: ''
+      vacio: false
     }
   }
 
@@ -59,43 +57,33 @@ export default class Cupones extends Component {
  componentDidMount () {
    this.fetchData()
  }
- setModalVisible (visible, imageuri) {
-   this.setState({modalImage: imageuri})
-   this.setState({modalVisible: visible})
- }
 
  render () {
    if (this.state.loading === false) {
      return (
        <Container>
-         <Modal
-           animationType='fade'
-           transparent
-           visible={this.state.modalVisible}
-           onRequestClose={() => {}}>
-           <View style={styles.modal}>
-             <Text onPress={() => {
-               this.setModalVisible(!this.state.modalVisible)
-             }} style={{color: '#fff'}}> Cerrar </Text>
-             <Image style={styles.imagemodal} source={{uri: this.state.modalImage}} />
-           </View>
-
-         </Modal>
          <BarraLateral {...this.props} title='Cupones' />
-         <View>
+         <View style={styles.views}>
            <DeckSwiper
+              ref={(c) => this._deckSwiper = c}
              dataSource={this.state.cards}
              renderItem={item =>
                <Card style={{ elevation: 3 }}>
-                 <CardItem cardBody>
-                   <TouchableWithoutFeedback onPress={() => { this.setModalVisible(true, ipBk + item.image) }}>
-                     <Image style={{ height: 300, flex: 1 }} source={{uri: ipBk + item.image}} />
-                   </TouchableWithoutFeedback>
+                 <CardItem style={{ flex: 1}} cardBody>
+                   <Image style={{ height: 300, width: '100%'}} source={{uri: ipBk + item.image}} />
                  </CardItem>
                </Card>
              }
            />
          </View>
+         <View style={{ flexDirection: "row", flex: 1, position: "absolute", bottom: 50, left: 0, right: 0, justifyContent: 'space-between', padding: 15 }}>
+          <Button onPress={() => this._deckSwiper._root.swipeLeft()} rounded warning>
+            <Icon name="arrow-back" />
+          </Button>
+          <Button style={styles.iconos} onPress={() => this._deckSwiper._root.swipeRight()} rounded warning>
+            <Icon name="arrow-forward" />
+          </Button>
+        </View>
        </Container>
      )
    } else {
@@ -104,14 +92,17 @@ export default class Cupones extends Component {
  }
 }
 const styles = StyleSheet.create({
-  modal: {
+  views: {
     flex: 1,
-    padding: 40,
-    backgroundColor: 'rgba(0,0,0,0.9)'
+    paddingTop:60,
+    paddingBottom: 0,
+    paddingLeft: 15,
+    paddingRight: 15
+
   },
-  imagemodal: {
-    flex: 1,
-    width: null
+   iconos: {
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 })
 AppRegistry.registerComponent('Cupones', () => Cupones)

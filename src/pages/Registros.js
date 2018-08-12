@@ -32,12 +32,12 @@ export default class Registros extends Component {
       last_name: '',
       phone: '',
       province: '',
-      oldprovince: '',
       city: '',
       sector: '',
       provincia: [],
       ciudad: [],
-      loading: true
+      loading: true,
+      cambioProvincia: false
     }
   }
   // get de ciudad
@@ -93,15 +93,125 @@ export default class Registros extends Component {
 
   // imprimir las etiquetas de ciudad
   ciudad () {
-    if (this.state.province !== this.state.oldprovince) {
-      this.fechtCiudad(this.state.province)
-      if (this.state.ciudad.length !== 0) {
-        return this.state.ciudad.map((data) => {
-          return (<Picker.Item label={data.name} value={data.id} key={data.id} />)
-        })
-        this.setState({oldprovince: this.state.province})
-      }
+    switch (this.state.cambioProvincia) {
+        case true:
+          this.fechtCiudad(this.state.province)
+          this.setState({cambioProvincia: false})
+          break
+        case false:
+          if (this.state.ciudad.length !== 0) {
+              return this.state.ciudad.map((data) => {
+                return (<Picker.Item label={data.name} value={data.id} key={data.id} />)
+              })
+            }
+            break
+          }
+    
+  }
+  //Valida en tiempo real los campos ingresados
+  validador(valor,tipo){
+    switch(tipo){
+      case 'usernam':
+        this.setState({errorUser: ''})
+        this.setState({username: valor})
+         if(this.state.username.length >= 4 ) { 
+            if(/^[A-Za-z][A-Za-z0-9._%+-]+/i.test(this.state.username) ) { 
+                this.setState({errorUser: ''})
+            }else{
+              this.setState({errorUser: 'Ingrese un usuario valido'})
+            }
+         }else if(this.state.username == '' ){ 
+                this.setState({errorUser: 'Obligatorio'})
+         }else{
+            this.setState({errorUser: 'Invalido'})
+         }
+         break
+       case 'correo':
+        this.setState({errorEmail: ''})
+        this.setState({email: valor})
+         if(/^[A-Z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z]{2,4}$/i.test(this.state.email)) { 
+            this.setState({errorEmail: ''})
+         }else if(this.state.email == '' ){ 
+                this.setState({errorEmail: 'Obligatorio'})
+         }else{
+            this.setState({errorEmail: 'Ingrese un correo valido'})
+         }
+          break
+        case 'nombre':
+          this.setState({errorNombre: ''})
+          this.setState({first_name: valor})
+           if(/[A-Za-z]+/i.test(this.state.first_name) ) { 
+            if (this.state.first_name.length >= 3) {
+              this.setState({errorNombre: ''})
+            }else{ 
+              this.setState({errorNombre: 'Ingrese un nombre valido'})
+            }
+              
+           }else if(this.state.first_name == '' ){ 
+                  this.setState({errorNombre: 'Obligatorio'})
+           }else{
+              this.setState({errorNombre: 'Ingrese un nombre valido'})
+           }
+          break
+        case 'apellido':
+            this.setState({errorApellido: ''})
+            this.setState({last_name: valor})
+             if(/[A-Za-z]+/i.test(this.state.last_name) ) { 
+              if (this.state.last_name.length >= 3) {
+                this.setState({errorApellido: ''})
+              }else{ 
+                this.setState({errorApellido: 'Ingrese un apellido valido'})
+              }
+                
+             }else if(this.state.last_name == '' ){ 
+                    this.setState({errorApellido: 'Obligatorio'})
+             }else{
+                this.setState({errorApellido: 'Ingrese un apellido valido'})
+             }
+          break
+        case 'sectors':
+            this.setState({errorSector: ''})
+            this.setState({sector: valor})
+             if(/[A-Za-z0-9.#-]+\s/i.test(this.state.sector) ) { 
+              if (this.state.sector.length >= 3) {
+                this.setState({errorSector: ''})
+              }else{ 
+                this.setState({errorSector: 'Ingrese un sector valido'})
+              }
+                
+             }else if(this.state.sector == '' ){ 
+                    this.setState({errorSector: 'Obligatorio'})
+             }else{
+                this.setState({errorSector: 'Ingrese un sector valido'})
+             }
+          break
+        case 'celular':
+          this.setState({errorPhone: ''})
+           this.setState({phone: valor})
+           if (/[0-9]{10}/i.test(this.state.phone)) {
+              this.setState({errorPhone: ''})
+           }else{
+              this.setState({errorPhone: 'Ingrese un numero valido'})
+           }
+          break
+        case 'passs':
+           this.setState({errorPass: ''})
+           this.setState({password: valor})
+           if (this.state.password.length >= 6 ) {
+              if (/[A-Za-z._%+-]+[0-9.-]+\.[A-Z]{2,4}$/i.test(this.state.password)) {
+                this.setState({errorPass: ''})
+              }else {
+                this.setState({errorPass: 'Ingrese numero, letra y un caracter especial'})
+               }
+           }else if (this.state.password == '') {
+              this.setState({errorPass: 'Obligatorio'})
+           }else{
+              this.setState({errorPass: 'Ingrese numero, letra y un caracter especial'})
+              
+           }
+          break
     }
+     
   }
 
   async Login () {
@@ -109,6 +219,7 @@ export default class Registros extends Component {
     if (this.state.username === '') {
       this.setState({errorUser: 'Obligatorio'})
     } else {
+      
       this.setState({errorUser: ''})
     }
     // validar email
@@ -122,7 +233,7 @@ export default class Registros extends Component {
     // validar contrasenia
     if (this.state.password === '') {
       this.setState({errorPass: 'Obligatorio'})
-    } else if (this.state.password.length < 4) {
+    } else if (this.state.password.length < 6) {
       this.setState({errorPass: 'Ingrese numero, letra y un caracter especial'})
     } else {
       this.setState({errorPass: ''})
@@ -157,6 +268,16 @@ export default class Registros extends Component {
     } else {
       this.setState({errorSector: ''})
     }
+
+    // validar sector
+    if (this.state.phone != '') {
+      if (/[0-9]{10}/i.test(this.state.phone)) {
+        this.setState({errorPhone: ''})
+      }
+    } else {
+      this.setState({errorPhone: 'Ingrese un numero valido'})
+    }
+
     // envio de datos al servidor
     if (this.state.username.length !== 0 && this.state.email.length !== 0 &&
       this.state.password.length !== 0 && this.state.first_name.length !== 0 &&
@@ -171,7 +292,8 @@ export default class Registros extends Component {
         phone: this.state.phone,
         province: this.state.province,
         city: this.state.city,
-        sector: this.state.sector
+        sector: this.state.sector,
+        phone: this.state.phone
       }
       try {
         window.fetch(ipBk + '/api/signup/', {
@@ -210,48 +332,46 @@ export default class Registros extends Component {
           <ScrollView keyboardDismissMode='interactive'>
             <Content style={styles.contenido}>
               <Form>
-                <Item inlineLabel >
+                <Item stackedLabel>
                   <Label>Username</Label>
-                  <Input onChangeText={(usuario) => this.setState({username: usuario})} />
+                  <Input  onChangeText={(usuario) => this.validador(usuario,'usernam')} maxLength={20}/>
                 </Item>
                 <Text style={{color: 'red', marginLeft: 20}}>{this.state.errorUser}</Text>
-
-                <Item inlineLabel >
+                <Item stackedLabel >
                   <Label>Email</Label>
-                  <Input onChangeText={(email) => this.setState({email: email})} />
+                  <Input onChangeText={(email) => this.validador(email,'correo')} maxLength={30}/>
                 </Item>
                 <Text style={{color: 'red'}}>{this.state.errorEmail}</Text>
 
-                <Item inlineLabel >
+                <Item stackedLabel >
                   <Label>Password</Label>
-                  <Input secureTextEntry onChangeText={(pass) => this.setState({password: pass})} />
+                  <Input secureTextEntry onChangeText={(pass) => this.validador(pass,'passs')} maxLength={20}/>
                 </Item>
                 <Text style={{color: 'red'}}>{this.state.errorPass}</Text>
-
-                <Item inlineLabel >
+                <Item stackedLabel >
                   <Label>Nombre</Label>
-                  <Input onChangeText={(nombre) => this.setState({first_name: nombre})} />
+                  <Input onChangeText={(nombre) => this.validador(nombre,'nombre')} maxLength={20}/>
                 </Item>
                 <Text style={{color: 'red'}}>{this.state.errorNombre}</Text>
 
-                <Item inlineLabel >
+                <Item stackedLabel >
                   <Label>Apellido</Label>
-                  <Input onChangeText={(apellido) => this.setState({last_name: apellido})} />
+                  <Input onChangeText={(apellido) => this.validador(apellido,'apellido')} maxLength={20}/>
                 </Item>
                 <Text style={{color: 'red'}}>{this.state.errorApellido}</Text>
 
-                <Item inlineLabel>
+                <Item stackedLabel>
                   <Label>Provincia</Label>
                   <Picker
                     selectedValue={this.state.province}
                     style={{ height: 50, width: '100%' }}
-                    onValueChange={(itemValue, itemIndex) => this.setState({province: itemValue})}>
+                    onValueChange={(itemValue, itemIndex) => this.setState({province: itemValue,cambioProvincia: true})}>
                     {this.provincias()}
                   </Picker>
                   <Text style={{color: 'red'}}>{this.state.errorProvincia}</Text>
                 </Item>
 
-                <Item inlineLabel>
+                <Item stackedLabel>
                   <Label>Ciudad</Label>
                   <Picker
                     selectedValue={this.state.city}
@@ -262,15 +382,15 @@ export default class Registros extends Component {
                   <Text style={{color: 'red'}}>{this.state.errorCiudad}</Text>
                 </Item>
 
-                <Item inlineLabel >
+                <Item stackedLabel >
                   <Label>Sector</Label>
-                  <Input onChangeText={(sector) => this.setState({sector: sector})} />
+                  <Input onChangeText={(sector) => this.validador(sector,'sectors')} />
                 </Item>
                 <Text style={{color: 'red'}}>{this.state.errorSector}</Text>
 
-                <Item inlineLabel >
+                <Item stackedLabel >
                   <Label>Celular</Label>
-                  <Input keyboardType={'numeric'} onChangeText={(cell) => this.setState({phone: cell})} />
+                  <Input keyboardType={'numeric'} onChangeText={(cell) => this.validador(cell,'celular')} maxLength={10}/>
                 </Item>
                 <TouchableOpacity onPress={this.Login.bind(this)} style={styles.button}>
                   <Text style={styles.buttonText}>Enviar</Text>

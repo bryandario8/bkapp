@@ -38,10 +38,7 @@ class SideMenu extends Component {
               Cupones
             </Text>
             <Text style={styles.texto} onPress={this.navigateToScreen('Signups')}>
-              Acceder
-            </Text>
-            <Text style={styles.texto} onPress={this.navigateToScreen('Register')}>
-              Registro
+              Iniciar Sesión
             </Text>
           </ScrollView>
           <View style={styles.footerContainer}>
