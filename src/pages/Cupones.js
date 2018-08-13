@@ -17,6 +17,7 @@ import {
 import BarraLateral from '../components/BarraLateral'
 import Viewloading from '../components/Viewloading'
 
+//direccion ip del servidor
 const ipBk = 'http://132.148.147.172:9999'
 export default class Cupones extends Component {
   constructor (props) {
@@ -27,7 +28,7 @@ export default class Cupones extends Component {
       vacio: false
     }
   }
-
+//Get de datos de las imagenes de los cupones
  fetchData = async () => {
    try {
      this.setState({loading: true})
@@ -54,10 +55,12 @@ export default class Cupones extends Component {
      console(error)
    }
  };
+ //activar el fetchData
  componentDidMount () {
    this.fetchData()
  }
 
+//renderizar la salida de datos
  render () {
    if (this.state.loading === false) {
      return (
@@ -69,8 +72,8 @@ export default class Cupones extends Component {
              dataSource={this.state.cards}
              renderItem={item =>
                <Card style={{ elevation: 3 }}>
-                 <CardItem style={{ flex: 1}} cardBody>
-                   <Image style={{ height: 300, width: '100%'}} source={{uri: ipBk + item.image}} />
+                 <CardItem  cardBody>
+                   <Image style={{ height: 300,  flex: 1}} source={{uri: ipBk + item.image}} />
                  </CardItem>
                </Card>
              }
@@ -91,6 +94,8 @@ export default class Cupones extends Component {
    }
  }
 }
+
+//estilos para componentes
 const styles = StyleSheet.create({
   views: {
     flex: 1,
@@ -105,4 +110,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   }
 })
+
 AppRegistry.registerComponent('Cupones', () => Cupones)

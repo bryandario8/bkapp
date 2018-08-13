@@ -17,7 +17,7 @@ import {
 } from 'native-base'
 import BarraLateral from '../components/BarraLateral'
 import Viewloading from '../components/Viewloading'
-
+//ip de la base
 const ipBk = 'http://132.148.147.172:9999'
 
 // registro
@@ -37,7 +37,13 @@ export default class Registros extends Component {
       provincia: [],
       ciudad: [],
       loading: true,
-      cambioProvincia: false
+      cambioProvincia: false,
+      correctoUsername: false,
+      correctoEmail: false,
+      correctoPassword: false,
+      correctoNombre: false,
+      correctoApellido: false,
+      correctoSector: false,
     }
   }
   // get de ciudad
@@ -106,34 +112,40 @@ export default class Registros extends Component {
             }
             break
           }
-    
   }
-  //Valida en tiempo real los campos ingresados
+  //Valida datos de los campos en tiempo real 
   validador(valor,tipo){
     switch(tipo){
       case 'usernam':
         this.setState({errorUser: ''})
         this.setState({username: valor})
-         if(this.state.username.length >= 4 ) { 
-            if(/^[A-Za-z][A-Za-z0-9._%+-]+/i.test(this.state.username) ) { 
+         if(this.state.username.length >=3 ) { 
+            if(/[A-Za-z0-9._%+-]+/i.test(this.state.username) ) { 
                 this.setState({errorUser: ''})
+                this.setState({correctoUsername: true})
             }else{
+              this.setState({correctoUsername: false})
               this.setState({errorUser: 'Ingrese un usuario valido'})
             }
          }else if(this.state.username == '' ){ 
-                this.setState({errorUser: 'Obligatorio'})
+              this.setState({correctoUsername: false})
+              this.setState({errorUser: 'Obligatorio'})
          }else{
+            this.setState({correctoUsername: false})
             this.setState({errorUser: 'Invalido'})
          }
          break
        case 'correo':
         this.setState({errorEmail: ''})
         this.setState({email: valor})
-         if(/^[A-Z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z]{2,4}$/i.test(this.state.email)) { 
+         if(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z]{2,4}$/i.test(this.state.email)) { 
             this.setState({errorEmail: ''})
+            this.setState({correctoEmail: true})
          }else if(this.state.email == '' ){ 
+              this.setState({correctoEmail: false})
                 this.setState({errorEmail: 'Obligatorio'})
          }else{
+          this.setState({correctoEmail: false})
             this.setState({errorEmail: 'Ingrese un correo valido'})
          }
           break
@@ -141,15 +153,19 @@ export default class Registros extends Component {
           this.setState({errorNombre: ''})
           this.setState({first_name: valor})
            if(/[A-Za-z]+/i.test(this.state.first_name) ) { 
-            if (this.state.first_name.length >= 3) {
+            if (this.state.first_name.length > 2) {
               this.setState({errorNombre: ''})
+              this.setState({correctoNombre: true})
             }else{ 
+              this.setState({correctoNombre: false})
               this.setState({errorNombre: 'Ingrese un nombre valido'})
             }
               
            }else if(this.state.first_name == '' ){ 
+              this.setState({correctoNombre: false})
                   this.setState({errorNombre: 'Obligatorio'})
            }else{
+            this.setState({correctoNombre: false})
               this.setState({errorNombre: 'Ingrese un nombre valido'})
            }
           break
@@ -157,15 +173,19 @@ export default class Registros extends Component {
             this.setState({errorApellido: ''})
             this.setState({last_name: valor})
              if(/[A-Za-z]+/i.test(this.state.last_name) ) { 
-              if (this.state.last_name.length >= 3) {
+              if (this.state.last_name.length > 2) {
                 this.setState({errorApellido: ''})
+                this.setState({correctoApellido: true})
               }else{ 
+                this.setState({correctoApellido: false})
                 this.setState({errorApellido: 'Ingrese un apellido valido'})
               }
                 
              }else if(this.state.last_name == '' ){ 
+              this.setState({correctoApellido: false})
                     this.setState({errorApellido: 'Obligatorio'})
              }else{
+              this.setState({correctoApellido: false})
                 this.setState({errorApellido: 'Ingrese un apellido valido'})
              }
           break
@@ -173,22 +193,26 @@ export default class Registros extends Component {
             this.setState({errorSector: ''})
             this.setState({sector: valor})
              if(/[A-Za-z0-9.#-]+\s/i.test(this.state.sector) ) { 
-              if (this.state.sector.length >= 3) {
+              if (this.state.sector.length > 2) {
                 this.setState({errorSector: ''})
+                this.setState({correctoSector: true})
               }else{ 
+                 this.setState({correctoSector: false})
                 this.setState({errorSector: 'Ingrese un sector valido'})
               }
                 
              }else if(this.state.sector == '' ){ 
+              this.setState({correctoSector: false})
                     this.setState({errorSector: 'Obligatorio'})
              }else{
+              this.setState({correctoSector: false})
                 this.setState({errorSector: 'Ingrese un sector valido'})
              }
           break
         case 'celular':
           this.setState({errorPhone: ''})
            this.setState({phone: valor})
-           if (/[0-9]{10}/i.test(this.state.phone)) {
+           if (/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/i.test(this.state.phone)) {
               this.setState({errorPhone: ''})
            }else{
               this.setState({errorPhone: 'Ingrese un numero valido'})
@@ -198,91 +222,31 @@ export default class Registros extends Component {
            this.setState({errorPass: ''})
            this.setState({password: valor})
            if (this.state.password.length >= 6 ) {
-              if (/[A-Za-z._%+-]+[0-9.-]+\.[A-Z]{2,4}$/i.test(this.state.password)) {
+              if (/[A-Za-z._%+-0-9.-]+/i.test(this.state.password)) {
                 this.setState({errorPass: ''})
+                this.setState({correctoPassword: true})
               }else {
-                this.setState({errorPass: 'Ingrese numero, letra y un caracter especial'})
+                this.setState({correctoPassword: false})
+                this.setState({errorPass: 'Contraseña debil'})
                }
            }else if (this.state.password == '') {
+              this.setState({correctoPassword: false})
               this.setState({errorPass: 'Obligatorio'})
            }else{
-              this.setState({errorPass: 'Ingrese numero, letra y un caracter especial'})
-              
+            this.setState({correctoPassword: false})
+              this.setState({errorPass: 'Contraseña debil'})
            }
           break
     }
      
   }
-
+//Validacion y envio de datos
   async Login () {
-    // validar usuario
-    if (this.state.username === '') {
-      this.setState({errorUser: 'Obligatorio'})
-    } else {
-      
-      this.setState({errorUser: ''})
-    }
-    // validar email
-    if (this.state.email === '') {
-      this.setState({errorEmail: 'Obligatorio'})
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(this.state.email)) {
-      this.setState({errorEmail: 'Ingrese un correo valido'})
-    } else {
-      this.setState({errorEmail: ''})
-    }
-    // validar contrasenia
-    if (this.state.password === '') {
-      this.setState({errorPass: 'Obligatorio'})
-    } else if (this.state.password.length < 6) {
-      this.setState({errorPass: 'Ingrese numero, letra y un caracter especial'})
-    } else {
-      this.setState({errorPass: ''})
-    }
-    // validar nombre
-    if (this.state.first_name === '') {
-      this.setState({errorNombre: 'Obligatorio'})
-    } else {
-      this.setState({errorNombre: ''})
-    }
-    // validar apellido
-    if (this.state.last_name === '') {
-      this.setState({errorApellido: 'Obligatorio'})
-    } else {
-      this.setState({errorApellido: ''})
-    }
-    // validar provincia
-    if (this.state.province === '') {
-      this.setState({errorProvincia: 'Obligatorio'})
-    } else {
-      this.setState({errorProvincia: ''})
-    }
-    // validar ciudad
-    if (this.state.city === '') {
-      this.setState({errorCiudad: 'Obligatorio'})
-    } else {
-      this.setState({errorCiudad: ''})
-    }
-    // validar sector
-    if (this.state.sector === '') {
-      this.setState({errorSector: 'Obligatorio'})
-    } else {
-      this.setState({errorSector: ''})
-    }
-
-    // validar sector
-    if (this.state.phone != '') {
-      if (/[0-9]{10}/i.test(this.state.phone)) {
-        this.setState({errorPhone: ''})
-      }
-    } else {
-      this.setState({errorPhone: 'Ingrese un numero valido'})
-    }
-
     // envio de datos al servidor
-    if (this.state.username.length !== 0 && this.state.email.length !== 0 &&
-      this.state.password.length !== 0 && this.state.first_name.length !== 0 &&
-      this.state.last_name.length !== 0 && this.state.province.length !== 0 &&
-      this.state.city.length !== 0 && this.state.sector.length !== 0) {
+    if (this.state.correctoUsername === true && this.state.correctoEmail === true &&
+      this.state.correctoPassword === true && this.state.correctoNombre === true &&
+      this.state.correctoApellido === true && this.state.province.length !== 0 &&
+      this.state.city.length !== 0 && this.state.correctoSector === true) {
       var data = {
         username: this.state.username,
         email: this.state.email,
@@ -292,8 +256,7 @@ export default class Registros extends Component {
         phone: this.state.phone,
         province: this.state.province,
         city: this.state.city,
-        sector: this.state.sector,
-        phone: this.state.phone
+        sector: this.state.sector
       }
       try {
         window.fetch(ipBk + '/api/signup/', {
@@ -308,6 +271,7 @@ export default class Registros extends Component {
           .then((response) => {
             if (response['is_error'] === false) {
               window.alert(response['msg'])
+              this.props.navigation.navigate('Signup')
             } else if (response['is_error'] === true) {
               window.alert(response['msg'])
             }
@@ -321,9 +285,12 @@ export default class Registros extends Component {
       window.alert('Debe llenar los campos obligatorios')
     }
   };
+  //opciones de la cabecera de la pantalla
   static navigationOptions = {
     header: null
   }
+
+  //renderizar la salida de los campos
   render () {
     if (this.state.loading === false) {
       return (
@@ -334,7 +301,7 @@ export default class Registros extends Component {
               <Form>
                 <Item stackedLabel>
                   <Label>Username</Label>
-                  <Input  onChangeText={(usuario) => this.validador(usuario,'usernam')} maxLength={20}/>
+                  <Input onChangeText={(usuario) => this.validador(usuario,'usernam')} maxLength={20}/>
                 </Item>
                 <Text style={{color: 'red', marginLeft: 20}}>{this.state.errorUser}</Text>
                 <Item stackedLabel >
@@ -402,10 +369,13 @@ export default class Registros extends Component {
         </Container>
       )
     } else {
+      //si no se carga el contenido devuelve esta pantalla
       return (<Viewloading />)
     }
   }
 }
+
+//estilos de componentes
 const styles = StyleSheet.create({
   contenido: {
     marginLeft: '2%',

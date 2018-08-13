@@ -12,7 +12,10 @@ import {
   Text
 } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
+
+
 export default class BarraLateral extends Component {
+  //opciones para la navegacion entre pantallas
   static navigationOptions = ({ navigation }) => {
     const params = navigation.state.params || {}
 
@@ -20,6 +23,7 @@ export default class BarraLateral extends Component {
       title: 'Home'
     }
   }
+  //renderizar componentes
   render () {
     return (
       <View style={{

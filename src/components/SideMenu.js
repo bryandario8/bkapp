@@ -10,13 +10,14 @@ import {ScrollView,
 } from 'react-native'
 
 class SideMenu extends Component {
+  //Ruteador de pantalla
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
     })
     this.props.navigation.dispatch(navigateAction)
   }
-
+//renderizar la salida de los componentes
   render () {
     return (
       <View style={styles.container}>
@@ -55,6 +56,8 @@ class SideMenu extends Component {
 SideMenu.propTypes = {
   navigation: PropTypes.object
 }
+
+//Estilo de los componentes
 const styles = StyleSheet.create({
   container: {
     flex: 1,

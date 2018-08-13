@@ -7,7 +7,10 @@ import {
   Image,
   StyleSheet
 } from 'react-native'
+
+// Clase de la pantalla de carga
 export default class Viewloading extends Component {
+ // retorna una vista de imagen de carga
   render () {
     return (
       <Container>
@@ -18,7 +21,7 @@ export default class Viewloading extends Component {
     )
   }
 }
-
+// estilo de los componentes
 const styles = StyleSheet.create({
   logo: {
     width: 150,

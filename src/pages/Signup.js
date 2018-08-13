@@ -30,8 +30,20 @@ export default class Signup extends Component {
     }
   }
 
-   // post para enviar datos
+  // post para enviar datos
   async Login () {
+    if (this.state.username === '') {
+      this.setState({vacioname: 'Obligatorio'})
+    } else {
+      this.setState({vacioname: ''})
+    }
+
+    if (this.state.password === '') {
+      this.setState({vaciopass: 'Obligatorio'})
+    } else {
+      this.setState({vaciopass: ''})
+    }
+
     if (this.state.username.length !== 0 && this.state.password.length !== 0) {
       var data = {
         username: this.state.username,
@@ -56,8 +68,9 @@ export default class Signup extends Component {
           .then((response) => {
             if (response['is_error'] === false) {
               window.alert(response['msg'])
+              this.setState({errorUserPass: ''})
             } else if (response['is_error'] === true) {
-              window.alert(response['msg'])
+              this.setState({errorUserPass: response['msg']})
             }
           })
           .catch((error) => {
@@ -83,17 +96,20 @@ export default class Signup extends Component {
               <Label>Username o Correo Electronico</Label>
               <Input onSubmitEditing={() => this.password.focus()}
                 onChangeText={(usuario) => this.setState({username: usuario})}
-              />
+                maxLength={30} />
+              <Text style={{color: 'red'}}>{this.state.vacioname}</Text>
             </Item>
+
             <Item stackedLabel>
               <Label>Password</Label>
               <Input ref={(input) => { this.password = input }}
                 onChangeText={(pass) => this.setState({password: pass})}
                 secureTextEntry
-              />
+                maxLength={20} />
+              <Text style={{color: 'red'}}>{this.state.vaciopass}</Text>
             </Item>
           </Form>
-
+          <Text style={{color: 'red'}}>{this.state.errorUserPass}</Text>
           <Button style={styles.botones} onPress={this.Login.bind(this)} block>
             <Text>Entrar</Text>
           </Button>
