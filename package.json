@@ -23,6 +23,7 @@
     "react-native": "^0.55.4",
     "react-native-form-builder": "^1.0.14",
     "react-native-image-slider": "^2.0.3",
+    "react-native-maps": "^0.21.0",
     "react-native-off-canvas-menu": "^0.1.31",
     "react-native-pages": "^0.7.0",
     "react-native-permissions": "^1.1.1",
