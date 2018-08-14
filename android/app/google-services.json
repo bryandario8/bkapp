@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "875021558990",
+    "firebase_url": "https://burgerking-28e71.firebaseio.com",
+    "project_id": "burgerking-28e71",
+    "storage_bucket": "burgerking-28e71.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875021558990:android:6991564c0ba1c32a",
+        "android_client_info": {
+          "package_name": "com.espol.bk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875021558990-ink1lu4su6id4mjqtcb7s9kd1r5s1sdv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARZO3dPaC5kto1JH_WQeSNf_EKXM9pwxc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
