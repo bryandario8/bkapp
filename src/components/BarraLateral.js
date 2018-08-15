@@ -19,16 +19,11 @@ export default class BarraLateral extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      icon: 'sign-in',
       logeado: false
     }
   }
   //opciones para la navegacion entre pantallas
-  constructor (props) {
-    super(props)
-    this.state = {
-      icon: 'sign-in'
-    }
-  }
   static navigationOptions = ({ navigation }) => {
     const params = navigation.state.params || {}
 
