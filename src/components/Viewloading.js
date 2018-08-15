@@ -5,17 +5,19 @@ import {
 } from 'native-base'
 import {
   Image,
-  StyleSheet
+  StyleSheet,
+  Dimensions
 } from 'react-native'
 
+var {width} = Dimensions.get('window').width
 // Clase de la pantalla de carga
 export default class Viewloading extends Component {
- // retorna una vista de imagen de carga
+  // retorna una vista de imagen de carga
   render () {
     return (
       <Container>
         <Content style={styles.contenedor}>
-          <Image style={styles.logo} source={require('../images/bk-logo.svg.png')} />
+          <Image style={{flex: 1}} source={require('../images/cargando.png')} />
         </Content>
       </Container>
     )
@@ -23,11 +25,7 @@ export default class Viewloading extends Component {
 }
 // estilo de los componentes
 const styles = StyleSheet.create({
-  logo: {
-    width: 150,
-    height: 150,
-    alignItems: 'center'
-  },
+
   contenedor: {
     flex: 1,
     width: null

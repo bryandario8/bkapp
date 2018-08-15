@@ -11,7 +11,8 @@ import {
   Input,
   Label,
   Button,
-  Text
+  Text,
+  AsyncStorage
 } from 'native-base'
 import BarraLateral from '../components/BarraLateral'
 // ip de la base
@@ -23,13 +24,19 @@ export default class Signup extends Component {
     this.state = {
       username: '',
       password: '',
+      tokens: '',
       device: {name: 'Samsung J2',
         registration_id: '123n213bjhh23hv124jb213j213',
         type: 'android'
       }
     }
   }
-
+  saveData (key) {
+    let array = {
+      tokens: this.state.tokens
+    }
+    AsyncStorage.setItem('bktokens', JSON.stringify(array))
+  }
   // post para enviar datos
   async Login () {
     if (this.state.username === '') {
@@ -70,6 +77,7 @@ export default class Signup extends Component {
               window.alert(response['msg'])
               this.setState({errorUserPass: ''})
             } else if (response['is_error'] === true) {
+              window.alert(response['msg'])
               this.setState({errorUserPass: response['msg']})
             }
           })
