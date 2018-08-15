@@ -49,6 +49,7 @@ export default class Registros extends Component {
       correctPhone: false
     }
   }
+
   // get de ciudad
   async fechtCiudad (provinces) {
     try {
@@ -135,14 +136,14 @@ export default class Registros extends Component {
             this.setState({correctoUsername: false})
             this.setState({errorUser: 'Invalido'})
          }
-         if(this.state.username == '' ){ 
+         if(valor == '' ){ 
               this.setState({correctoUsername: false})
               this.setState({errorUser: 'Obligatorio'})
          }
          break
        case 'correo':
         this.setState({errorEmail: ''})
-         if(/[A-Za-z0-9._%+-]+@[A-Za-z]+\.[A-Za-z]+$/i.test(valor)) { 
+         if(/[A-Za-z0-9._%+-]+@[A-Za-z]+\(\.[A-Za-z]+\)*\.[A-Za-z]+$/i.test(valor)) { 
             this.setState({errorEmail: ''})
             this.setState({correctoEmail: true})
             this.setState({email: valor})
@@ -151,7 +152,7 @@ export default class Registros extends Component {
           this.setState({errorEmail: 'Ingrese un correo valido'})
          }
 
-         if(this.state.email == '' ){ 
+         if(valor == '' ){ 
             this.setState({correctoEmail: false})
             this.setState({errorEmail: 'Obligatorio'})
          }
@@ -173,7 +174,7 @@ export default class Registros extends Component {
               this.setState({errorNombre: 'Ingrese un nombre valido'})
            }
 
-           if(this.state.first_name == '' ){ 
+           if(valor == '' ){ 
               this.setState({correctoNombre: false})
               this.setState({errorNombre: 'Obligatorio'})
            }
@@ -194,7 +195,7 @@ export default class Registros extends Component {
               this.setState({correctoApellido: false})
                 this.setState({errorApellido: 'Ingrese un apellido valido'})
              }
-             if(this.state.last_name == '' ){ 
+             if(valor == '' ){ 
               this.setState({correctoApellido: false})
                     this.setState({errorApellido: 'Obligatorio'})
              }
@@ -215,7 +216,7 @@ export default class Registros extends Component {
               this.setState({correctoSector: false})
                 this.setState({errorSector: 'Ingrese un sector valido'})
              }
-             if(this.state.sector == '' ){ 
+             if(valor == '' ){ 
                 this.setState({correctoSector: false})
                 this.setState({errorSector: 'Obligatorio'})
              }
@@ -236,7 +237,7 @@ export default class Registros extends Component {
             this.setState({correctoPassword: false})
               this.setState({errorPass: 'Contraseña debil'})
            }
-           if (this.state.password == '') {
+           if (valor == '') {
               this.setState({correctoPassword: false})
               this.setState({errorPass: 'Obligatorio'})
            }

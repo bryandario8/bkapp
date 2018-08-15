@@ -17,7 +17,7 @@ export default class Viewloading extends Component {
     return (
       <Container style={styles.contenedor}>
         <Content>
-          <Image style={{ flex: 1 }} source={require('../images/cargando2.png')} />
+          <Image style={{ flex: 1}} source={require('../images/cargando2.png')} />
         </Content>
       </Container>
     )

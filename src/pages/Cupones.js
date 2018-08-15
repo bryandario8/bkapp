@@ -59,9 +59,25 @@ export default class Cupones extends Component {
      console(error)
    }
  };
+
+ async verificar(){ 
+    let token = await AsyncStorage.getItem('userToken')
+    if (token) {
+      this.setState({logeado: true})
+      this.fetchData()
+    }else{
+      this.setState({logeado: false})
+      window.alert('Debe Iniciar Sesion para poder ver cupones')
+      this.props.navigation.navigate('Login')
+    }
+  }
  //activar el fetchData
  componentDidMount () {
-   this.fetchData()
+  if (this.state.logeado === false) {
+    this.verificar()
+  }
+
+  
  }
 
  // Envia los IDs de las imagenes presionadas por el usuario

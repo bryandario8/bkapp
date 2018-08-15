@@ -20,7 +20,7 @@ export default class BarraLateral extends Component {
     super(props)
     this.state = {
       icon: 'sign-in',
-      logeado: false
+      letra: ' '
     }
   }
   //opciones para la navegacion entre pantallas
@@ -32,14 +32,35 @@ export default class BarraLateral extends Component {
     }
   }
 
-  async Log (action) {
+  async Log () {
     let token = await AsyncStorage.getItem('userToken')
     if (token) {
       AsyncStorage.removeItem('userToken')
+      this.setState({icon: 'sign-in'})
+      this.setState({letra: 'Login'})
+       window.alert('Sesion Cerrada Exitosamente')
+      this.props.navigation.navigate('Login')
+    }else{
+      this.setState({icon: 'sign-up'})
+      this.setState({letra: 'Cerrar Sesion'})
+      this.props.navigation.navigate('Login')
     }
-    this.props.navigation.navigate('Login')
+    
   }
 
+  async verificar(){ 
+    let token = await AsyncStorage.getItem('userToken')
+    if (token) {
+      this.setState({icon: 'sign-up'})
+      this.setState({letra: 'Cerrar Sesion'})
+    }else{
+      this.setState({icon: 'sign-in'})
+      this.setState({letra: 'Login'})
+    }
+  }
+  componentDidMount () {
+   this.verificar()
+ }
   //renderizar componentes
   render () {
     return (
@@ -64,7 +85,7 @@ export default class BarraLateral extends Component {
               onPress={() => this.Log('sign-out')}
             >
               <Icon type='FontAwesome' name={this.state.icon} style={{fontSize: 18, color: 'white'}} />
-              <Text style={{fontSize: 10, paddingLeft: 8, top: 0}} >Login</Text>
+              <Text style={{fontSize: 10, paddingLeft: 8, top: 0}} >{this.state.letra}</Text>
             </Button>
           </Right>
         </Header>

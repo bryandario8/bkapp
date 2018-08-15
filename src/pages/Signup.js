@@ -16,6 +16,7 @@ import {
   Text
 } from 'native-base'
 import BarraLateral from '../components/BarraLateral'
+import ViewNotConexion from '../components/ViewNotConexion'
 // ip de la base
 const ipBk = 'http://132.148.147.172:9999'
 // Clase de la vista Signup
@@ -29,7 +30,8 @@ export default class Signup extends Component {
       device: {name: 'Samsung J2',
         registration_id: '123n213bjhh23hv124jb213j213',
         type: 'android'
-      }
+      },
+      wifi: true
     }
   }
 
@@ -76,7 +78,8 @@ export default class Signup extends Component {
                 '¡Exito!',
                 response['msg'],
                 [
-                  {text: 'OK', onPress: () =>
+                  {text: 'OK',
+                    onPress: () =>
                     this.props.navigation.navigate('Home')
                   }
                 ],
@@ -91,51 +94,55 @@ export default class Signup extends Component {
             console.error(error)
           })
       } catch (error) {
-        console.log('Error' + error)
+        this.setState({wifi: false})
       }
     } else {
       window.alert('Debe llenar todos los campos')
     }
   }
   render () {
-    return (
-      <View style={styles.container} >
-        <BarraLateral {...this.props} title='Login' />
-        <Content style={styles.contenedor}>
-          <View style={{ justifyContent: 'center', flex: 1 }}>
-            <Image style={{marginLeft: '25%', marginRight: '25%', width: 150, height: 150, justifyContent: 'center'}} source={require('../images/bk-logo.svg.png')} />
-          </View>
-          <Form >
-            <Item stackedLabel>
-              <Label>Username o Correo Electronico</Label>
-              <Input onSubmitEditing={() => this.password.focus()}
-                onChangeText={(usuario) => this.setState({username: usuario})}
-                maxLength={30} />
-              <Text style={{color: 'red'}}>{this.state.vacioname}</Text>
-            </Item>
+    if (this.state.wifi === true) {
+      return (
+        <View style={styles.container} >
+          <BarraLateral {...this.props} title='Login' />
+          <Content style={styles.contenedor}>
+            <View style={{ justifyContent: 'center', flex: 1 }}>
+              <Image style={{marginLeft: '25%', marginRight: '25%', width: 150, height: 150, justifyContent: 'center'}} source={require('../images/bk-logo.svg.png')} />
+            </View>
+            <Form >
+              <Item stackedLabel>
+                <Label>Username o Correo Electronico</Label>
+                <Input onSubmitEditing={() => this.password.focus()}
+                  onChangeText={(usuario) => this.setState({username: usuario})}
+                  maxLength={30} />
+                <Text style={{color: 'red'}}>{this.state.vacioname}</Text>
+              </Item>
 
-            <Item stackedLabel>
-              <Label>Password</Label>
-              <Input ref={(input) => { this.password = input }}
-                onChangeText={(pass) => this.setState({password: pass})}
-                secureTextEntry
-                maxLength={20} />
-              <Text style={{color: 'red'}}>{this.state.vaciopass}</Text>
-            </Item>
-          </Form>
-          <Text style={{color: 'red'}}>{this.state.errorUserPass}</Text>
-          <Button style={styles.botones} onPress={this.Login.bind(this)} block>
-            <Text>Entrar</Text>
-          </Button>
-          <View style={{ justifyContent: 'center', flex: 1, marginTop: 10}}>
-            <Text>¿No tienes cuenta? Registrate aqui</Text>
-            <Button style={styles.botones} info onPress={() => this.props.navigation.navigate('Register')} block>
-              <Text>Registrar</Text>
+              <Item stackedLabel>
+                <Label>Password</Label>
+                <Input ref={(input) => { this.password = input }}
+                  onChangeText={(pass) => this.setState({password: pass})}
+                  secureTextEntry
+                  maxLength={20} />
+                <Text style={{color: 'red'}}>{this.state.vaciopass}</Text>
+              </Item>
+            </Form>
+            <Text style={{color: 'red'}}>{this.state.errorUserPass}</Text>
+            <Button style={styles.botones} onPress={this.Login.bind(this)} block>
+              <Text>Entrar</Text>
             </Button>
-          </View>
-        </Content>
-      </View>
-    )
+            <View style={{ justifyContent: 'center', flex: 1, marginTop: 10}}>
+              <Text>¿No tienes cuenta? Registrate aqui</Text>
+              <Button style={styles.botones} info onPress={() => this.props.navigation.navigate('Register')} block>
+                <Text>Registrar</Text>
+              </Button>
+            </View>
+          </Content>
+        </View>
+      )
+    } else {
+      return (<ViewNotConexion />)
+    }
   }
 }
 
