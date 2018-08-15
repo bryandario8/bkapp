@@ -14,7 +14,6 @@ import {
 } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-
 export default class BarraLateral extends Component {
   constructor (props) {
     super(props)
@@ -23,7 +22,7 @@ export default class BarraLateral extends Component {
       letra: ' '
     }
   }
-  //opciones para la navegacion entre pantallas
+  // opciones para la navegacion entre pantallas
   static navigationOptions = ({ navigation }) => {
     const params = navigation.state.params || {}
 
@@ -38,30 +37,29 @@ export default class BarraLateral extends Component {
       AsyncStorage.removeItem('userToken')
       this.setState({icon: 'sign-in'})
       this.setState({letra: 'Login'})
-       window.alert('Sesion Cerrada Exitosamente')
+      window.alert('Sesion Cerrada Exitosamente')
       this.props.navigation.navigate('Login')
-    }else{
+    } else {
       this.setState({icon: 'sign-up'})
       this.setState({letra: 'Cerrar Sesion'})
       this.props.navigation.navigate('Login')
     }
-    
   }
 
-  async verificar(){ 
+  async verificar () {
     let token = await AsyncStorage.getItem('userToken')
     if (token) {
       this.setState({icon: 'sign-up'})
       this.setState({letra: 'Cerrar Sesion'})
-    }else{
+    } else {
       this.setState({icon: 'sign-in'})
       this.setState({letra: 'Login'})
     }
   }
   componentDidMount () {
-   this.verificar()
- }
-  //renderizar componentes
+    this.verificar()
+  }
+  // renderizar componentes
   render () {
     return (
       <View style={{

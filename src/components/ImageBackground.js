@@ -8,7 +8,7 @@
  * @format
  */
 'use strict'
-//Esto es un componente para integral fondo de imagenes
+// Esto es un componente para integral fondo de imagenes
 const Image = require('Image')
 const React = require('React')
 const StyleSheet = require('StyleSheet')

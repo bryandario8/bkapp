@@ -80,7 +80,7 @@ export default class Signup extends Component {
                 [
                   {text: 'OK',
                     onPress: () =>
-                    this.props.navigation.navigate('Home')
+                      this.props.navigation.navigate('Home')
                   }
                 ],
                 { cancelable: false })
