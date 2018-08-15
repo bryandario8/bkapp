@@ -28,7 +28,8 @@ export default class Cupones extends Component {
       loading: true,
       vacio: false,
       imageSelected: 0,
-      user: ''
+      user: '',
+      logeado: false
     }
   }
 //Get de datos de las imagenes de los cupones

@@ -6,10 +6,17 @@ import {ScrollView,
   Text,
   View,
   Image,
-  ImageBackground
+  ImageBackground,
+  Linking 
 } from 'react-native'
 
 class SideMenu extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      logeado: false
+    }
+  }
   //Ruteador de pantalla
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
@@ -43,9 +50,21 @@ class SideMenu extends Component {
             </Text>
           </ScrollView>
           <View style={styles.footerContainer}>
-            <Image style={styles.icono} source={require('../images/facebook.png')} />
-            <Image style={styles.icono} source={require('../images/instagram.png')} />
-            <Image style={styles.icono} source={require('../images/youtube.png')} />
+              <View style={styles.viewspeques}>
+                <Text style={styles.viewspeques} onPress={ ()=>{ Linking.openURL('https://www.facebook.com/BurgerKingEcuador/')}}>
+                  <Image source={require('../images/facebook.png')}/>
+                </Text>
+              </View>
+               <View style={styles.viewspeques}>
+                <Text style={styles.viewspeques} onPress={ ()=>{ Linking.openURL('https://www.instagram.com/burgerkingec/?hl=es-la')}}>
+                  <Image source={require('../images/instagram.png')} />
+                  </Text>
+              </View>
+               <View style={styles.viewspeques}>
+                <Text style={styles.viewspeques} onPress={ ()=>{ Linking.openURL('http://www.burgerking.com.ec')}}>
+                    <Image  source={require('../images/bk-logo.png')} />
+                  </Text>
+              </View>
           </View>
         </ImageBackground>
       </View>
@@ -88,9 +107,14 @@ const styles = StyleSheet.create({
   },
   icono: {
     width: 50,
+    height: 50
+  },
+  viewspeques: {
+    width: 50,
     height: 50,
-    marginLeft: '10%',
-    marginRight: '10%'
+    marginLeft: '10%'
+
   }
+
 })
 export default SideMenu
