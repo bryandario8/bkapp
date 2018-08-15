@@ -3,7 +3,8 @@ import {
   AppRegistry,
   StyleSheet,
   View,
-  Dimensions
+  Dimensions,
+  AsyncStorage
 } from 'react-native'
 import ImageSlider from 'react-native-image-slider'
 import BarraLateral from '../components/BarraLateral'
@@ -19,7 +20,9 @@ export default class Propanganda extends Component {
       data: [],
       images: [],
       loading: false,
-      iterarYa: false
+      iterarYa: false,
+      imageSelected: 0,
+      user: ''
     }
   }
 
@@ -67,6 +70,31 @@ export default class Propanganda extends Component {
   componentDidMount () {
     this.fetchData()
   }
+
+  // Envia los IDs de las imagenes presionadas por el usuario
+  async OfferClick (imageKey) {
+    this.setState({ imageSelected: imageKey })
+    // Obtiene el token del Storage
+    let token = await AsyncStorage.getItem('userToken')
+    this.setState({ user: token })
+    if (this.state.imageSelected !== 0 && this.state.user !== '') {
+      try {
+        let url = ipBk + '/api/analytics/offer/'+ this.state.imageSelected.toString() + '/'
+        fetch (url, {
+          method: 'post',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            // envio el token del usuario al servidor para su autenticacion
+            'Authorization': 'Token ' + this.state.user
+          }
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
   static navigationOptions = {
     header: null
   }
@@ -82,7 +110,8 @@ export default class Propanganda extends Component {
             <ImageSlider
               autoPlayWithInterval={3000}
               style={{flex: 1, height: 510, width: width}}
-              images={this.state.images} />
+              images={this.state.images}
+              onPress={() => {this.OfferClick(5)} } />
           </View>
         </View>
       )

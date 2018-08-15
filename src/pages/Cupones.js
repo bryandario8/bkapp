@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
   Image,
   AppRegistry,
-  StyleSheet
+  StyleSheet,
+  AsyncStorage
 } from 'react-native'
 import {
   Container,
@@ -25,7 +26,9 @@ export default class Cupones extends Component {
     this.state = {
       cards: '',
       loading: true,
-      vacio: false
+      vacio: false,
+      imageSelected: 0,
+      user: ''
     }
   }
 //Get de datos de las imagenes de los cupones
@@ -60,6 +63,30 @@ export default class Cupones extends Component {
    this.fetchData()
  }
 
+ // Envia los IDs de las imagenes presionadas por el usuario
+  async CouponClick (imageKey) {
+    this.setState({ imageSelected: imageKey })
+    // Obtiene el token del Storage
+    let token = await AsyncStorage.getItem('userToken')
+    this.setState({ user: token })
+    if (this.state.imageSelected !== 0 && this.state.user !== '') {
+      try {
+        let url = ipBk + '/api/analytics/coupon/'+ this.state.imageSelected.toString() + '/'
+        fetch (url, {
+          method: 'post',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            // envio el token del usuario al servidor para su autenticacion
+            'Authorization': 'Token ' + this.state.user
+          }
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
 //renderizar la salida de datos
  render () {
    if (this.state.loading === false) {
@@ -72,7 +99,13 @@ export default class Cupones extends Component {
              dataSource={this.state.cards}
              renderItem={item =>
                <Card style={{ elevation: 3 }}>
-                 <CardItem  cardBody>
+                 <CardItem  cardBody button
+                   onPress={ () =>
+                    {
+                      this.CouponClick(item.id)
+                    }
+                  }
+                 >
                    <Image style={{ height: 300,flex: 1}} source={{uri: ipBk + item.image}} />
                  </CardItem>
                </Card>

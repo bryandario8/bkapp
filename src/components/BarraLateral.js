@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {
-  View
+  View,
+  AsyncStorage
 } from 'react-native'
 import {
   Header,
@@ -16,6 +17,12 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 export default class BarraLateral extends Component {
   //opciones para la navegacion entre pantallas
+  constructor (props) {
+    super(props)
+    this.state = {
+      icon: 'sign-in'
+    }
+  }
   static navigationOptions = ({ navigation }) => {
     const params = navigation.state.params || {}
 
@@ -23,6 +30,15 @@ export default class BarraLateral extends Component {
       title: 'Home'
     }
   }
+
+  async Log (action) {
+    let token = await AsyncStorage.getItem('userToken')
+    if (token) {
+      AsyncStorage.removeItem('userToken')
+    }
+    this.props.navigation.navigate('Login')
+  }
+
   //renderizar componentes
   render () {
     return (
@@ -44,9 +60,9 @@ export default class BarraLateral extends Component {
           </Body>
           <Right>
             <Button transparent
-              onPress={() => this.props.navigation.navigate('Login')}
+              onPress={() => this.Log('sign-out')}
             >
-              <Icon type='FontAwesome' name='sign-in' style={{fontSize: 18, color: 'white'}} />
+              <Icon type='FontAwesome' name={this.state.icon} style={{fontSize: 18, color: 'white'}} />
               <Text style={{fontSize: 10, paddingLeft: 8, top: 0}} >Login</Text>
             </Button>
           </Right>

@@ -41,7 +41,6 @@ class FlatListProduct extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      isSelected: false,
       imageSelected: 0,
       user: ''
     }
@@ -53,11 +52,9 @@ class FlatListProduct extends Component {
     // Obtiene el token del Storage
     let token = await AsyncStorage.getItem('userToken')
     this.setState({ user: token })
-    if (this.state.imageSelected !== 0) {
-      alert(this.state.user)
+    if (this.state.imageSelected !== 0 && this.state.user !== '') {
       try {
-        let url = ipBk + '/api/analytics/product/'+ this.state.imageSelected.toString() + '/' 
-        alert(url)
+        let url = ipBk + '/api/analytics/product/'+ this.state.imageSelected.toString() + '/'
         fetch (url, {
           method: 'post',
           headers: {
@@ -67,7 +64,6 @@ class FlatListProduct extends Component {
             'Authorization': 'Token ' + this.state.user
           }
         })
-        alert('Token ' + this.state.user)
       } catch (error) {
         console.log(error)
       }
@@ -320,7 +316,8 @@ export class Products extends Component {
       headerTitleStyle: {
         fontWeight: 'bold',
         fontSize: 15,
-        marginLeft: 0
+        marginLeft: 0,
+        marginHorizontal: 10
       },
       headerLeft:
         <TouchableOpacity
@@ -330,7 +327,10 @@ export class Products extends Component {
           <Icon type='FontAwesome' name='chevron-left'
             style={{
               fontSize: 15,
-              color: '#fff'
+              color: '#fff',
+              paddingVertical: 8,
+              paddingHorizontal: 15,
+              left: -13
             }}
           />
         </TouchableOpacity>
