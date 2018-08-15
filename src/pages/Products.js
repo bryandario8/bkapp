@@ -46,34 +46,28 @@ class FlatListProduct extends Component {
       user: ''
     }
   }
-
-  handleSelectImage (imageKey) {
-    this.setState({ imageSelected: imageKey })
-    window.alert(this.state.user)
-  }
-
-  // Obtiene el token del Storage
-  _bootstrapAsync = async () => {
-    const userToken = await AsyncStorage.getItem('userToken')
-    this.setState({ user: JSON.parse(userToken) })
-  }
   
   // Envia los IDs de las imagenes presionadas por el usuario
-  async Login () {
+  async ProductClick (imageKey) {
+    this.setState({ imageSelected: imageKey })
+    // Obtiene el token del Storage
+    let token = await AsyncStorage.getItem('userToken')
+    this.setState({ user: token })
     if (this.state.imageSelected !== 0) {
+      alert(this.state.user)
       try {
-        fetch (ipBk + '/api/analytics/product/'+ this.state.imageSelected, {
+        let url = ipBk + '/api/analytics/product/'+ this.state.imageSelected.toString() + '/' 
+        alert(url)
+        fetch (url, {
           method: 'post',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            // envio el token del usuario al servidor para su autenticacion
             'Authorization': 'Token ' + this.state.user
-          },
-          // envio el token del usuario al servidor para su autenticacion
-          body: JSON.stringify({
-            user: this.state.user
-          })
+          }
         })
+        alert('Token ' + this.state.user)
       } catch (error) {
         console.log(error)
       }
@@ -111,9 +105,7 @@ class FlatListProduct extends Component {
             <CardItem bordered cardBody button
               onPress={ () =>
                 {
-                  this._bootstrapAsync
-                  this.handleSelectImage(this.props.item.id)
-                  
+                  this.ProductClick(this.props.item.id)
                 }
               }
             >

@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Image,
+  Alert,
   AsyncStorage
 } from 'react-native'
 import {
@@ -12,8 +13,7 @@ import {
   Input,
   Label,
   Button,
-  Text,
-  AsyncStorage
+  Text
 } from 'native-base'
 import BarraLateral from '../components/BarraLateral'
 // ip de la base
@@ -31,18 +31,6 @@ export default class Signup extends Component {
         type: 'android'
       }
     }
-  }
-
-  async _signInAsync (token) {
-    await AsyncStorage.setItem('userToken', token)
-    this.props.navigation.navigate('Home')
-  }
-
-  saveData (key) {
-    let array = {
-      tokens: this.state.tokens
-    }
-    AsyncStorage.setItem('bktokens', JSON.stringify(array))
   }
 
   // post para enviar datos
@@ -82,15 +70,15 @@ export default class Signup extends Component {
           .then((response) => response.json())
           .then((response) => {
             if (response['is_error'] === false) {
-              window.alert(
+              this.setState({ tokens: response['data'].token })
+              AsyncStorage.setItem('userToken', this.state.tokens)
+              Alert.alert(
+                '¡Exito!',
                 response['msg'],
                 [
-                  {text: 'CANCEL', onPress: () => {
-                    this._signInAsync.bind(this,JSON.stringify(response['data'].token))
-                  }},
-                  {text: 'OK', onPress: () => {
-                    this._signInAsync.bind(this, JSON.stringify(response['data'].token))
-                  }}
+                  {text: 'OK', onPress: () =>
+                    this.props.navigation.navigate('Home')
+                  }
                 ],
                 { cancelable: false })
               this.setState({errorUserPass: ''})
