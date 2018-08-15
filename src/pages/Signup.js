@@ -75,6 +75,7 @@ export default class Signup extends Component {
           .then((response) => {
             if (response['is_error'] === false) {
               window.alert(response['msg'])
+              this.saveDatarraya
               this.setState({errorUserPass: ''})
             } else if (response['is_error'] === true) {
               window.alert(response['msg'])

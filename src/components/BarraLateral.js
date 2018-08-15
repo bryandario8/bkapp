@@ -15,6 +15,12 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 export default class BarraLateral extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      logeado: false
+    }
+  }
   //opciones para la navegacion entre pantallas
   static navigationOptions = ({ navigation }) => {
     const params = navigation.state.params || {}

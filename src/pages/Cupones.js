@@ -25,7 +25,8 @@ export default class Cupones extends Component {
     this.state = {
       cards: '',
       loading: true,
-      vacio: false
+      vacio: false,
+      logeado: false
     }
   }
 //Get de datos de las imagenes de los cupones

@@ -5,10 +5,8 @@ import {
 } from 'native-base'
 import {
   Image,
-  StyleSheet,
-  Dimensions
+  StyleSheet
 } from 'react-native'
-var {width} = Dimensions.get('window').width
 // Clase de la pantalla de carga
 export default class ViewNotConexion extends Component {
   // retorna una vista de imagen de carga
@@ -16,7 +14,7 @@ export default class ViewNotConexion extends Component {
     return (
       <Container>
         <Content style={styles.contenedor}>
-          <Image style={{flex: 1}} source={require('../images/conexion2.png')} />
+          <Image style={{flex: 1}} source={require('../images/cargando2.png')} />
         </Content>
       </Container>
     )
@@ -26,7 +24,6 @@ export default class ViewNotConexion extends Component {
 const styles = StyleSheet.create({
 
   contenedor: {
-    flex: 1,
-    width: null
+    flex: 1
   }
 })
