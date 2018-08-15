@@ -8,7 +8,8 @@ import {
   ScrollView,
   YellowBox,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  AsyncStorage
 } from 'react-native'
 import {
   Content,
@@ -41,30 +42,41 @@ class FlatListProduct extends Component {
     super(props)
     this.state = {
       isSelected: false,
-      imageSelected: 0
+      imageSelected: 0,
+      user: ''
     }
   }
 
   handleSelectImage (imageKey) {
     this.setState({ imageSelected: imageKey })
-    window.alert(this.state.imageSelected)
+    window.alert(this.state.user)
+  }
+
+  // Obtiene el token del Storage
+  _bootstrapAsync = async () => {
+    const userToken = await AsyncStorage.getItem('userToken')
+    this.setState({ user: JSON.parse(userToken) })
   }
   
   // Envia los IDs de las imagenes presionadas por el usuario
-  fetchId = async () => {
-    try {
-      fetch (ipBk, {
-        method: 'post',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          id: this.state.imageSelected
+  async Login () {
+    if (this.state.imageSelected !== 0) {
+      try {
+        fetch (ipBk + '/api/analytics/product/'+ this.state.imageSelected, {
+          method: 'post',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Token ' + this.state.user
+          },
+          // envio el token del usuario al servidor para su autenticacion
+          body: JSON.stringify({
+            user: this.state.user
+          })
         })
-      })
-    } catch (error) {
-      console.log(error)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
@@ -99,6 +111,7 @@ class FlatListProduct extends Component {
             <CardItem bordered cardBody button
               onPress={ () =>
                 {
+                  this._bootstrapAsync
                   this.handleSelectImage(this.props.item.id)
                   
                 }

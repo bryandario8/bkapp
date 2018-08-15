@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
   StyleSheet,
   View,
-  Image
+  Image,
+  AsyncStorage
 } from 'react-native'
 import {
   Content,
@@ -28,6 +29,11 @@ export default class Signup extends Component {
         type: 'android'
       }
     }
+  }
+
+  async _signInAsync (token) {
+    await AsyncStorage.setItem('userToken', token)
+    this.props.navigation.navigate('Home')
   }
 
   // post para enviar datos
@@ -67,7 +73,17 @@ export default class Signup extends Component {
           .then((response) => response.json())
           .then((response) => {
             if (response['is_error'] === false) {
-              window.alert(response['msg'])
+              window.alert(
+                response['msg'],
+                [
+                  {text: 'CANCEL', onPress: () => {
+                    this._signInAsync.bind(this,JSON.stringify(response['data'].token))
+                  }},
+                  {text: 'OK', onPress: () => {
+                    this._signInAsync.bind(this, JSON.stringify(response['data'].token))
+                  }}
+                ],
+                { cancelable: false })
               this.setState({errorUserPass: ''})
             } else if (response['is_error'] === true) {
               this.setState({errorUserPass: response['msg']})
