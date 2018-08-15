@@ -43,9 +43,9 @@ class SideMenu extends Component {
             </Text>
           </ScrollView>
           <View style={styles.footerContainer}>
-            <Text>
-              Redes sociales
-            </Text>
+            <Image style={styles.icono} source={require('../images/facebook.png')} />
+            <Image style={styles.icono} source={require('../images/instagram.png')} />
+            <Image style={styles.icono} source={require('../images/youtube.png')} />
           </View>
         </ImageBackground>
       </View>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   footerContainer: {
     padding: 20,
-    backgroundColor: 'lightgrey'
+    flexDirection: "row"
   },
   texto: {
     fontSize: 20,
@@ -85,6 +85,12 @@ const styles = StyleSheet.create({
     marginRight: '30%',
     marginTop: '10%',
     marginBottom: '10%'
+  },
+  icono: {
+    width: 50,
+    height: 50,
+    marginLeft: '10%',
+    marginRight: '10%'
   }
 })
 export default SideMenu

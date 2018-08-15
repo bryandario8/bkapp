@@ -73,7 +73,7 @@ export default class Cupones extends Component {
              renderItem={item =>
                <Card style={{ elevation: 3 }}>
                  <CardItem  cardBody>
-                   <Image style={{ height: 300,  flex: 1}} source={{uri: ipBk + item.image}} />
+                   <Image style={{ height: 300,flex: 1}} source={{uri: ipBk + item.image}} />
                  </CardItem>
                </Card>
              }
