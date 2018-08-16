@@ -7,7 +7,7 @@ import {ScrollView,
   View,
   Image,
   ImageBackground,
-  Linking
+  Linking 
 } from 'react-native'
 
 class SideMenu extends Component {
@@ -17,14 +17,14 @@ class SideMenu extends Component {
       logeado: false
     }
   }
-  // Ruteador de pantalla
+  //Ruteador de pantalla
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
     })
     this.props.navigation.dispatch(navigateAction)
   }
-  // renderizar la salida de los componentes
+//renderizar la salida de los componentes
   render () {
     return (
       <View style={styles.container}>
@@ -47,21 +47,21 @@ class SideMenu extends Component {
             </Text>
           </ScrollView>
           <View style={styles.footerContainer}>
-            <View style={styles.viewspeques}>
-              <Text style={styles.viewspeques} onPress={() => { Linking.openURL('https://www.facebook.com/BurgerKingEcuador/') }}>
-                <Image source={require('../images/facebook.png')} />
-              </Text>
-            </View>
-            <View style={styles.viewspeques}>
-              <Text style={styles.viewspeques} onPress={() => { Linking.openURL('https://www.instagram.com/burgerkingec/?hl=es-la') }}>
-                <Image source={require('../images/instagram.png')} />
-              </Text>
-            </View>
-            <View style={styles.viewspeques}>
-              <Text style={styles.viewspeques} onPress={() => { Linking.openURL('http://www.burgerking.com.ec') }}>
-                <Image source={require('../images/bk-logo.png')} />
-              </Text>
-            </View>
+              <View style={styles.viewspeques}>
+                <Text style={styles.viewspeques} onPress={ ()=>{ Linking.openURL('https://www.facebook.com/BurgerKingEcuador/')}}>
+                  <Image source={require('../images/facebook.png')}/>
+                </Text>
+              </View>
+               <View style={styles.viewspeques}>
+                <Text style={styles.viewspeques} onPress={ ()=>{ Linking.openURL('https://www.instagram.com/burgerkingec/?hl=es-la')}}>
+                  <Image source={require('../images/instagram.png')} />
+                  </Text>
+              </View>
+               <View style={styles.viewspeques}>
+                <Text style={styles.viewspeques} onPress={ ()=>{ Linking.openURL('http://www.burgerking.com.ec')}}>
+                    <Image  source={require('../images/bk-logo.png')} />
+                  </Text>
+              </View>
           </View>
         </ImageBackground>
       </View>
@@ -73,18 +73,15 @@ SideMenu.propTypes = {
   navigation: PropTypes.object
 }
 
-// Estilo de los componentes
+//Estilo de los componentes
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ec7801'
   },
-  navSectionStyle: {
-    backgroundColor: 'lightgrey'
-  },
   footerContainer: {
     padding: 20,
-    flexDirection: 'row'
+    flexDirection: "row"
   },
   texto: {
     fontSize: 20,

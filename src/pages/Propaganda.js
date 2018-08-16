@@ -79,8 +79,8 @@ export default class Propanganda extends Component {
     this.setState({ user: token })
     if (this.state.imageSelected !== 0 && this.state.user !== '') {
       try {
-        let url = ipBk + '/api/analytics/offer/' + this.state.imageSelected.toString() + '/'
-        fetch(url, {
+        let url = ipBk + '/api/analytics/offer/'+ this.state.imageSelected.toString() + '/'
+        fetch (url, {
           method: 'post',
           headers: {
             Accept: 'application/json',
@@ -111,7 +111,7 @@ export default class Propanganda extends Component {
               autoPlayWithInterval={3000}
               style={{flex: 1, height: 510, width: width}}
               images={this.state.images}
-              onPress={() => { this.OfferClick(5) }} />
+              onPress={() => {this.OfferClick(5)} } />
           </View>
         </View>
       )

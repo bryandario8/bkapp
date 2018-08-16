@@ -37,6 +37,7 @@ const ipBk = 'http://132.148.147.172:9999'
 
 // Screen con Productos de la Categoría seleccionada
 class FlatListProduct extends Component {
+
   constructor (props) {
     super(props)
     this.state = {
@@ -44,7 +45,7 @@ class FlatListProduct extends Component {
       user: ''
     }
   }
-
+  
   // Envia los IDs de las imagenes presionadas por el usuario
   async ProductClick (imageKey) {
     this.setState({ imageSelected: imageKey })
@@ -53,8 +54,8 @@ class FlatListProduct extends Component {
     this.setState({ user: token })
     if (this.state.imageSelected !== 0 && this.state.user !== '') {
       try {
-        let url = ipBk + '/api/analytics/product/' + this.state.imageSelected.toString() + '/'
-        fetch(url, {
+        let url = ipBk + '/api/analytics/product/'+ this.state.imageSelected.toString() + '/'
+        fetch (url, {
           method: 'post',
           headers: {
             Accept: 'application/json',
@@ -98,9 +99,10 @@ class FlatListProduct extends Component {
               </View>
             </CardItem>
             <CardItem bordered cardBody button
-              onPress={() => {
-                this.ProductClick(this.props.item.id)
-              }
+              onPress={ () =>
+                {
+                  this.ProductClick(this.props.item.id)
+                }
               }
             >
               <Image
@@ -115,7 +117,7 @@ class FlatListProduct extends Component {
                 }}
               />
             </CardItem>
-            <CardItem bordered footer
+            <CardItem bordered footer 
               style={{
                 alignItems: 'center',
                 backgroundColor: 'transparent'
@@ -247,8 +249,8 @@ export class Categories extends Component {
   // LOGIC: Send a http request and use the response to determine the connectivity state
   refresh (callback) {
     var xhr = new XMLHttpRequest()
-    xhr.open('GET', 'https://www.google.com') // 'http://132.148.147.172:9999/admin')
-    xhr.onreadystatechange = (e) => { // para probar conectividad con internet
+    xhr.open('GET', 'https://www.google.com' ) //'http://132.148.147.172:9999/admin')
+    xhr.onreadystatechange = (e) => {  // para probar conectividad con internet
       if (xhr.readyState !== 4) { // code for completed request
         // alert(xhr.readyState)
         return
@@ -318,20 +320,20 @@ export class Products extends Component {
         marginHorizontal: 10
       },
       headerLeft:
-  <TouchableOpacity
-    style={{marginLeft: 20}}
-    onPress={() => { navigation.goBack() }}
-  >
-    <Icon type='FontAwesome' name='chevron-left'
-      style={{
-        fontSize: 15,
-        color: '#fff',
-        paddingVertical: 8,
-        paddingHorizontal: 15,
-        left: -13
-      }}
-    />
-  </TouchableOpacity>
+        <TouchableOpacity
+          style={{marginLeft: 20}}
+          onPress={() => { navigation.goBack() }}
+        >
+          <Icon type='FontAwesome' name='chevron-left'
+            style={{
+              fontSize: 15,
+              color: '#fff',
+              paddingVertical: 8,
+              paddingHorizontal: 15,
+              left: -13
+            }}
+          />
+        </TouchableOpacity>
     }
   }
 

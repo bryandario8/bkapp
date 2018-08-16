@@ -72,6 +72,7 @@ export default class Signup extends Component {
           .then((response) => response.json())
           .then((response) => {
             if (response['is_error'] === false) {
+              this.setState({wifi: true})
               this.setState({ tokens: response['data'].token })
               AsyncStorage.setItem('userToken', this.state.tokens)
               Alert.alert(
@@ -112,7 +113,7 @@ export default class Signup extends Component {
             <Form >
               <Item stackedLabel>
                 <Label>Username o Correo Electronico</Label>
-                <Input onSubmitEditing={() => this.password.focus()}
+                <Input
                   onChangeText={(usuario) => this.setState({username: usuario})}
                   maxLength={30} />
                 <Text style={{color: 'red'}}>{this.state.vacioname}</Text>
@@ -120,7 +121,7 @@ export default class Signup extends Component {
 
               <Item stackedLabel>
                 <Label>Password</Label>
-                <Input ref={(input) => { this.password = input }}
+                <Input
                   onChangeText={(pass) => this.setState({password: pass})}
                   secureTextEntry
                   maxLength={20} />
