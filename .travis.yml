@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "8.0.0"
+  - "10.0.0"
 
 cache:
   directories:
@@ -10,11 +10,14 @@ cache:
 install:
   - npm install
 
+after_script:
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+
 script:
   - npm test
 
-after_success:
-   - npm run coverage
+#after_success:
+   #- npm run coverage
 
 branches:
   only:

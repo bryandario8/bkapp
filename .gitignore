@@ -54,3 +54,4 @@ buck-out/
 
 # jest tests
 */__snapshots__
+coverage
