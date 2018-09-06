@@ -87,9 +87,11 @@ class FlatListProduct extends Component {
           <Card style={{ width: '80%', backgroundColor: 'transparent' }}>
             <CardItem bordered header
               style={{
+                width: '100%',
                 alignItems: 'center',
                 height: 30,
-                backgroundColor: 'transparent'
+                backgroundColor: 'transparent',
+                paddingLeft: 10, paddingTop: 7, paddingBottom: 7
               }}
             >
               <View>
@@ -98,7 +100,7 @@ class FlatListProduct extends Component {
                 </Text>
               </View>
             </CardItem>
-            <CardItem bordered cardBody button
+            <CardItem style={{ width: '100%' }} bordered cardBody button
               onPress={ () =>
                 {
                   this.ProductClick(this.props.item.id)
@@ -107,7 +109,7 @@ class FlatListProduct extends Component {
             >
               <Image
                 style={{
-                  height: 125,
+                  height: 130,
                   width: 200,
                   flex: 1
                   // alignItems: 'center'
@@ -117,14 +119,16 @@ class FlatListProduct extends Component {
                 }}
               />
             </CardItem>
-            <CardItem bordered footer 
+            <CardItem bordered footer
               style={{
+                width: '100%',
                 alignItems: 'center',
-                backgroundColor: 'transparent'
+                backgroundColor: 'transparent',
+                paddingLeft: 10, paddingRight: 10, paddingTop: 5, paddingBottom: 5
               }}
             >
               <View>
-                <Text note style={{ fontSize: 10 }}>
+                <Text note style={{ fontSize: 10, color: '#454545' }}>
                   {this.props.item.description}
                 </Text>
               </View>

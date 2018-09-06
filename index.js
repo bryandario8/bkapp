@@ -3,9 +3,9 @@ import { createDrawerNavigator, createSwitchNavigator } from 'react-navigation'
 import SideMenu from './src/components/SideMenu'
 import Menu from './src/pages/Products'
 import Cupones from './src/pages/Cupones'
-import Propaganda from './src/pages/Propaganda'
-import Signup from './src/pages/Signup'
-import Registros from './src/pages/Registros'
+import Ini from './src/pages/Home'
+import SignIn from './src/pages/SignIn'
+import SignUp from './src/pages/SignUp'
 
 // Screen size
 var {width} = Dimensions.get('window').width
@@ -13,9 +13,9 @@ const Home = 'Home'
 
 export const Stack = createSwitchNavigator(
   {
-    Home: { screen: Propaganda },
-    Login: { screen: Signup },
-    Register: {screen: Registros}
+    Home: { screen: Ini },
+    Login: { screen: SignIn },
+    Register: {screen: SignUp}
   },
   {
     initialRouteName: 'Home'
@@ -26,7 +26,7 @@ let routeConfigs = {
   Home: {screen: Stack},
   Menu: {screen: Menu},
   Cupone: {screen: Cupones},
-  Signups: {screen: Signup}
+  SignIn: {screen: SignIn}
 
 }
 let drawerNavigatorConfig = {

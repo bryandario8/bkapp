@@ -41,7 +41,7 @@ export default class BarraLateral extends Component {
        window.alert('Sesion Cerrada Exitosamente')
       this.props.navigation.navigate('Login')
     }else{
-      this.setState({icon: 'sign-up'})
+      this.setState({icon: 'sign-out'})
       this.setState({letra: 'Cerrar Sesion'})
       this.props.navigation.navigate('Login')
     }
@@ -51,7 +51,7 @@ export default class BarraLateral extends Component {
   async verificar(){ 
     let token = await AsyncStorage.getItem('userToken')
     if (token) {
-      this.setState({icon: 'sign-up'})
+      this.setState({icon: 'sign-out'})
       this.setState({letra: 'Cerrar Sesion'})
     }else{
       this.setState({icon: 'sign-in'})

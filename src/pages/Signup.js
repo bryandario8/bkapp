@@ -1,67 +1,323 @@
 import React, { Component } from 'react'
 import {
   StyleSheet,
-  View,
-  Image,
-  Alert,
-  AsyncStorage
+  TouchableOpacity,
+  ScrollView,
+  Picker,
+  AppRegistry
 } from 'react-native'
 import {
-  Content,
-  Form,
-  Item,
+  Container,
   Input,
+  Item,
   Label,
-  Button,
-  Text
+  Form,
+  Text,
+  Content
 } from 'native-base'
 import BarraLateral from '../components/BarraLateral'
+import Viewloading from '../components/Viewloading'
 import ViewNotConexion from '../components/ViewNotConexion'
-// ip de la base
+//ip de la base
 const ipBk = 'http://132.148.147.172:9999'
-// Clase de la vista Signup
-export default class Signup extends Component {
+
+// registro
+export default class Registros extends Component {
   constructor (props) {
     super(props)
     this.state = {
       username: '',
+      email: '',
       password: '',
-      tokens: '',
-      device: {name: 'Samsung J2',
-        registration_id: '123n213bjhh23hv124jb213j213',
-        type: 'android'
-      },
-      wifi: true
+      first_name: '',
+      last_name: '',
+      phone: '',
+      province: '',
+      city: '',
+      sector: '',
+      provincia: [],
+      ciudad: [],
+      loading: true,
+      failsConexion:false,
+      cambioProvincia: false,
+      correctoUsername: false,
+      correctoEmail: false,
+      correctoPassword: false,
+      correctoNombre: false,
+      correctoApellido: false,
+      correctoSector: false,
+      correctPhone: false
     }
   }
 
-  // post para enviar datos
-  async Login () {
-    if (this.state.username === '') {
-      this.setState({vacioname: 'Obligatorio'})
-    } else {
-      this.setState({vacioname: ''})
-    }
-
-    if (this.state.password === '') {
-      this.setState({vaciopass: 'Obligatorio'})
-    } else {
-      this.setState({vaciopass: ''})
-    }
-
-    if (this.state.username.length !== 0 && this.state.password.length !== 0) {
-      var data = {
-        username: this.state.username,
-        password: this.state.password,
-        device: {
-          name: 'Samsung J2',
-          registration_id: '123n213bjhh23hv124jb213j213',
-          type: 'android'
+  // get de ciudad
+  async fechtCiudad (provinces) {
+    try {
+      window.fetch(ipBk + '/api/address/cities/?province=' + provinces, {
+        method: 'get',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
         }
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          this.setState({ciudad: response})
+        })
+    } catch (error) {
+      console(error)
+    }
+  }
+  // get provincias
+  fetchData = async () => {
+    try {
+      window.fetch(ipBk + '/api/address/provinces/', {
+        method: 'get',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          this.setState({provincia: response})
+          this.setState({loading: false})
+          this.setState({failsConexion: false})
+        })
+    } catch (error) {
+      this.setState({loading: true})
+      this.setState({failsConexion: true})
+    }
+  }
+  // activar el get
+  componentDidMount () {
+    this.fetchData()
+  }
+  //Valida el correo electronico mediante expresiones regulares
+  validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+  // imprimir las etiquetas de provincia
+  provincias () {
+    if (this.state.provincia.length !== 0) {
+      return this.state.provincia.map((data) => {
+        return (<Picker.Item label={data.name} value={data.id} key={data.id} />)
+      })
+    }
+  }
+
+  // imprimir las etiquetas de ciudad
+  ciudad () {
+    switch (this.state.cambioProvincia) {
+        case true:
+          this.fechtCiudad(this.state.province)
+          this.setState({cambioProvincia: false})
+          break
+        case false:
+          if (this.state.ciudad.length !== 0) {
+              return this.state.ciudad.map((data) => {
+                return (<Picker.Item label={data.name} value={data.id} key={data.id} />)
+              })
+            }
+            break
+          }
+  }
+  //Valida datos de los campos en tiempo real 
+  validador(valor,tipo){
+    switch(tipo){
+      case 'usernam':
+        this.setState({errorUser: ''})
+         if(valor.length > 2) { 
+            if(/[A-Za-z0-9]+/i.test(valor) ) { 
+                this.setState({errorUser: ''})
+                this.setState({username: valor})
+                this.setState({correctoUsername: true})
+            }else{
+              this.setState({correctoUsername: false})
+              this.setState({errorUser: 'Ingrese un usuario valido'})
+            }
+         }else{
+            this.setState({correctoUsername: false})
+            this.setState({errorUser: 'Invalido'})
+         }
+         if(valor == '' ){ 
+              this.setState({correctoUsername: false})
+              this.setState({errorUser: 'Obligatorio'})
+         }
+         break
+       case 'correo':
+        this.setState({errorEmail: ''})
+         if(this.validateEmail(valor)) { 
+            this.setState({errorEmail: ''})
+            this.setState({correctoEmail: true})
+            this.setState({email: valor})
+         }else{
+          this.setState({correctoEmail: false})
+          this.setState({errorEmail: 'Ingrese un correo valido'})
+         }
+
+         if(valor == '' ){ 
+            this.setState({correctoEmail: false})
+            this.setState({errorEmail: 'Obligatorio'})
+         }
+          break
+        case 'nombre':
+          this.setState({errorNombre: ''})
+           if(/[A-Za-z\s]+/i.test(valor) ) { 
+            if (valor.length > 2) {
+              this.setState({errorNombre: ''})
+              this.setState({correctoNombre: true})
+              this.setState({first_name: valor})
+            }else{ 
+              this.setState({correctoNombre: false})
+              this.setState({errorNombre: 'Ingrese un nombre valido'})
+            }
+              
+           }else{
+            this.setState({correctoNombre: false})
+              this.setState({errorNombre: 'Ingrese un nombre valido'})
+           }
+
+           if(valor == '' ){ 
+              this.setState({correctoNombre: false})
+              this.setState({errorNombre: 'Obligatorio'})
+           }
+          break
+        case 'apellido':
+            this.setState({errorApellido: ''})
+             if(/[A-Za-z\s]+/i.test(valor) ) { 
+              if (valor.length > 2) {
+                this.setState({errorApellido: ''})
+                this.setState({correctoApellido: true})
+                this.setState({last_name: valor})
+              }else{ 
+                this.setState({correctoApellido: false})
+                this.setState({errorApellido: 'Ingrese un apellido valido'})
+              }
+                
+             }else{
+              this.setState({correctoApellido: false})
+                this.setState({errorApellido: 'Ingrese un apellido valido'})
+             }
+             if(valor == '' ){ 
+              this.setState({correctoApellido: false})
+                    this.setState({errorApellido: 'Obligatorio'})
+             }
+          break
+        case 'sectors':
+            this.setState({errorSector: ''})
+             if(/[A-Za-z0-9.#-\s]+/i.test(valor) ) { 
+              if (valor.length > 2) {
+                this.setState({errorSector: ''})
+                this.setState({correctoSector: true})
+                this.setState({sector: valor})
+              }else{ 
+                 this.setState({correctoSector: false})
+                this.setState({errorSector: 'Ingrese un sector valido'})
+              }
+                
+             }else{
+              this.setState({correctoSector: false})
+                this.setState({errorSector: 'Ingrese un sector valido'})
+             }
+             if(valor == '' ){ 
+                this.setState({correctoSector: false})
+                this.setState({errorSector: 'Obligatorio'})
+             }
+          break
+        case 'passs':
+           this.setState({errorPass: ''})
+           
+           if (valor.length > 4 ) {
+              if (/[A-Za-z._%+-0-9.-]+/i.test(valor)) {
+                this.setState({errorPass: ''})
+                this.setState({correctoPassword: true})
+                this.setState({password: valor})
+              }else {
+                this.setState({correctoPassword: false})
+                this.setState({errorPass: 'Contraseña debil'})
+               }
+           }else{
+            this.setState({correctoPassword: false})
+              this.setState({errorPass: 'Contraseña debil'})
+           }
+           if (valor == '') {
+              this.setState({correctoPassword: false})
+              this.setState({errorPass: 'Obligatorio'})
+           }
+          break
+    }
+     
+  }
+
+  validarCell(valor){
+      this.setState({errorPhone: ''})
+      if (/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/i.test(valor)) {
+        this.setState({errorPhone: ''})
+        this.setState({correctPhone: true})
+        this.setState({phone: valor})
+      }else{
+        this.setState({correctPhone: false})
+        this.setState({errorPhone: 'Ingrese un numero valido'})
       }
+  }
+//Validacion y envio de datos
+  async Login () {
+    if(this.state.username == '' ){ 
+      this.setState({correctoUsername: false})
+      this.setState({errorUser: 'Obligatorio'})
+    }
+    if(this.state.email == '' ){ 
+            this.setState({correctoEmail: false})
+            this.setState({errorEmail: 'Obligatorio'})
+         }
+    if (this.state.password == '') {
+      this.setState({correctoPassword: false})
+      this.setState({errorPass: 'Obligatorio'})
+    }
+    if(this.state.first_name == '' ){ 
+      this.setState({correctoNombre: false})
+      this.setState({errorNombre: 'Obligatorio'})
+    }
+    if(this.state.last_name == '' ){ 
+       this.setState({correctoApellido: false})
+       this.setState({errorApellido: 'Obligatorio'})
+    }
+    if(this.state.city == '' ){ 
+       this.setState({errorCiudad: 'Obligatorio'})
+    }else{ 
+      this.setState({errorCiudad: ''})
+    }
+    if(this.state.province == '' ){ 
+       this.setState({errorProvincia: 'Obligatorio'})
+    }else{ 
+      this.setState({errorProvincia: ''})
+    }
+    if(this.state.sector == '' ){ 
+       this.setState({correctoSector: false})
+       this.setState({errorSector: 'Obligatorio'})
+    }
+    // envio de datos al servidor
+    if (this.state.correctoUsername === true && this.state.correctoEmail === true &&
+      this.state.correctoPassword === true && this.state.correctoNombre === true &&
+      this.state.correctoApellido === true && this.state.province.length !== 0 &&
+      this.state.city.length !== 0 && this.state.correctoSector === true) {
+      
+      var data = {
+          username: this.state.username,
+          email: this.state.email,
+          password: this.state.password,
+          first_name: this.state.first_name,
+          last_name: this.state.last_name,
+          phone: this.state.phone,
+          province: this.state.province,
+          city: this.state.city,
+          sector: this.state.sector
+        }
+      
       try {
-        // const fetch = require('node-fetch')
-        window.fetch(ipBk + '/api/login/', {
+        window.fetch(ipBk + '/api/signup/', {
           method: 'post',
           headers: {
             'Accept': 'application/json',
@@ -72,93 +328,136 @@ export default class Signup extends Component {
           .then((response) => response.json())
           .then((response) => {
             if (response['is_error'] === false) {
-              this.setState({wifi: true})
-              this.setState({ tokens: response['data'].token })
-              AsyncStorage.setItem('userToken', this.state.tokens)
-              Alert.alert(
-                '¡Exito!',
-                response['msg'],
-                [
-                  {text: 'OK',
-                    onPress: () =>
-                      this.props.navigation.navigate('Home')
-                  }
-                ],
-                { cancelable: false })
-              this.setState({errorUserPass: ''})
-            } else if (response['is_error'] === true) {
+              this.setState({failsConexion: false})
               window.alert(response['msg'])
-              this.setState({errorUserPass: response['msg']})
+              this.props.navigation.navigate('Login')
+            } else if (response['is_error'] === true) {
+              this.setState({failsConexion: false})
+              window.alert(response['msg'])
             }
-          })
-          .catch((error) => {
-            console.error(error)
+          }).catch((error) => {
+            this.setState({failsConexion: true})
           })
       } catch (error) {
-        this.setState({wifi: false})
+        this.setState({failsConexion: true})
       }
     } else {
-      window.alert('Debe llenar todos los campos')
+      window.alert('Debe llenar los campos obligatorios')
     }
+  };
+  //opciones de la cabecera de la pantalla
+  static navigationOptions = {
+    header: null
   }
-  render () {
-    if (this.state.wifi === true) {
-      return (
-        <View style={styles.container} >
-          <BarraLateral {...this.props} title='Login' />
-          <Content style={styles.contenedor}>
-            <View style={{ justifyContent: 'center', flex: 1 }}>
-              <Image style={{marginLeft: '25%', marginRight: '25%', width: 150, height: 150, justifyContent: 'center'}} source={require('../images/bk-logo.svg.png')} />
-            </View>
-            <Form >
-              <Item stackedLabel>
-                <Label>Username o Correo Electronico</Label>
-                <Input
-                  onChangeText={(usuario) => this.setState({username: usuario})}
-                  maxLength={30} />
-                <Text style={{color: 'red'}}>{this.state.vacioname}</Text>
-              </Item>
 
-              <Item stackedLabel>
-                <Label>Password</Label>
-                <Input
-                  onChangeText={(pass) => this.setState({password: pass})}
-                  secureTextEntry
-                  maxLength={20} />
-                <Text style={{color: 'red'}}>{this.state.vaciopass}</Text>
-              </Item>
-            </Form>
-            <Text style={{color: 'red'}}>{this.state.errorUserPass}</Text>
-            <Button style={styles.botones} onPress={this.Login.bind(this)} block>
-              <Text>Entrar</Text>
-            </Button>
-            <View style={{ justifyContent: 'center', flex: 1, marginTop: 10}}>
-              <Text>¿No tienes cuenta? Registrate aqui</Text>
-              <Button style={styles.botones} info onPress={() => this.props.navigation.navigate('Register')} block>
-                <Text>Registrar</Text>
-              </Button>
-            </View>
-          </Content>
-        </View>
+  //renderizar la salida de los campos
+  render () {
+    if (this.state.loading === false && this.state.failsConexion == false) {
+      return (
+        <Container > 
+          <BarraLateral {...this.props} title='Registro' />
+          <ScrollView keyboardDismissMode='interactive'>
+            <Content style={styles.contenido}>
+              <Form>
+                <Item stackedLabel>
+                  <Label>Username</Label>
+                  <Input onChangeText={(usuario) => this.validador(usuario,'usernam')} maxLength={20}/>
+                </Item>
+                <Text style={{color: 'red', marginLeft: 20}}>{this.state.errorUser}</Text>
+                <Item stackedLabel >
+                  <Label>Email</Label>
+                  <Input onChangeText={(email) => this.validador(email,'correo')} maxLength={30}/>
+                </Item>
+                <Text style={{color: 'red'}}>{this.state.errorEmail}</Text>
+
+                <Item stackedLabel >
+                  <Label>Password</Label>
+                  <Input secureTextEntry onChangeText={(pass) => this.validador(pass,'passs')} maxLength={20}/>
+                </Item>
+                <Text style={{color: 'red'}}>{this.state.errorPass}</Text>
+                <Item stackedLabel >
+                  <Label>Nombre</Label>
+                  <Input onChangeText={(nombre) => this.validador(nombre,'nombre')} maxLength={20}/>
+                </Item>
+                <Text style={{color: 'red'}}>{this.state.errorNombre}</Text>
+
+                <Item stackedLabel >
+                  <Label>Apellido</Label>
+                  <Input onChangeText={(apellido) => this.validador(apellido,'apellido')} maxLength={20}/>
+                </Item>
+                <Text style={{color: 'red'}}>{this.state.errorApellido}</Text>
+
+                <Item stackedLabel>
+                  <Label>Provincia</Label>
+                  <Picker
+                    selectedValue={this.state.province}
+                    style={{ height: 50, width: '100%' }}
+                    onValueChange={(itemValue, itemIndex) => this.setState({province: itemValue,cambioProvincia: true,errorProvincia: ''})}>
+                    {this.provincias()}
+                  </Picker>
+                  <Text style={{color: 'red'}}>{this.state.errorProvincia}</Text>
+                </Item>
+
+                <Item stackedLabel>
+                  <Label>Ciudad</Label>
+                  <Picker
+                    selectedValue={this.state.city}
+                    style={{ height: 50, width: '100%' }}
+                    onValueChange={(itemValue, itemIndex) => this.setState({city: itemValue,errorCiudad: ''})}>
+                    {this.ciudad()}
+                  </Picker>
+                  <Text style={{color: 'red'}}>{this.state.errorCiudad}</Text>
+                </Item>
+
+                <Item stackedLabel >
+                  <Label>Sector</Label>
+                  <Input onChangeText={(sector) => this.validador(sector,'sectors')} maxLength={20}/>
+                </Item>
+                <Text style={{color: 'red'}}>{this.state.errorSector}</Text>
+
+                <Item stackedLabel >
+                  <Label>Celular</Label>
+                  <Input keyboardType={'numeric'} onChangeText={(cell) => this.validarCell(cell)} maxLength={10}/>
+                </Item>
+                <Text style={{color: 'red'}}>{this.state.errorPhone}</Text>
+                <TouchableOpacity onPress={this.Login.bind(this)} style={styles.button}>
+                  <Text style={styles.buttonText}>Enviar</Text>
+                </TouchableOpacity>
+              </Form>
+            </Content>
+          </ScrollView>
+        </Container>
       )
-    } else {
+    } else if (this.state.loading === true) {
+      //si no se carga el contenido devuelve esta pantalla
+      return (<Viewloading />)
+    }else if (this.state.failsConexion === true) {
+      //si no se carga el contenido devuelve esta pantalla
       return (<ViewNotConexion />)
     }
   }
 }
 
-// Estilos de los componentes
+//estilos de componentes
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-
+  contenido: {
+    marginLeft: '2%',
+    marginRight: '2%'
   },
-  contenedor: {
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 10
+  button: {
+    width: '100%',
+    backgroundColor: '#ec7801',
+    borderRadius: 5,
+    alignItems: 'center',
+    paddingVertical: 10,
+    marginVertical: 10
   },
-  botones: {
-    marginTop: 10
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#ffffff',
+    textAlign: 'center'
   }
 })
+
+AppRegistry.registerComponent('Registros', () => Registros)
