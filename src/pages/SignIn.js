@@ -20,7 +20,7 @@ import ViewNotConexion from '../components/ViewNotConexion'
 // ip de la base
 const ipBk = 'http://132.148.147.172:9999'
 // Clase de la vista Signup
-export default class Signup extends Component {
+export default class SignIn extends Component {
   constructor (props) {
     super(props)
     this.state = {

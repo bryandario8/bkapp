@@ -1,6 +1,6 @@
 import 'react-native'
 import React from 'react'
-import SignUp from '../src/pages/SignUp'
+import Registros from '../src/pages/SignUp'
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer'
@@ -17,6 +17,6 @@ afterEach(() => {
 /* eslint-env mocha */
 test('renders correctly Signup cp006', () => {
   const tree = renderer.create(
-    <SignUp />
+    <Registros />
   )
 })
