@@ -81,7 +81,7 @@ export default class SignIn extends Component {
                 [
                   {text: 'OK',
                     onPress: () =>
-                      this.props.navigation.navigate('Home')
+                      this.props.navigation.navigate('Cupone')
                   }
                 ],
                 { cancelable: false })
